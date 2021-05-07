@@ -1,0 +1,259 @@
+\chapter{Behandelte Algorithmen und ihre Effizienz}
+\label{cha:algorithmen}
+
+In diesem Kapitel werden die in der folgenden Arbeit behandelten Sortieralgorithmen mit ihrer theoretischen Effizienz dargelegt.
+
+\section{Insertion Sort}
+\label{sec:alg-insertion}
+
+Wie schon in \prettyref{sec:sorting-algorithms-definition} ausgeführt, baut der Insertion Sort auf der Annahme auf, dass vor der Begutachtung eines Elements $A[j]$ die Elemente $A[1 \twodots j - 1]$ bereits sortiert wurden. $A[j]$ wird anschließend in das bereits sortierte \enquote{Subarray} einsortiert (vgl. \cite[80]{taocp3}). Siehe \prettyref{fig:insertions-example} für eine Illustration der Vorgehensweise anhand eines Beispielarrays.
+
+\input{algorithms/insertion-sort}
+
+\input{figures/insertion-sort-example}
+
+\proc{Insertion-Sort} ist aus \cite[18]{clrs2001} entnommen, eine Implementation ist in \prettyref{lst:insertion} zu finden.
+
+Im günstigsten Fall ist $A$ bereits sortiert, für alle $j = 2, 3, \twodots \attrib{A}{length}$ gilt nun $A[j - 1] \leq \id{key}$: der Körper der $\While$ Schleife auf \prettyref{ln:ins-inner-while} wird also nie ausgeführt. Der Algorithmus ist in diesem Fall in $O(n)$ (vgl. \cite[28]{clrs2001}).
+
+Der ungünstigste Fall ist eine umgekehrt sortierte Liste. Jedes Element $A[j]$ muss mit jedem Element des sortierten Subarrays $A[1 \ldots i]$ verglichen werden, der Algorithmus ist in diesem Fall also in $O(n^2)$ (vgl. \cite[28f]{clrs2001}).
+
+\section{Quicksort}
+\label{sec:alg-exchanging}
+
+Quicksort ist ein \emph{divide-and-conquer} Algorithmus, der rekursiv ein Array in zwei Subarrays teilt und diese sortiert (vgl. \cite[113f]{taocp3}). Ein \emph{divide-and-conquer} Algorithmus, auch \enquote{Teile-und-Herrsche-Algorithmus}, besteht nach \cite[65]{clrs2001} immer aus drei Schritten:
+\begin{description}
+    \item[Divide] \emph{Teile die Aufgabe in mehrere Subaufgaben.} $\proc{Partition}$ teilt ein Array $A[p \twodots r]$ in zwei Subarrays $A[p \twodots q-1]$ und $A[q + 1 \twodots r]$  derart, dass alle Elemente von $A[p \twodots q-1]$ kleiner oder gleich $A[q]$ sind, was wiederum kleiner oder gleich allen Elementen von $A[q + 1 \twodots r]$ ist. Der index $q$ ist als Teil der Prozedur zu ermitteln.
+
+    \item[Conquer] \emph{\enquote{Erobere} die Subaufgaben durch rekursive Auflösung.} In $\proc{Quicksort}$ werden die zwei Subarrays $A[p \twodots q-1]$ und $A[q + 1 \twodots r]$ durch rekursive Aufrufe an $\proc{Quicksort}$ (und damit $\proc{Partition}$) sortiert.
+
+    \item[Combine] \emph{Füge die Lösungen der Subaufgaben zur Lösung des Originalproblems zusammen.} Nachdem die Subarrays bereits sortiert sind müssen sie nicht kombiniert werden, das ganze Array $A[p \twodots q]$ ist sortiert.
+\end{description}
+
+Die obige Prozessbeschreibung von $\proc{Partition}$ und $\proc{Quicksort}$ ist entnommen aus \cite[170]{clrs2001}.
+
+\begin{codebox}
+    \Procname{$\proc{Partition}(A, p, r)$}
+    \li $x \gets A[r]$
+    \li $i \gets p - 1$
+    \li \For $j = p$ \To $r - 1$
+    \li     \Do
+                \If $A[j] \leq x$
+    \li             \Then
+                        $i \gets i + 1$
+    \li                 exchange $A[i]$ with $A[j]$
+                    \End
+            \End
+    \li exchange $A[i + 1]$ with $A[r]$
+    \li \Return i + 1
+\end{codebox}
+
+$\proc{Partition}$ wählt immer ein Element $x = A[r]$ als \enquote{Drehpunkt}, um den das Subarray $A[p \twodots r]$ geteilt wird. Im Laufe der Prozedur wird das Subarray in vier Regionen geteilt die gewisse Eigenschaften erfüllten, zu sehen in \prettyref{fig:quicks-partitioning}.
+
+\input{figures/quicksort-partition-regions}
+
+\begin{codebox}
+    \Procname{$\proc{Quicksort}(A, p, r)$}
+    \li \If $p < r$
+    \li     \Then
+                $q \gets \proc{Partition}(A, p, r)$
+    \li         $\proc{Quicksort}(A, p, q - 1)$
+    \li         $\proc{Quicksort}(A, q + 1, r)$
+            \End
+\end{codebox}
+
+\proc{Quicksort} und \proc{Partition} sind aus \cite[171]{clrs2001} entnommen. Eine Implementation des ersteren ist in \prettyref{lst:quick} zu finden, letzterer Algorithmus ist äquivalent zu \lstinline{std::partition} (vgl. \cite[927]{ISO-C++17}).
+
+Die Laufzeit von Quicksort hängt von der Aufteilung der Eingabemenge, welche in $\proc{Partition}$ geschieht, ab. Im ungünstigsten Fall produziert $\proc{Partition}$ ein Subarray mit $n - 1$ Elementen, und eines mit $0$ Elementen. Die Rekursionsgleichung für die Laufzeit ist in diesem Fall
+\begin{equation}\label{eq:quicks-efficiency}
+\begin{split}
+    T(n) &= T(n - 1) + T(0) + O(n)\\
+    &= T(n - 1) + O(n)
+\end{split}
+\end{equation}
+nachdem $\proc{Partition}$ $O(n)$ ist und ein Aufruf mit einer Menge der Größe $0$ eine Laufzeit von $O(1)$ hat (vgl. \cite[175]{clrs2001}). Daraus folgt eine Effizienz von $O(n^2)$ im schlechtesten Fall (vgl. \cite[1146]{clrs2001}). Diese Laufzeit tritt auch auf, wenn die Eingabemenge bereits sortiert ist (vgl. \cite[175]{clrs2001}).
+
+Im günstigsten Fall produziert $\proc{Partition}$ ein Subarray der Größe $\floor{n/2}$ und eines der Größe $\ceil{n/2} - 1$. In diesem Fall ist die (vereinfachte) Rekursionsgleichung
+\begin{equation*}
+    T(n) = 2T(n/2) + O(n),
+\end{equation*}
+mit der Lösung $T(n) = O(n \log n)$ nach \cite[94]{clrs2001}.
+
+\section{Heapsort}
+\label{sec:alg-selection}
+
+Unter dem Begriff \enquote{Heap} wird im Folgenden eine in einem Array abgebildete Datenstruktur verstanden, welche als nahezu vollständiger Binärbaum betrachtet werden kann (vgl. \cite[87f]{ahu1974}, siehe \prettyref{fig:heap-tree-array-view}). Stellt ein Array $A$ einen Heap dar, so hat es neben dem bekannten Attribut $\attrib{A}{length}$ ein Attribut $\attrib{A}{heap-size}$, was der Anzahl der Arrayelemente entspricht, die einen Knoten darstellen. Nur die Elemente in $A[1 \twodots \attrib{A}{heap-size}]$ sind gültige Elemente des Heaps, $A[\attrib{A}{heap-size} + 1 \twodots \attrib{A}{length}]$ kann beliebige Elemente enthalten. Diese Notation und Eigenschaften sind äquivalent zu jenen in \cite{clrs2001}.
+
+\begin{codebox}
+    \Procname{$\proc{Parent}(i)$}
+    \li \Return $\floor{i/2}$
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Left}(i)$}
+    \li \Return $2i$
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Right}(i)$}
+    \li \Return $2i + 1$
+\end{codebox}
+
+$\proc{Parent}$, $\proc{Left}$ und $\proc{Right}$ sind aus \cite[152]{clrs2001} entnommen.
+
+Es gibt zwei Arten von binären Heaps: Max-Heaps und Min-Heaps. Beide Arten erfüllen eine \enquote{Heap-Eigenschaft} die von der Art des Heaps abhängig ist. In einem Max-Heap ist dies die \emph{Max-Heap-Eigenschaft} die aussagt, dass für jeden Knoten $i$ der nicht der Wurzelknoten ist $A[\proc{Parent}(i)] \leq A[i]$ gelten muss (vgl. \cite[92]{hsr1997}). Das heißt der Wert eines Knotens ist höchstens der seines Elternknotens das größte Element eines Max-Heaps ist der Wurzelknoten. Min-Heaps werden im Folgenden nicht verwendet und deshalb nicht näher behandelt.
+
+Die \emph{Höhe} eines Knotens in einem Heap ist definiert durch die Anzahl der Kanten entlang des längsten, einfachen Weges zu einem Blattknoten (vgl. \cite[153]{clrs2001}). Die Höhe eines Heaps ist die Höhe des Wurzelknotens (siehe \prettyref{fig:heap-array-view}).
+
+\input{figures/heap-representations}
+
+\paragraph{Aufrechterhaltung eines Heaps}
+
+$\proc{Max-Heapify}$ erhält ein Array $A$ und einen index $i$ im Array. Es nimmt an, dass
+\begin{itemize}
+    \item die Binärbäume links und rechts von $A[i]$ bereits Heaps sind aber dass,
+    \item $A[i]$ kleiner als seine Kinder sein könnte, und damit die Heap-Eigenschaft verletzen würde.
+\end{itemize}
+
+\begin{codebox}
+    \Procname{$\proc{Max-Heapify}(A, i)$}
+    \li $l \gets \proc{Left}(i)$\label{ln:heapify-get-largest-begin}
+    \li $r \gets \proc{Right}(i)$
+    \li \If $l \leq \attrib{A}{heap-size}$ and $A[l] > A[i]$
+    \li      \Then
+                $\id{largest} \gets l$
+    \li     \Else
+                $\id{largest} \gets i$
+            \End
+    \li \If $r \leq \attrib{A}{heap-size}$ and $A[r] > A[\id{largest}]$
+    \li     \Then
+                $\id{largest} = r$
+            \End\label{ln:heapify-get-largest-end}
+    \li \If $largest \neq i$ \label{ln:heapify-largest}
+    \li     \Then
+                exchange $A[i]$ with $A[\id{largest}]$\label{ln:heapify-exchange}
+    \li         $\proc{Max-Heapify}(A, \id{largest})$\label{ln:heapify-recursion}
+            \End
+\end{codebox}
+
+Im Laufe der rekursiven Aufrufe an $\proc{Max-Heapify}$ \enquote{gleitet} das Element $A[i]$ den Heap hinunter bis die Heap-Eigenschaft gegeben ist: Zeilen \ref{ln:heapify-get-largest-begin} bis \ref{ln:heapify-get-largest-end} ermitteln das größte Element $A[largest]$ aus $\{\proc{Left}(i), \proc{Right}(i), A[i]\}$. Ist $\proc{Left}(i)$ oder $\proc{Right}(i)$ nicht Teil des Heaps --- gilt also $\proc{Left}(i)$ oder $\proc{Right}(i) \leq \attrib{A}{heap-size}$ --- so ist $A[i]$ garantiert das größte Element. Ist $A[largest]$ gleich $A[i]$ dann ist der Baum ab $A[i]$ ein Max-Heap und $\proc{Max-Heapify}$ terminiert. Andernfalls werden das größte Element und $A[i]$ vertauscht wodurch die Heap-Eigenschaft wieder gilt (Zeile \ref{ln:heapify-exchange}). Der Baum ab $A[largest]$ könnte nun jedoch gegen die Heap-Eigenschaft verstoßen (nachdem $A[largest]$ und $A[i]$ vertauscht wurden), also wird $\proc{Max-Heapify}$ rekursiv auf diesem \enquote{Unterbaum} aufgerufen (Zeile \ref{ln:heapify-recursion}).
+
+Im ungünstigsten Fall muss der ganze Teilbaum welcher den Knoten $i$ als Wurzel hat durchlaufen werden. Ist $n$ die Größe dieses Teilbaums kann die Höhe des Baums mit $h = \log n$ ermittelt werden, somit ist die Effizienz im ungünstigsten Fall in $O(\log n)$ (vgl. \cite[155]{clrs2001}). Der Einfachheit halber wird diese Effizienz auch für den günstigsten Fall übernommen, eine asymptotisch engere (aber deswegen nicht richtigere) Effizienz wird in \cite{bff1996} angeführt.
+
+\paragraph{Bauen eines Heaps}
+
+Stellt das Array $A$ einen Heap dar so sind die Elemente $A[\floor{n / 2} + 1 \twodots n]$ Blattknoten des Baumes\footnotemark. $\proc{Build-Max-Heap}$ führt für die Knoten $A[1 \twodots \floor{n / 2}]$ $\proc{Max-Heapify}$ aus und baut so einen vollständigen Heap aus einem beliebigen Array.
+
+\footnotetext{
+Die Kinder eines Knotens an der Stelle $i$ sind an den Stellen $2i$ und $2i + 1$ (siehe $\proc{Left}$ und $\proc{Right}$). Alle Knoten die keine Blattknoten sind (d. h., die Eltern sind) müssen sich demzufolge an den Stellen $A[1 \twodots \floor{n / 2}]$ befinden, da ihre Kinder sonst außerhalb des Heaps wären: Ist $i > \floor{n / 2}$ dann wäre $2i > n$ also muss der Knoten an der Stelle $i$ ein Blattknoten sein. (Q. e. d., damit ist Aufgabe 6.1-7 aus \cite[154]{clrs2001} gelöst.)
+}
+
+\begin{codebox}
+    \Procname{$\proc{Build-Max-Heap}(A)$}
+    \li $\attrib{A}{heap-size} \gets \attrib{A}{length}$
+    \li \For $i \gets \lfloor \attrib{A}{length}/2 \rfloor$ \Downto $1$
+    \li     \Do
+                $\proc{Max-Heapify}(A, i)$
+            \End
+\end{codebox}
+
+Die Effizienz von $\proc{Build-Max-Heap}$ ist immer in $O(n)$, \cite[155]{taocp3} zeigt die Nontrivialität dieser Aussage.
+
+\paragraph{Heapsort}
+
+Die Eingangsmenge $A[1 \twodots n]$ wird mithilfe von $\proc{Build-Max-Heap}$ in einen Heap verwandelt. $A[1]$ beinhaltet nun das größte Element der Liste, durch austauschen von $A[1]$ und $A[n]$ befindet sich das Element bereits an seiner finalen Position. Das bereits einsortierte Element kann nun durch Verkleinerung des Heaps um $1$ von diesem entfernt werden. Das neue Wurzelement könnte jetzt jedoch die Heap-Eigenschaft verletzen, was durch einen Aufruf von $\proc{Max-Heapify}$ am Wurzelelement unmöglich gemacht wird.
+
+\begin{codebox}
+    \Procname{$\proc{Heapsort}(A)$}
+    \li $\proc{Build-Max-Heap}(A)$
+    \li \For $i = \attrib{A}{length}$ \Downto $2$
+    \li     \Do
+                exchange $A[1]$ with $A[i]$
+    \li         $\attrib{A}{heap-size} \gets \attrib{A}{heap-size} - 1$
+    \li         $\proc{Max-Heapify(A, 1)}$
+            \End
+\end{codebox}
+
+$\proc{Max-Heapify}$, $\proc{Build-Max-Heap}$ und $\proc{Heapsort}$ sind aus \cite[154, 157]{clrs2001} entnommen. Die Standardbibliothek von C++ deckt die obigen Algorithmen sehr gut ab: $\proc{Build-Max-Heap}$ ist äquivalent zu \lstinline{std::make_heap} (vgl. \cite[933]{ISO-C++17}), $\proc{Heap\-sort}$ (ohne dem Aufruf von\linebreak[4] $\proc{Build-Max-Heap}$) ist äquivalent zu  \lstinline{std::sort_heap} (vgl. \cite[933]{ISO-C++17}.). \prettyref{lst:heap} ist eine \enquote{Implementation} der obigen Algorithmen --- sie ruft lediglich die eben genannten Funktionen der Standardbibliothek in Folge auf.
+
+Die Effizienz von $\proc{Heapsort}$ ist in jedem Fall in $O(n \log n)$ nachdem jeder der $n - 1$ Aufrufe an $\proc{Max-Heapify}$ in $O(\log n)$ ist (vgl. \cite[160]{clrs2001}).
+
+\section{Merge Sort}
+\label{sec:alg-merging}
+
+Merge Sort ist, wie der Quicksort ein divide-and-conquer Algorithmus: ein Problem wird in kleinere Subprobleme aufgeteilt, die Lösungen der Subprobleme werden (oft rekursiv) ermittelt und zusammengesetzt.
+
+Die entscheidende Handlung ist beim Merge sort das Kombinieren (nicht wie beispielsweise beim Quicksort das Aufteilen) welches in $\proc{Merge}$ durchgeführt wird.
+
+\begin{codebox}
+    \Procname{$\proc{Merge}(A, p, q, r)$}
+    \li $n_1 \gets q - p + 1$ \label{ln:merge-subarr-length-1}
+    \li $n_2 \gets r - q$ \label{ln:merge-subarr-length-2}
+    \li let $L[1 \twodots n_1 + 1]$ and $R[1 \twodots n_2 + 1]$ be new arrays \label{ln:merge-subarr-creation}
+    \li \For $i \gets 1$ \To $n_1$ \label{ln:merge-copy-begin}
+    \li     \Do
+                $L[i] \gets A[p + i - 1]$
+            \End
+    \li \For $j \gets 1$ \To $n_2$ \label{ln:merge-copy-for-2}
+    \li     \Do
+                $R[j] \gets A[q + j]$
+            \End \label{ln:merge-copy-end}
+    \li $L[n_1 + 1] \gets \infty$ \label{ln:merge-infty-assign-1}
+    \li $R[n_2 + 1] \gets \infty$ \label{ln:merge-infty-assign-2}
+    \li $i \gets 1$
+    \li $j \gets 1$ \label{ln:merge-index-setup-2}
+    \li \For $k \gets p$ \To $r$ \label{ln:merge-for-begin}
+    \li     \Do
+                \If $L[i] \leq R[j]$
+                    \Then
+    \li                 $A[k] \gets L[i]$
+    \li                 $i \gets i + 1$
+                    \Else
+                        $A[k] \gets R[j]$
+    \li                 $j \gets j + 1$
+                    \End
+            \End \label{ln:merge-for-end}
+\end{codebox}
+
+$\proc{Merge}$ mag auf den ersten Blick komplex wirken, es kann jedoch in einfache Phasen heruntergebrochen werden:
+\begin{enumerate}[start=0]
+    \item $p$, $q$ und $r$ sind Indices des Eingabearrays $A$, es gilt $p \leq q < r$. Es wird angenommen, dass die Subarrays $A[r \twodots q]$ und $A[q + 1 \twodots r]$ sortiert sind.
+
+    \item Erstelle ein Array $L$ mit den Werten $A[r \twodots q]$ und ein Array $R$ mit den Werten $A[q + 1 \twodots r]$. Hänge $\infty$ an beide Arrays an. \emph{(Zeilen \ref{ln:merge-subarr-length-1} bis \ref{ln:merge-infty-assign-2})}
+
+    \item Assoziiere mit dem Array $L$ einen Index $i$ und mit dem Array $R$ einen Index $j$. Beide beginnen bei $1$, jegliche Zugriffe auf $L$ und $R$ geschiehen von nun an nur über diese Indices. Durch Erhöhen eines der Indices können nun Elemente de facto aus dem Array entfernt werden. \emph{(Zeilen \ref{ln:merge-infty-assign-1} und \ref{ln:merge-infty-assign-2})}
+
+    \item Iteriere über alle Elemente des Arrays $A$:
+
+    Ist $L[i] \leq R[j]$ so wird das aktuelle Element aus $A$ mit $L[i]$ überschrieben. $L[i]$ ist nun einsortiert, $i$ wird um $1$ erhöht. Andernfalls wird das aktuelle Element aus $A$ mit $R[j]$ überschrieben und $j$ um eins erhöht. \emph{(Zeilen \ref{ln:merge-for-begin} bis \ref{ln:merge-for-end})}
+
+    Wird ein Array \enquote{erschöpft}, wurden also alle seine ursprünglich aus $A$ stammenden Elemente einsortiert, so zeigt der jeweilige Index auf $\infty$. Dieses Element kann niemals einsortiert werden nachdem kein Element von $L$ oder $R$ jemals $< \infty$ sein kann, zeigt ein Index eines Subarrays darauf wird dieses also de facto ignoriert. Durch dieses \enquote{Scheinelement} muss nicht bei jeder Iteration überprüft werden, ob eines der Arrays leer ist.
+\end{enumerate}
+
+Die Effizienz der $\proc{Merge}$ Prozedur ist immer in $O(n)$, nachdem die Anweisungen auf Zeilen \ref{ln:merge-subarr-length-1}--\ref{ln:merge-subarr-creation} und \ref{ln:merge-infty-assign-1}--\ref{ln:merge-index-setup-2} konstante Zeit benötigen und die $\For$-Schleifen auf Zeilen \ref{ln:merge-copy-begin}--\ref{ln:merge-copy-end} und \ref{ln:merge-for-begin}--\ref{ln:merge-for-end} alle anschaulicherweise in $O(n)$ sind (vgl. \cite[34]{clrs2001}).
+
+Um nun ein Array $A$ zu sortieren wird $\proc{Merge-Sort}(A, 1, \attrib{A}{length})$ aufgerufen. $\proc{Merge-Sort}$ halbiert das Eingangsarray durch rekursive Aufrufe bis nur mehr Subarrays der Größe 1 übrig bleiben. Diese Subarrays werden anschließlich durch den auf die rekursiven Aufrufe folgenden Aufruf von $\proc{Merge}$ in sukzessiv größere Subarrays zusammengefügt bis ein sortiertes Array als Resultat des letzten Aufrufs hervorgeht.
+
+\begin{codebox}
+    \Procname{$\proc{Merge-Sort}(A, p, r)$}
+    \li \If $p < r$
+    \li     \Do
+                $q \gets \floor{(p + r) / 2}$\label{ln:merges-division-begin}
+    \li         $\proc{Merge-Sort}(A, p, q)$\label{ln:merges-recusion-begin}
+    \li         $\proc{Merge-Sort}(A, q + 1, r)$\label{ln:merges-division-end}\label{ln:merges-recusion-end}
+    \li         $\proc{Merge}(A, p, q, r)$
+            \End
+\end{codebox}
+
+$\proc{Merge}$ und $\proc{Merge-Sort}$ sind aus \cite[33f]{clrs2001} entnommen. $\proc{Merge}$ ist äquivalent zu \lstinline{std::inplace_merge} (vgl. \cite[929]{ISO-C++17}), eine Implementation von $\proc{Merge-Sort}$ ist in \prettyref{lst:merge} zu finden.
+
+Unter der Annahme, dass $n$ eine Zweierpotenz ist liefert jeder Teilungsschritt (Zeilen \ref{ln:merges-division-begin}--\ref{ln:merges-division-end}) zwei Subarrays der Größe $n / 2$. Jeder Rekursionsschritt (Zeilen \ref{ln:merges-recusion-begin}--\ref{ln:merges-recusion-end}) trägt also $2T(n / 2)$ zur Effizienz bei (\cite[36]{clrs2001}).
+
+Wie auch schon bei $\proc{Quicksort}$ kann die Effizienz des $\proc{Merge-Sort}$ durch eine Rekursionsgleichung
+\begin{equation}\label{eq:merge-sort-recurrence}
+    T(n) = \begin{cases}
+        O(1), & \text{wenn $n = 1$},\\
+        2T(n/2) + O(n), & \text{wenn $n > 1$}.
+    \end{cases}
+\end{equation}
+beschrieben werden (vgl. \cite[36]{clrs2001}). Der Summand $O(n)$ ist hier die Effizienz von $\proc{Merge}$. \eqref{eq:merge-sort-recurrence} deckt sich mit \eqref{eq:quicks-efficiency} sowohl im günstigsten als auch im ungünstigsten Fall, damit ist die Effizienz von $\proc{Quicksort}$ in $O(n \log n)$ (vgl. \cite[36]{clrs2001}).

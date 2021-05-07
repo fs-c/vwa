@@ -1,0 +1,27 @@
+\begin{figure}[hbt]
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{tikzpicture}[
+            auto,
+            node distance=1.5cm,
+            algostep/.style={rectangle, minimum size=6mm, draw=black, inner xsep=0.5em}
+        ]
+            \node (s1) [algostep] {\textbf{\ref{step:euklid1}}. Finde den Rest.};
+            \node (s2) [algostep, rounded corners=3mm, right=of s1] {\textbf{\ref{step:euklid2}}. Ist er Null?};
+            \node (s3) [algostep, right=of s2] {\textbf{\ref{step:euklid3}}. Verringere.};
+
+            \node (a1) [above=0.7 cm of s1] {$\{n, m\}$};
+            \node (a2) [below=0.7 cm of s2] {$n$};
+
+            \draw [->]
+                (s1) edge (s2)
+                (s2) edge node {Nein} (s3)
+                (a1) edge (s1)
+                (s2) edge node {Ja} (a2);
+            
+            \draw [->] (s3.north) -- +(0,0.5) -| (s1);
+        \end{tikzpicture}
+    }
+    \caption{Algorithmusbeschreibung in Form eines Flowcharts. Beispiel in abgeänderter Form aus \cite[3]{taocp1}, Fig. 1 entnommen.}
+    \label{fig:flowchart-algorithm-specification}
+\end{figure}

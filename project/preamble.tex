@@ -1,0 +1,128 @@
+% For proper support of the German language.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+% Custom commands, most importantly \ifndef.
+\input{commands.tex}
+
+% References to online code samples.
+\input{coderef.tex}
+
+% For \enquote.
+\usepackage{csquotes}
+
+% For convenient math typesetting
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+% To generate a proper appendix. title adds "Appendix" to appendix titles, titletoc does the same to appendix titles in the ToC.
+\usepackage[titletoc,title]{appendix}
+
+% Bold \ttfamily versions
+\usepackage{lmodern}
+
+% For \lstlisting, provides colored code samples.
+% TODO: Automatically broken lines are indented by x pixels, not with tabs.
+\usepackage{listings}
+\lstset{
+    language=C++,
+    tabsize=2,
+    breaklines=true,
+    % For consistency with figures and tables
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny,
+    % Used to escape commands in the environment
+    escapechar=|,
+    keywordstyle=\bfseries,
+    columns=flexible,
+    mathescape=true,
+}
+\lstset{
+    literate={ö}{{\"o}}1
+        {ä}{{\"a}}1
+        {ü}{{\"u}}1
+}
+\lstdefinestyle{pseudo}{%
+    language=pascal,
+}
+
+% For pseudocode like in clrs2001
+\usepackage{clrscode3e}
+
+% Because sometimes, multiple columns are nice
+\usepackage{multicol}
+
+% For the \prettyref command, which allows prefixes to references to be defined in a central place (here).
+\usepackage{prettyref}
+\newrefformat{lst}{Listing \ref{#1}}
+\newrefformat{ln}{Zeile \ref{#1}}
+\newrefformat{cha}{Kapitel \ref{#1}}
+\newrefformat{sec}{Abschnitt \ref{#1}}
+\newrefformat{tab}{Tabelle \ref{#1}}
+\newrefformat{fig}{Abbildung \ref{#1}}
+\newrefformat{subfig}{Abbildung \ref{#1}}
+\newrefformat{itm}{Punkt \ref{#1}}
+
+% Horizontal lists, among many other things.
+\usepackage{enumitem}[shortlabels, inline]
+
+% Well... it's tikz. Used only for little illustrations, at the moment.
+\usepackage{tikz}
+% For horizontal arrow tips on vertical lines
+\usepgflibrary{arrows.meta}
+% Used to draw all plots/graphs
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+% Used to draw trees
+\usepackage{forest}
+
+% To allow multiple subfigures inside a figure.
+\usepackage[labelformat=simple]{subcaption}
+% Wrap references to, and labels of subfigures in parentheses (i.e. "(a) description of the subfigure" and "see Figure 1.2(a)")
+\renewcommand\thesubfigure{ (\alph{subfigure})}
+
+% For proper table formatting
+\usepackage{booktabs}
+
+% Recommended for biblatex.
+\usepackage{xpatch}
+% For coherent, managed citations.
+\usepackage[style=authoryear-ibid, citereset=subsection+, maxbibnames=99, maxcitenames=2]{biblatex}
+% Add all .bib files in the bibliography folder.
+\addbibresource{bibliography/*.bib}
+% Add a comma between a publications author name and year to comply with the guideline.
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+
+% Fill all horizontal space with dots, in the table of contents
+\usepackage{tocloft}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+% For \lipsum, which generates blind text
+\ifndef{vwarelease}{
+    \usepackage{lipsum}
+}{}
+
+% For captions which are placed on the side of a figure (SCfigure environment)
+\usepackage{sidecap}
+
+% Customise the footer and header; add note about development mode in header.
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancyplain}
+
+\renewcommand{\headrulewidth}{0pt}
+
+% For \pageref{LastPage}
+\usepackage{lastpage}
+\rfoot{\thepage\ von\ \pageref{LastPage}}
+
+\ifndef{vwarelease}{%
+    \setlength{\headheight}{15.2pt}%
+
+    \chead{Vorschau}%
+}{}
+
+% All cross-referenced elements become hyperlinked (e.g. the table of contents). Also used for \url. This should be the last import.
+\usepackage{hyperref}

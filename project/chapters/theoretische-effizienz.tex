@@ -1,0 +1,82 @@
+\chapter{Asymptotische Analyse als Effizienzangabe}
+\label{cha:asymptotic-analysis}
+
+Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
+
+Die Werte von $T(n)$, also die theoretische Effizienz eines Algorithmus auf einer Eingabemenge der Größe $n$, sind im Kontext der theoretischen Analyse die Anzahl der \enquote{einfachen Operationen} oder \enquote{Schritten} welche für diese Eingabemenge ausgeführt werden müssen (vgl. \cite[25]{clrs2001} und \cite[18f]{hsr1997}). \enquote{Einfache Operationen} sind hier jene Operationen deren benötigte Zeit unabhängig von den Operanden ist, beispielsweise arithmetische Grundrechenarten und Vergleiche (vgl. \cite[55]{sha2011}). Durch diese Einschränkung kann die Anzahl der einfachen Operationen als stellvertretend zur tatsächlichen, sonst experimentell zu ermittelnden Laufzeit gesehen werden (vgl. \cite[55]{sha2011}).
+
+\section{Günstigster, ungünstigster und durchschnittlicher Fall}
+\label{sec:asymptotic-cases}
+
+Es wird zwi\-schen der theoretischen Effizienz im \enquote{günstigsten}, \enquote{ungünstigsten}, und \enquote{durchschnittlichen Fall} unterschieden, alle beziehen sich auf die Beschaffenheit der Eingangsmenge (vgl. \cite[28]{hsr1997}).
+
+Zur Veranschaulichung dieser Unterscheidung ist ein einfacher Suchalgorithmus, $\proc{Sequential-Search}$ (vgl. \cite[396]{taocp3}), zu betrachten der eine Liste nach einem Element durchsucht und terminiert nachdem er es gefunden hat.
+
+\begin{codebox}
+    \Procname{$\proc{Sequential-Search}(A, \id{value})$}
+    \li \For $i \gets 1$ \To $\attrib{A}{length}$
+    \li     \Do
+                \If $A[i] \isequal \id{value}$
+    \li             \Then
+                        \Return $i$
+                    \End
+            \End
+    \li \Return $0$
+\end{codebox}
+
+Der günstigste Fall für einen solchen Algorithmus tritt auf wenn die Eingangsmenge eine Liste ist, in der das gesuchte Element an der ersten Position steht. In diesem Fall wird nur ein Vergleich ausgeführt, die Laufzeit ist kurz. Steht das gesuchte Element jedoch an der letzten Position so werden $\attrib{A}{length}$ beziehungsweise $n$ Vergleiche ausgeführt, eine solche Menge führt zum ungünstigste Fall. Unter der Annahme, dass die Elemente von $A$ gleichmäßig verteilt sind, führt der Algorithmus durchschnittlich $n/2$ Vergleiche aus, dies ist der durchschnittliche Fall (vgl. \cite[59]{sha2011}).
+
+\section{Asymptotische Analyse}
+
+Zur einleitenden Frage, wie die asymptotische Analyse zu beschreiben sei, schreibt \citeauthor{bru1958} in \citetitle{bru1958}:
+
+\blockquote[{\cite[1]{bru1958}}]{It often happens that we want to evaluate a certain number, defined in a certain way, and that the evaluation involves a very large number of operations so that the direct method is almost prohibitive. In such cases we should be very happy to have an entirely different method for finding information about the number, giving at least some useful approximation to it. [\ldots] A situation like this is considered to belong to asymptotics.}
+
+Die Ermittlung der exakten Anzahl an einfachen Operationen die ein Algorithmus mit einer gewissen Eingabemenge benötigt ist üblichweise nicht lohnenswert (vgl. \cite[28]{hsr1997}) oder sogar unmöglich (vgl. \cite[37]{meh1984}) -- gemäß \citeauthor{bru1958} ist in diesem Fall eine Ermittlung mithilfe asymptotischer Methoden ratsam.. Diese \enquote{certain number} die im obigen Zitat erwähnt wird ist im gegebenen Kontext demzufolge $T(n)$, die Information die es zu finden gilt ist die \emph{Größenordnung des Wachstums} (auch \emph{Wachstumsrate}) der Funktion $T$ (vgl. \cite[63]{sha2011}).
+
+Diese Größenordnung des Wachstums bei steigendem bzw. großen Werten von $n$ wird in der einschlägigen Literatur oft in der $O$-Notation angeschrieben (vgl. \cite[2]{ahu1974}, \cite[107]{taocp1}, \cite[29]{hsr1997}, \ldots).
+
+Kann die Effizienz eines Algorithmus als
+\begin{equation}\label{eq:unneccessary-constants}
+    T(n) = an^2 + bn + c
+\end{equation}
+ausgedrückt werden (wobei $a$, $b$ und $c$ beliebige von $n$ unabhängige Konstanten sind), so kann \eqref{eq:unneccessary-constants} mithilfe dieser $O$-Notation zu
+\begin{equation}\label{eq:basic-o-notation}
+    T(n) = O(n^2)
+\end{equation}
+vereinfacht werden.
+
+Diese Vereinfachung verleiht dem Umstand Ausdruck, dass hier nur der Term $n^2$ von Interesse ist. Terme niederer Ordnung ($bn$ und $c$) und konstante Faktoren ($a$) werden bei großem bzw. wachsendem $n$ relativ bedeutungslos (vgl. \cite[28]{clrs2001}), und können so \enquote{weggelassen werden}. Die $O$-Notation ersetzt also die Kenntnis einer Zahl durch das Wissen, dass eine solche Zahl existiert (vgl. \cite[3]{bru1958}).
+
+Das ist der Kern der asymptotischen Analyse in diesem Kontext: Die Untersuchung eines Algorithmus für große $n$ und die damit einhergehende Möglichkeit der Vereinfachung von Algorithmen (vgl. \cite[63]{sha2011}).
+
+\input{figures/table-unimportant-constants}
+
+\prettyref{tab:unimportant-constants} veranschaulicht diese Vernachlässigbarkeit von Termen niederer Ordnung und von konstante Faktoren bei großem $n$.
+
+\paragraph{Definition der $O$-Notation}
+
+Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen
+\begin{equation*}
+\begin{split}
+    O(g(n))=\{f(n)\ :\ &\text{es existieren positive Konstanten $c$ und $n_0$ derart,}\\
+         &\text{dass $0 \leq f(n) \leq c \cdot g(n)$ für alle $n \geq n_0$}\}
+\end{split}
+\end{equation*}
+(vgl. \cite[37]{meh1984}). Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
+
+\section{Praxisnahe Wachstumsraten}
+
+% n, n^2, n log n, log n
+
+Eingehen auf $2^n$, $n^2$, $n \log n$, $n$ und $\log n$ (vgl. \cite[38f]{hsr1997}), mit Tabelle der Funktionswerte für $n = 1$ bis $n = 64$ (o. ä.) und Funktionsgraphen zur Tabelle.
+
+In diesem Kontext anmerken, dass $O$-Notation die \emph{asymptotische Wachstumsrate} darstellt -- $O(n^2)$ kann für kleine $n$ schneller als $O(n)$ sein.
+
+%Zu beachten ist jedoch, dass eine Funktion mit asymptotisch großer Wachstumsrate bei kleineren Werte von $n$ auch kleinere Werte als eine Funktion mit asymptotisch kleiner Wachstum haben kann (vgl. \cite[58]{sha2011}). Abbildung \ref{fig:growth-rates-example} zeigt diesen Umstand insbesondere am Beispiel von Funktionen mit den Wachstumsraten $2n^2$ und $20n$.
+
+%Abbildung \ref{fig:growth-rates-example} demonstriert ebenfalls den enormen Unterschied in der theoretischen Effizienz (und dadurch im theoretischen Ressourcenkonsum) den die Wachstumsrate ausmacht.
+
+\section{Ermittlung}
+
+Einfaches Beispiel, z. B. angelehnt an \cite[69]{sha2011} (\citetitle{sha2011}). \cite{ahu1974} (\citetitle{ahu1974}) ist erwähnenswert aber insgesamt zu komplex.

@@ -1,0 +1,51 @@
+\begin{figure}[ht]
+    \subcaptionbox{\emph{Quick sort} auf sehr kleinen, sortierten Eingabemengen; links ist die Größe der Eingabemenge, rechts die Zeit in Mikrosekunden.\label{fig:funkterm-beispieldaten}}[0.45\textwidth]{%
+        \begin{minipage}{0.2\textwidth}
+            \begin{tabular}{cc}
+                \toprule
+                Größe & Zeit \\
+                \midrule
+                1 & 2.836\\
+                2 & 3.16\\
+                3 & 2.535\\
+                4 & 3.346\\
+                5 & 4.737\\
+                6 & 4.925\\
+                7 & 5.643\\
+                9 & 5.337\\
+                \bottomrule
+            \end{tabular}
+        \end{minipage} \hfill
+        \begin{minipage}{0.2\textwidth}
+            \begin{tabular}{cc}
+                \toprule
+                 &  \\
+                \midrule
+                9 & 6.23\\
+                10& 7.363\\
+                11& 8.583\\
+                12& 9.094\\
+                13& 9.499\\
+                14& 10.103\\
+                15& 10.548\\
+                16& 11.757\\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}
+        \vspace{1.2em}
+    }%
+    \hfill
+    \subcaptionbox{Graph der Daten in \subref{fig:funkterm-beispieldaten}.\label{fig:funkterm-beispielgraph}}{%
+        \begin{tikzpicture}
+        \begin{axis}[
+            xlabel={Größe},
+            ylabel={Zeit},
+            grid=major,
+            width=0.5\textwidth,
+        ]
+            \addplot [] table {data/xs/quick_sorted};
+        \end{axis}
+        \end{tikzpicture}
+    }%
+    \caption{Demonstration des Ausgabeformats aus \prettyref{lst:benchmark} mit daraus generiertem Graphen.\label{fig:function-determination-raw-data}}
+\end{figure}

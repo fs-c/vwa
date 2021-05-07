@@ -1,0 +1,62 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.75\linewidth}
+        \begin{algo}{E}{Euklids Algorithmus}
+            Gegeben seien zwei positive ganze Zahlen $m$ und $n$. Der \emph{größte gemeinsame Teiler}, also die größte positive ganze Zahl welche sowohl $m$ als auch $n$ gerade teilt, ist zu ermitteln.
+        
+            \begin{algosteps}
+                \algostep[Ermittle den Rest.] Dividiere $m$ durch $n$, $r$ ist der Rest. (Es gilt nun also $0 \leq r < n$.)\label{step:euklid1}
+        
+                \algostep[Ist er Null?] Gilt $r = 0$ so terminiert der Algorithmus, $n$ ist die Lösung.\label{step:euklid2}
+                
+                \algostep[Verringern.] Setze $m \leftarrow n$, $n \leftarrow r$ und gehe zurück zu Schritt \ref{step:euklid1}\label{step:euklid3}.
+            \end{algosteps}
+        \end{algo}
+    
+        \subcaption{Beschreibung nach \citeauthor{taocp1}, u. A. verwendet in \cite{taocp1} und \cite{taocp3}. Beispiel entnommen aus \cite[2]{taocp1}, Algorithm E. \label{subfig:knuth-algorithm-specification}}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.75\linewidth}
+        \medskip
+        \centering
+        \begin{tikzpicture}[
+            auto,
+            node distance=0.75cm,
+            algostep/.style={rectangle, minimum size=6mm, draw=black, inner xsep=0.5em}
+        ]
+            \node (s1) [algostep] {\textbf{\ref{step:euklid1}}. Dividiere $m$ durch $n$.};
+            \node (s2) [algostep, rounded corners=2mm, below=of s1] {\textbf{\ref{step:euklid2}}. Ist der Rest $r$ Null?};
+            \node (s3) [algostep, below=of s2] {\textbf{\ref{step:euklid3}}. Setze $m$ zu $n$ und $n$ zu $r$.};
+
+            \node (a1) [above=of s1] {$\{n, m\}$};
+            \node (a2) [right=of s2] {$n$};
+
+            \draw [->]
+                (a1) edge (s1)
+                (s2) edge node {Ja} (a2)
+                (s1) edge (s2)
+                (s2) edge node {Nein} (s3);
+            
+            \draw [->] (s3.west) -- +(-0.5,0) |- (s1);
+        \end{tikzpicture}
+
+        \subcaption{Beschreibung in Form eines Flowcharts. Beispiel in abgeänderter Form aus \cite[3]{taocp1}, Fig. 1 entnommen.\label{subfig:flowchart-algorithm-specification}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.75\linewidth}
+        \medskip
+        \centering
+        \begin{codebox}
+            \Procname{$\proc{Euklid}(n, m)$}
+            \li \While $(r \gets n \mod m) \neq 0$
+            \li     \Do
+                        $m \gets n$                 \label{ln:euclid-while-begin}
+            \li         $n \gets r$                 \label{ln:euclid-while-end}
+                    \End
+            \li \Return $n$                         \label{ln:euclid-return}
+        \end{codebox}
+        \subcaption{Beschreibung durch \emph{Pseudocode} wie er auch in der folgenden Arbeit verwendet wird.\label{subfig:pseudocode-algorithm-specification}}
+    \end{subfigure}
+    \caption{Diverse Arten der Algorithmusbeschreibung am Beispiel des euklidischen Algorithmus.}
+    \label{fig:algorithm-notation-examples}
+\end{figure}

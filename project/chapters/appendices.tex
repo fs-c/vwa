@@ -1,0 +1,95 @@
+\begin{appendices}
+
+\chapter{Implementationen}
+
+\ifndef{vwarelease}{\emph{%
+    Mögl. alternativer Titel: Algorithmusimplementationen. Listings sollten floating sein und labels und descriptions haben.
+}}
+
+\begin{lstlisting}[label=lst:sets, caption={Implementation von \enquote{Generatoren} für diverse Arten von Eingabemengen.}]
+namespace sets {
+	using set_t = std::vector<int>;
+	using iterator_t = set_t::iterator;
+
+	set_t sorted(const size_t size) {
+		auto set = set_t(size);
+
+		std::iota(set.begin(), set.end(), 1);
+
+		return set;
+	}
+
+	set_t inverted(const size_t size) {
+		auto set = set_t(size);
+
+		std::iota(std::rbegin(set), std::rend(set), 1);
+
+		return set;
+	}
+
+	set_t random(const size_t size) {
+		auto set = sorted(size);
+
+		utils::random_shuffle(set.begin(), set.end());
+
+		return set;
+	}
+
+	...
+}
+\end{lstlisting}
+
+\begin{lstlisting}[float, label=lst:insertion, caption={Implementation des \emph{insertion sort}.}]
+template <class I, class P = std::less<>>
+void insertion(I first, I last, P cmp = P{}) {
+	for (auto it = first; it != last; ++it) {
+		auto const insertion = std::upper_bound(first, it, *it, cmp);
+		std::rotate(insertion, it, std::next(it));
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[float, label=lst:quick, caption={Implementation des \emph{quicksort}.}]
+template <class I, class P = std::less<>>
+void quick(I first, I last, P cmp = P{}) {
+	auto const N = std::distance(first, last);
+	if (N <= 1)
+		return;
+
+	auto const pivot = *std::next(first, N / 2);
+
+	auto const middle1 = std::partition(first, last, [=](auto const &elem) {
+		return cmp(elem, pivot); });
+	auto const middle2 = std::partition(middle1, last, [=](auto const &elem) {
+		return !cmp(pivot, elem); });
+
+	quick(first, middle1, cmp);
+	quick(middle2, last, cmp);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[float, label=lst:heap, caption={Implementation des \emph{heapsort}.}]
+template<class RI, class P = std::less<>>
+void heap(RI first, RI last, P cmp = P{}) {
+    std::make_heap(first, last, cmp);
+    std::sort_heap(first, last, cmp);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[float, label=lst:merge, caption={Implementation des \emph{merge sort}.}]
+template <class BI, class P = std::less<>>
+void merge(BI first, BI last, P cmp = P{}) {
+	auto const N = std::distance(first, last);
+	if (N <= 1)
+		return;
+
+	auto const middle = std::next(first, N / 2);
+
+	merge(first, middle, cmp);
+	merge(middle, last, cmp);
+
+	std::inplace_merge(first, middle, last, cmp);
+}
+\end{lstlisting}
+
+\end{appendices}

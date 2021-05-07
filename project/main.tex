@@ -1,0 +1,32 @@
+\documentclass[a4paper,oneside]{book}
+
+% Define this command to enable release mode
+% \newcommand{\vwarelease}{\empty}
+
+\input{preamble.tex}
+
+% For right=of... stuff
+\usetikzlibrary{positioning}
+% Preventing recompiles of unchanged figures
+\usetikzlibrary{external}
+% Todo: Why doesn't this work anymore?
+%\tikzexternalize[prefix=tikz/]
+
+% Times New Roman
+\usepackage{mathptmx}
+
+\begin{document}
+
+\tableofcontents
+
+\input{content.tex}
+
+\printbibliography
+
+\listoffigures
+
+\listoftables
+
+\lstlistoflistings
+
+\end{document}
