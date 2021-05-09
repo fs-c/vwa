@@ -16,7 +16,7 @@
     \end{enumerate}
 \end{enumerate}
 
-Um eine Funktion der  praktische Effizienz eines Algorithmus zu ermitteln, gilt es die Laufzeit mit verschiedenen Eingabegrössen zu messen, um sie als Funktion beschreiben zu können. Das Fundament hierfür ist in \prettyref{sec:laufzeiterm} gegeben, eine konkrete Methode zur Ermittlung der praktischen Effizienz wird in \prettyref{sec:funkterm} dargelegt.
+Um eine Funktion der  praktische Effizienz eines Algorithmus zu ermitteln, gilt es die Laufzeit mit verschiedenen Eingabegrößen zu messen, um sie als Funktion beschreiben zu können. Das Fundament hierfür ist in \prettyref{sec:laufzeiterm} gegeben, eine konkrete Methode zur Ermittlung der praktischen Effizienz wird in \prettyref{sec:funkterm} dargelegt.
 
 Die Beschaffenheit der Eingabemenge --- im Falle von Sortieralgorithmen beispielsweise der Grad der Sortiertheit --- hat oftmals großen Einfluss auf die Effizenz (siehe \prettyref{cha:ergebnisse} und \ldots\nocit). In \prettyref{sec:eingabengen} werden einige Eingabemengen beschrieben.
 
@@ -56,14 +56,17 @@ const auto time = experiment(a1).run();
 \end{lstlisting}
 ermittelt werden, wobei die Zeitspanne in Mikrosekunden ($1\mu s = 10^{-6} s$) angegeben ist.
 
-\paragraph{Algorithmen mit Eingabewerten} Die im Folgenden behandelten Algorithmen haben üblicherweise einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form wie sie vom Konstruktor in \prettyref{lst:experiment}, \prettyref{ln:exp-constructor} erwartet wird.
+\paragraph{Algorithmen mit Eingabewerten} Der Konstruktur in \prettyref{lst:experiment}, \prettyref{ln:exp-constructor} erwartet eine als einzige Eingabe eine Variable des Typs \lstinline{std::function<void()>}, also eine Funktion ohne Eingabe- und Rückgabewerte. Dies ist der Fall um größtmögliche Flexibilität in der Verwendung der Testumgebung zu gewährleisten.
+
+Die in dieser Arbeit behandelten Algorithmen haben alle einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form wie sie vom Konstruktor erwartet wird. Um ein Experiment mit einer Funktion eines anderen Typs als \lstinline{void()} zu initialisieren wird ein \enquote{\emph{wrapper}} verwendet:
 
 \begin{lstlisting}[numbers=none]
 void |\id{func}|(size_t s) { ... }
 const auto |\id{wrapper}| = std::bind(func, 1337);
 const auto time = experiment(wrapper).run();
 \end{lstlisting}
-Im obenstehenden Beispielcode ist \id{func} eine beliebige Funktion die einen Eingabewert hat. \id{wrapper} ist eine Funktion der Form \lstinline{void()} (die also dem Konstruktor aus \prettyref{ln:exp-constructor} übergeben werden kann), welche die Funktion \id{func} mit dem bei ihrer Erstellung übergebenen Wert 1337 aufruft, wenn sie aufgerufen wird.
+
+Im obenstehenden Beispielcode wird die Funktion \lstinline{std::bind} der Standardbibliothek verwendet um eine \enquote{umwickelnde Funktion} (des Typs \lstinline{void()}) zu erstellen. Ein Aufruf dieser Funktion führt zum Aufruf der Funktion \lstinline{func} mit dem Eingabeparameter 1337 (wie aus den an \lstinline{std::bind} übergebenen Parametern herausgeht).
 
 \section{Eingabengenerierung}
 \label{sec:eingabengen}
@@ -78,9 +81,9 @@ Folgende Eingabemengen werden für die Ermittlung der praktischen Effizienz verw
     \item zufällig geordnet
 \end{enumerate}
 
-Siehe \prettyref{lst:sets} für eine beispielhafte Implementation der obigen Eingabemengearten.
+Siehe \prettyref{lst:sets} für eine beispielhafte Implementation von Generatoren der obigen Eingabemengearten.
 
-Eine ausführlichere Auswahl an Eingangsmengen welche an einen sie bearbeitenden Algorithmen angepasst ist --- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre --- würde das allgemeiner gesetzte Ziel dieser Arbeit verfehlen.
+Eine ausführlichere Auswahl an Eingangsmengen welche an einen sie bearbeitenden Algorithmen angepasst ist --- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre --- würde das allgemeiner gesetzte Ziel dieser Arbeit verfehlen (vgl. \cite[27ff]{mcg2012}).
 
 \section{Funktionsermittlung}
 \label{sec:funkterm}
@@ -122,7 +125,7 @@ namespace benchmark {
 }
 \end{lstlisting}
 
-Der Parameter \lstinline{total_chunks} definiert die Anzahl der Untermengen (am Beispiel von \prettyref{fig:function-determination-example} also 9). In Kombination mit der Größe der Eingabemenge \lstinline{set_size} kann damit die konstante \emph{Schrittgrösse} \lstinline{chunk_size} ($s_1 - s_2$ beziehungsweise $s_n - s_{n + 1}\ \text{für}\ 0 \leq n \le 9$) ermittelt werden.
+Der Parameter \lstinline{total_chunks} definiert die Anzahl der Untermengen (am Beispiel von \prettyref{fig:function-determination-example} also 9). In Kombination mit der Größe der Eingabemenge \lstinline{set_size} kann damit die konstante \emph{Schrittgröße} \lstinline{chunk_size} ($s_1 - s_2$ beziehungsweise $s_n - s_{n + 1}\ \text{für}\ 0 \leq n \le 9$) ermittelt werden.
 
 Die Funktion liefert Wertepaare als Inhalt eines Kontainers vom Typ \lstinline{std::map<size_t, experiment::time_t>}. Dieser assoziative Kontainer enthält eine geordnete Menge von Schlüssel-Wert-Paaren wobei die Schlüssel die Größe der jeweils betrachteten Untermenge, und die Werte die benötigten Zeiten darstellen. Die Werte können nun wie in \prettyref{fig:funkterm-beispieldaten} ausgegeben, oder wie in \prettyref{fig:funkterm-beispielgraph} als Graph dargestellt werden.
 

@@ -50,28 +50,41 @@ Diese Vereinfachung verleiht dem Umstand Ausdruck, dass hier nur der Term $n^2$ 
 
 Das ist der Kern der asymptotischen Analyse in diesem Kontext: Die Untersuchung eines Algorithmus für große $n$ und die damit einhergehende Möglichkeit der Vereinfachung von Algorithmen (vgl. \cite[63]{sha2011}).
 
-\input{figures/table-unimportant-constants}
+\input{tables/unimportant-constants}
 
 \prettyref{tab:unimportant-constants} veranschaulicht diese Vernachlässigbarkeit von Termen niederer Ordnung und von konstante Faktoren bei großem $n$.
+
+\paragraph{Komplexität} Die Funktion $T(n)$, also die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße $n$ wird auch \emph{Zeitkomplexität} des Algorithmus genannt. Das asymptotische Verhalten von $T(n)$ für große Werte von $n$ wird \emph{asymptotische Zeitkomplexität} genannt (vgl. \cite[2]{ahu1974}). Im folgenden ist mit \emph{Komplexität} eines Algorithmus die asymptotische Zeitkomplexität des Algorithmus gemeint.
+
+Ein Algorithmus in $O(n^2)$ hätte demzufolge eine \enquote{Komplexität von $n^2$} -- für große $n$ kann seine Laufzeit durch die Funktion $f(n) = n^2$ beschrieben werden.
 
 \paragraph{Definition der $O$-Notation}
 
 Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen
+%
 \begin{equation*}
-\begin{split}
-    O(g(n))=\{f(n)\ :\ &\text{es existieren positive Konstanten $c$ und $n_0$ derart,}\\
-         &\text{dass $0 \leq f(n) \leq c \cdot g(n)$ für alle $n \geq n_0$}\}
-\end{split}
+    O(g(n))=\left\{
+        f(n)\ :\ \parbox{.6\textwidth}{
+            es existieren positive Konstanten $c$ und $n_0$ derart, dass $0 \leq f(n) \leq c \cdot g(b)$ für alle $n \geq n_0$
+        }
+    \right\}
 \end{equation*}
+
 (vgl. \cite[37]{meh1984}). Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
 
-\section{Praxisnahe Wachstumsraten}
+\section{Praxisnahe Komplexitäten}
 
-% n, n^2, n log n, log n
+Einige der in der in diesem Kontext am häufigsten vorkommenden Komplexitäten sind $n^2$, $\log n$ und $n \log n$\footnotemark (vgl. \cite[38]{hsr1997}). (Anders gesagt sind also viele Sortieralgorithmen in $O(n^2)$, $O(\log n)$ oder $O(n \log n)$.) \prettyref{tab:common-growth-rates} veranschaulicht diese Komplexitäten anhand von Funktionswerten für diverse Werte von $n$.
 
-Eingehen auf $2^n$, $n^2$, $n \log n$, $n$ und $\log n$ (vgl. \cite[38f]{hsr1997}), mit Tabelle der Funktionswerte für $n = 1$ bis $n = 64$ (o. ä.) und Funktionsgraphen zur Tabelle.
+\footnotetext{Alle in dieser Arbeit behandelten Sortieralgorithmen haben eine dieser Komplexitäten.}
 
-In diesem Kontext anmerken, dass $O$-Notation die \emph{asymptotische Wachstumsrate} darstellt -- $O(n^2)$ kann für kleine $n$ schneller als $O(n)$ sein.
+Der in \prettyref{tab:common-growth-rates} ebenfalls dargestellte \emph{Quotient} der jeweiligen Funktionswerte und $n$ zeigt das Verhältnis eines Algorithmus dessen Laufzeit linear wächst, zu einem Algorithmus dessen Laufzeit durch eine der dargestellten Komplexitäten zu beschreiben ist. So ist ein Algorithmus in $O(\log n)$ für $n = 256$ fast 50-fach schneller als ein Algorithmus in $O(n)$.
+
+Anzumerken ist jedoch, dass die $O$-Notation die \emph{asymptotische} Wachstumsrate darstellt (bzw. die Komplexität eines Algorithmus als asymptotisches Verhalten zu sehen ist). So kann etwa ein Algorithmus in $O(n^2)$ für kleine $n$ schneller als ein Algorithmus in $O(n)$ sein.
+
+\emph{In diesem Kontext anmerken, dass $O$-Notation die \emph{asymptotische Wachstumsrate} darstellt -- $O(n^2)$ kann für kleine $n$ schneller als $O(n)$ sein.}
+
+\input{tables/common-growth-rates.tex}
 
 %Zu beachten ist jedoch, dass eine Funktion mit asymptotisch großer Wachstumsrate bei kleineren Werte von $n$ auch kleinere Werte als eine Funktion mit asymptotisch kleiner Wachstum haben kann (vgl. \cite[58]{sha2011}). Abbildung \ref{fig:growth-rates-example} zeigt diesen Umstand insbesondere am Beispiel von Funktionen mit den Wachstumsraten $2n^2$ und $20n$.
 

@@ -1,7 +1,9 @@
 \begin{figure}[ht]
-    \subcaptionbox{\emph{Quick sort} auf sehr kleinen, sortierten Eingabemengen; links ist die Größe der Eingabemenge, rechts die Zeit in Mikrosekunden.\label{fig:funkterm-beispieldaten}}[0.45\textwidth]{%
-        \begin{minipage}{0.2\textwidth}
-            \begin{tabular}{cc}
+    % TODO: \subcaptionbox could be used to align the subfigures based on the first caption line
+    \begin{subfigure}[c]{0.49\textwidth}
+        \begin{minipage}[t]{0.49\textwidth}
+            \centering
+            \begin{tabular}{c c}
                 \toprule
                 Größe & Zeit \\
                 \midrule
@@ -13,14 +15,13 @@
                 6 & 4.925\\
                 7 & 5.643\\
                 9 & 5.337\\
-                \bottomrule
+                \vdots & \vdots \\
             \end{tabular}
-        \end{minipage} \hfill
-        \begin{minipage}{0.2\textwidth}
-            \begin{tabular}{cc}
-                \toprule
-                 &  \\
-                \midrule
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{0.49\textwidth}
+            \begin{tabular}{c c}
+                \vdots & \vdots \\
                 9 & 6.23\\
                 10& 7.363\\
                 11& 8.583\\
@@ -32,20 +33,25 @@
                 \bottomrule
             \end{tabular}
         \end{minipage}
-        \vspace{1.2em}
-    }%
+        \caption{
+            \emph{Quick sort} auf sehr kleinen, sortierten Eingabemengen; links ist die Größe der Eingabemenge, rechts die Zeit in Mikrosekunden.\label{fig:funkterm-beispieldaten}
+        }
+    \end{subfigure}
     \hfill
-    \subcaptionbox{Graph der Daten in \subref{fig:funkterm-beispieldaten}.\label{fig:funkterm-beispielgraph}}{%
+    \begin{subfigure}[c]{0.49\textwidth}
         \begin{tikzpicture}
-        \begin{axis}[
-            xlabel={Größe},
-            ylabel={Zeit},
-            grid=major,
-            width=0.5\textwidth,
-        ]
-            \addplot [] table {data/xs/quick_sorted};
-        \end{axis}
+            \begin{axis}[
+                xlabel={Größe},
+                ylabel={Zeit},
+                grid=major,
+                width=\textwidth,
+            ]
+                \addplot [] table {data/xs/quick_sorted};
+            \end{axis}
         \end{tikzpicture}
-    }%
+        \caption{
+            Graph der Daten in \subref{fig:funkterm-beispieldaten}.\label{fig:funkterm-beispielgraph}
+        }
+    \end{subfigure}
     \caption{Demonstration des Ausgabeformats aus \prettyref{lst:benchmark} mit daraus generiertem Graphen.\label{fig:function-determination-raw-data}}
 \end{figure}

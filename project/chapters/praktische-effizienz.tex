@@ -7,11 +7,11 @@ Es gilt die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Fun
 Nach \cite[10]{mcg2012} kann \enquote{the experimental process} im Kontext der empirischen Algorithmusanalyse im Wesentlichen grob in folgende vier Schritte aufgegliedert werden.
 
 \begin{enumerate}
-    \item Formuliere eine Frage.\label{itm:experiment-formulate-question}
-    \item Stelle eine Testumgebung bereit.\label{itm:experiment-environment}
-    \item Gestalte ein Experiment welches die Frage aus \prettyref{itm:experiment-formulate-question} anspricht.
-    \item Führe das Testprogramm aus und sammle die Daten.
-\end{enumerate}
+     \item Formuliere eine Frage.\label{itm:experiment-formulate-question}
+     \item Stelle eine Testumgebung bereit.\label{itm:experiment-environment}
+     \item Gestalte ein Experiment welches die Frage aus \prettyref{itm:experiment-formulate-question} anspricht.
+     \item Führe das Testprogramm aus und sammle die Daten.
+ \end{enumerate}
 
 Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels:
 
@@ -24,15 +24,152 @@ Die Testumgebung aus \prettyref{itm:experiment-environment} wird in \prettyref{s
 \ifndef{vwarelease}{
 \emph{Hier sind \citetitle{joh2002} (\cite{joh2002}) und \citetitle{mcg2012} (\cite{mcg2012}) wichtig. \cite[83]{sha2011} kann als Argumentation für das ausgeprägte Verwenden der \emph{Standard Library} ausgelegt werden nachdem hier potentielle Vorurteile bzw. Ungleichheiten bei der Programmierung de facto wegfallen.}
 
-\emph{Der Werdegang der Empirie in den Computerwissenschaften ist nicht unspannend: Zu Zeiten von \cite{joh2002} war die empirische Analyse als Feld offenbar noch bei weitem nicht so weit fortgeschritten und verbreitet wie im Erscheinungsjahr von \cite{mcg2012}. Beide beinhalten weitgehend äquivalente Kernaussagen, aber erstere Publikation (ein Journalartikel) ist noch bei weitem unausgereifter als letztere (ein Buch). 
+\emph{Der Werdegang der Empirie in den Computerwissenschaften ist nicht unspannend: Zu Zeiten von \cite{joh2002} war die empirische Analyse als Feld offenbar noch bei weitem nicht so weit fortgeschritten und verbreitet wie im Erscheinungsjahr von \cite{mcg2012}. Beide beinhalten weitgehend äquivalente Kernaussagen, aber erstere Publikation ist noch bei weitem unausgereifter als letztere. 
 }}{}
 
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
 
-Analog 
+\ifndef{vwarelease}{\emph{Referenzen anderer Analysen mit gleichen oder überlappenden Eingabearten sind beizufügen.}}{}
+
+Für die Ermittlung der praktischen Effizienz werden
+\begin{enumerate}[nosep]
+    \item sortierte
+    \item invertierte
+    \item zufällig geordnete
+\end{enumerate}
+Eingabemengen verwendet.
+
+Siehe \prettyref{lst:sets} für eine beispielhafte Implementation von Generatoren der obigen Eingabemengearten.
+
+Eine ausführlichere Auswahl an Eingangsmengen welche an einen sie bearbeitenden Algorithmen angepasst ist --- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre --- würde das allgemeiner gesetzte Ziel dieser Arbeit verfehlen (vgl. \cite[27ff]{mcg2012}).
 
 \section{Testumgebung}
 \label{sec:runtime-environment}
 
+Ein Algorithmus wird ausgeführt, die Zeit unmittelbar vor (\id{start}) und nach (\id{end}) der Ausführung wird gemessen. Die Laufzeit des Algorithmus ist nun gleich $\id{end} - \id{start}$.
 
+Eine konkrete Implementation einer Klasse zur Messung der Laufzeit eines Algorithmus ist in \prettyref{lst:experiment} gegeben. \ifndef{vwarelease}{\emph{Referenzen zu empirischen Analysen die einen ähnlichen Mechanismus zur Laufzeitermittlung verwenden (kann nicht so schwer sein, was sollen sie sonst verwenden) sind beizufügen.}}{}
+
+\begin{lstlisting}[caption={Implementation einer Klasse zur Ermittlung der Laufzeit eines Algorithmus.}, label=lst:experiment]
+class experiment {
+	std::function<void()> algorithm;
+
+public:
+	using time_t = double;
+
+	|\label{ln:exp-constructor}|explicit experiment(std::function<void()> algorithm)
+		: algorithm(std::move(algorithm)) { };
+
+	auto run() const {
+		const auto |\id{start}| = std::chrono::steady_clock::now();
+
+		algorithm();
+
+		const auto |\id{end}| = std::chrono::steady_clock::now();
+
+		return std::chrono::duration<time_t, std::micro>{ |\id{end}| - |\id{start}| };
+	}
+};
+\end{lstlisting}
+
+Die Laufzeit eines einfachen Algorithmus kann mit ihrer Hilfe durch
+\begin{lstlisting}[numbers=none]
+void a1() { ... }
+const auto time = experiment(a1).run();
+\end{lstlisting}
+ermittelt werden, wobei die Zeitspanne in Mikrosekunden ($1\mu s = 10^{-6} s$) angegeben ist.
+
+\paragraph{Algorithmen mit Eingabewerten} Der Konstruktor in \prettyref{lst:experiment}, \prettyref{ln:exp-constructor} erwartet als einzige Eingabe eine Variable des Typs \lstinline{std::function<void()>}, also eine Funktion ohne Eingabe- und Rückgabewerte. Dies ist der Fall um größtmögliche Flexibilität in der Verwendung der Testumgebung zu gewährleisten.
+
+Die in dieser Arbeit behandelten Algorithmen haben alle einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form wie sie vom Konstruktor erwartet wird. Um ein Experiment mit einer Funktion eines anderen Typs als \lstinline{void()} zu initialisieren wird ein \enquote{\emph{wrapper}} verwendet:
+
+\begin{lstlisting}[numbers=none]
+void |\id{func}|(size_t s) { ... }
+const auto |\id{wrapper}| = std::bind(func, 1337);
+const auto time = experiment(wrapper).run();
+\end{lstlisting}
+
+Im obenstehenden Beispielcode wird die Funktion \lstinline{std::bind} der Standardbibliothek verwendet um eine \enquote{umwickelnde Funktion} \id{wrapper} (des Typs \lstinline{void()}) zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter 1337 (wie durch die an \lstinline{std::bind} übergebenen Parametern festgelegt wurde).
+
+\section{Funktionsermittlung}
+\label{sec:funkterm}
+
+Im gegebenen Kontext ist es das Ziel der \enquote{Funktionsermittlung} eine Funktion in Abhängigkeit der Eingabegröße aufzustellen bzw. zu approximieren, welche die Laufzeit darstellt (vgl. \cite[37]{mcg2012} --- \emph{Modeling}).
+
+Werte dieser Funktion der praktischen Effizienz können mithile der Funktion \lstinline{benchmark::run} in \prettyref{lst:benchmark} ermittelt werden.
+
+\begin{lstlisting}[label=lst:benchmark, caption={Implementation einer Funktion zur Ermittlung der praktischen Effizienz eines Algorotihmus mit einer bestimmenten Eingabemenge.}]
+namespace benchmark {
+	using timings_t = std::map<size_t, experiment::time_t>;
+
+	template<class A, class S>
+	timings_t run(A algorithm, S set, int total_chunks) {
+		timings_t timings;
+
+		const size_t set_size = set.size();
+
+		std::fesetround(FE_TONEAREST);
+
+		const size_t chunk_size = set_size > total_chunks ?
+			std::nearbyint(set_size / total_chunks) : 1;
+
+		for (size_t i = chunk_size; i <= set_size; i += chunk_size) {
+			auto subset = S(set.begin(), set.begin() + i);
+			const auto time = experiment(std::bind(algorithm,
+				subset.begin(), subset.end(), std::less<>())
+			).run();
+
+			timings.emplace(i, time.count());
+		}
+
+		return timings;
+	}
+	
+	...
+}
+\end{lstlisting}
+
+Der Prägnanz halber wird es hilfreich sein einige der im vorhergehenden Quellcode vorkommende Variablennamen Pseudonyme zu geben. Ebenfalls werden dem Verständnis dienende \enquote{gedachte Variablen} benannt. So gilt folgend
+\begin{equation*}
+	\begin{aligned}
+		t &= \text{\lstinline{total_chunks}, Anzahl der Untermengen} \\
+		s &= \text{\lstinline{set_size}, Größe der Eingabemenge} \\
+		c &= \text{\lstinline{chunk_size}, \enquote{Schrittgröße}} \\
+		t &= \text{Anzahl der Untermengen} \\
+		U_i &= \text{$i$-te Untermenge} \\
+		n_i &= \text{Größe von $U_i$} \\
+	\end{aligned}
+\end{equation*}
+
+Die Funktion \lstinline{benchmark::run} nimmt als Eingabeparameter
+\begin{enumerate}{nosep, label=(\alph*)}
+	\item einen Algorithmus.
+	% also eine Funktion der Form \lstinline{void(I anfang, I ende)} wobei \lstinline{I} ein \emph{Iterator} ist
+	\item eine Menge.
+	\item die Anzahl der Untermengen.
+\end{enumerate}
+
+Um nicht 
+
+Es gilt
+\begin{equation*}
+	n_i = c \cdot i \quad \text{für alle $0 < i < \frac{c}{n} - 1$ $\in \mathbb{N}$}
+\end{equation*}
+für
+\begin{equation*}
+	c = \begin{cases}
+		1 & \text{für $s \leq t$}\\
+		\frac{s}{t} & \text{für $s > t$}
+	\end{cases}
+\end{equation*}
+
+Der Parameter \lstinline{total_chunks} (folgend $t$) definiert die Anzahl der Untermengen. In Kombination mit der Größe der Eingabemenge \lstinline{set_size} (folgend $s$) kann damit eine konstante Schrittgröße \lstinline{chunk_size} (folgend $c$) ermittelt werden.
+
+Nach Ausführung der Funktion \lstinline{benchmark::run} werden (sequentiell) $t$ \emph{überlappende Untermengen} $U_1, U_2, \ldots, U_t$ der Eingabemenge erstellt -- für jedes $0 \leq i \leq t$ gibt es eine Menge $U_i$ mit Größe $n_i$. Die Größe dieser Mengen steigt mit $i$, es gilt $n_i = i \cdot c$
+
+($s_1 - s_2$ beziehungsweise $s_n - s_{n + 1}\ \text{für}\ 0 \leq n \le 9$) ermittelt werden. Die Eingabemenge wird in \lstinline{total_chunks} \emph{überlappende} Untermengen der Größe  
+
+Die Funktion liefert Wertepaare als Inhalt eines \emph{containers} vom Typ \lstinline{std::map<size_t, experiment::time_t>}. Dieser assoziative container enthält eine geordnete Menge von Schlüssel-Wert-Paaren wobei die Schlüssel die Größe der jeweils betrachteten Untermenge, und die Werte die benötigten Zeiten darstellen. Die Werte können nun wie in \prettyref{fig:funkterm-beispieldaten} ausgegeben, oder wie in \prettyref{fig:funkterm-beispielgraph} als Graph dargestellt werden.
+
+\input{figures/function-determination-raw-data}

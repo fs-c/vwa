@@ -9,12 +9,16 @@
 % References to online code samples.
 \input{coderef.tex}
 
+% Because good typography is cool
+\usepackage{microtype}
+
 % For \enquote.
 \usepackage{csquotes}
 
 % For convenient math typesetting
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{amssymb}
 
 % To generate a proper appendix. title adds "Appendix" to appendix titles, titletoc does the same to appendix titles in the ToC.
 \usepackage[titletoc,title]{appendix}
@@ -91,7 +95,7 @@
 % For coherent, managed citations.
 \usepackage[style=authoryear-ibid, citereset=subsection+, maxbibnames=99, maxcitenames=2]{biblatex}
 % Add all .bib files in the bibliography folder.
-\addbibresource{bibliography/*.bib}
+\addbibresource{bibliography/main.bib}
 % Add a comma between a publications author name and year to comply with the guideline.
 \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
 
@@ -107,6 +111,9 @@
 % For captions which are placed on the side of a figure (SCfigure environment)
 \usepackage{sidecap}
 
+% Used to style a whole column
+\usepackage{array}
+
 % Customise the footer and header; add note about development mode in header.
 \usepackage{fancyhdr}
 \fancyhf{}
@@ -116,7 +123,7 @@
 
 % For \pageref{LastPage}
 \usepackage{lastpage}
-\rfoot{\thepage\ von\ \pageref{LastPage}}
+\rfoot{\protect \thepage\ von\ \protect \pageref{LastPage}}
 
 \ifndef{vwarelease}{%
     \setlength{\headheight}{15.2pt}%
