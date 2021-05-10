@@ -137,6 +137,7 @@
         \end{tikzpicture}
         \caption{\label{fig:insertions-example-final}}
     \end{subfigure}
+    % Underfull hbox because of the first line
     \caption{Illustration des Arrays $A = \{5, 2, 4, 6, 1, 3\}$ während es von $\proc{Insertion-Sort}(A)$ bearbeitet wird. Über einem Rechteck steht sein Index in $A$, in den Rechtecken steht der jeweilige Wert von $A$ an diesem Index. Fett gedruckte Rechtecke sind Teil des bereits sortierten Subarrays $A[1 \twodots j - 1]$. \subref{fig:insertions-example-begin} bis \subref{fig:insertions-example-end} zeigen die fünf Iterationen der $\For$-Schleife auf Zeilen \ref{ln:insertions-for-begin}--\ref{ln:insertions-for-end} beginnend mit $j = 2$ bis $j = \attrib{A}{length}$ beziehungsweise $j = 6$. Das Element $A[j]$ ist mit einem Obenstehendem $j$ gekennzeichnet, in der jeweils nächsten Iteration wurde es dann bereits an seine korrekte Position im sortierten Subarray $A[1 \twodots j - 1]$ bewegt. \subref{fig:insertions-example-final} zeigt das sortierte Array. Abbildungen \subref{fig:insertions-example-begin}--\subref{fig:insertions-example-end} sind maßgeblich inspiriert von \cite[18]{clrs2001}, Figure 2.2.}
     \label{fig:insertions-example}
 \end{figure}

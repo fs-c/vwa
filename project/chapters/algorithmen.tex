@@ -174,7 +174,7 @@ Die Eingangsmenge $A[1 \twodots n]$ wird mithilfe von $\proc{Build-Max-Heap}$ in
             \End
 \end{codebox}
 
-$\proc{Max-Heapify}$, $\proc{Build-Max-Heap}$ und $\proc{Heapsort}$ sind aus \cite[154, 157]{clrs2001} entnommen. Die Standardbibliothek von C++ deckt die obigen Algorithmen sehr gut ab: $\proc{Build-Max-Heap}$ ist äquivalent zu \lstinline{std::make_heap} (vgl. \cite[933]{ISO-C++17}), $\proc{Heap\-sort}$ (ohne dem Aufruf von\linebreak[4] $\proc{Build-Max-Heap}$) ist äquivalent zu  \lstinline{std::sort_heap} (vgl. \cite[933]{ISO-C++17}.). \prettyref{lst:heap} ist eine \enquote{Implementation} der obigen Algorithmen --- sie ruft lediglich die eben genannten Funktionen der Standardbibliothek in Folge auf.
+$\proc{Max-Heapify}$, $\proc{Build-Max-Heap}$ und $\proc{Heapsort}$ sind aus \cite[154, 157]{clrs2001} entnommen. Die Standardbibliothek von C++ deckt die obigen Algorithmen sehr gut ab: $\proc{Build-Max-Heap}$ ist äquivalent zu \lstinline{std::make_heap} (vgl. \cite[933]{ISO-C++17}), $\proc{Heap\-sort}$ (ohne dem Aufruf von $\proc{Build-Max-Heap}$) ist äquivalent zu  \lstinline{std::sort_heap} (vgl. \cite[933]{ISO-C++17}.). \prettyref{lst:heap} ist eine \enquote{Implementation} der obigen Algorithmen --- sie ruft lediglich die eben genannten Funktionen der Standardbibliothek in Folge auf.
 
 Die Effizienz von $\proc{Heapsort}$ ist in jedem Fall in $O(n \log n)$ nachdem jeder der $n - 1$ Aufrufe an $\proc{Max-Heapify}$ in $O(\log n)$ ist (vgl. \cite[160]{clrs2001}).
 

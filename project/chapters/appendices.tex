@@ -92,7 +92,7 @@ void merge(BI first, BI last, P cmp = P{}) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:benchmark-write, caption={Implementation einer Funktion zum speichern von Benchmark-Ergebnissen.}]
+\begin{lstlisting}[float, label=lst:benchmark-write, caption={Implementation einer Funktion zum Speichern des Rückgabewerts von \lstinline{benchmark::run} aus \prettyref{lst:benchmark}.}]
 void write(std::string sub_path, const char *algo_name, const char *set_name, timings_t timings) {
 	std::filesystem::path file_path;
 

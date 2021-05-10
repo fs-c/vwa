@@ -134,7 +134,7 @@ Nach Ausführung von \lstinline{benchmark::run} werden (sequentiell) \emph{über
 
 Als Rückgabewert liefert sie Wertepaare in einem \emph{Container} vom Typ \lstinline{std::map<size_t, experiment::time_t>}. Dieser assoziative Container enthält eine geordnete Menge von Schlüssel-Wert-Paaren wobei die Schlüssel die Größe der jeweils betrachteten und sortierten Untermenge, und die Werte die jeweils benötigten Zeiten darstellen. Die Werte können nun wie in \prettyref{subfig:funkterm-beispieldaten} ausgegeben, oder wie in \prettyref{subfig:funkterm-beispielgraph} als Graph dargestellt werden.
 
-\input{project/figures/function-determination-raw-data}
+\input{figures/function-determination-raw-data}
 
 Der Prägnanz halber wird es hilfreich sein einige der im vorhergehenden Quellcode vorkommende Variablennamen Pseudonyme zu geben. Ebenfalls werden dem Verständnis dienende \enquote{gedachte Variablen} benannt. So gilt folgend
 %
@@ -215,6 +215,4 @@ int main(int, char *argv[]) {
 
 \prettyref{fig:benchmark-file-structure} demonstriert beispielhaft die Art und Weise mit welcher die Funktion in \prettyref{lst:main} Daten ablegt.
 
-\input{project/figures/benchmark-file-structure}
-
-
+\input{figures/benchmark-file-structure}
