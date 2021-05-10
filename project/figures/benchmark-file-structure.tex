@@ -1,0 +1,34 @@
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}[b]{0.40\textwidth}
+        \centering
+        \begin{forest}
+            for tree={grow'=0,folder}
+            [out/
+                [heap\_inverted]
+                [heap\_random]
+                [heap\_sorted]
+                [insertion\_inverted]
+                [\ldots]
+            ]
+        \end{forest}
+        \caption{Struktur des Ausgabeordners, die Endung \enquote{/} repräsentiert einen Ordner.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.40\textwidth}
+        \centering
+        \begin{tabular}{c c}
+            $n$ & $t$ in $\mu s$ \\
+            \midrule
+            2048 & 1425.91 \\
+            4096 & 3702.23 \\
+            6144 & 4790.03 \\
+            8192 & 6419.75 \\
+            10240 & 8436.86 \\
+            \vdots & \vdots \\
+        \end{tabular}
+        \caption{Inhalt der ersten 5 Zeilen der Datei heap\_inverted.}
+    \end{subfigure}
+    \caption{Beispielhafte Ordner- und Dateistruktur nach Ausführung der Funktion in \prettyref{lst:main}}
+    \label{fig:benchmark-file-structure}
+\end{figure}
