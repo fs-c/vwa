@@ -173,7 +173,13 @@ In den vorhergehenden Abschnitten wurde
     \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{namespace benchmark}, \prettyref{sec:funkterm}).
 \end{itemize}
 
-Noch abgehend (aber bspw. von \cite{mcg2012} nur implizit angenommen) ist ein Mechanismus zur \emph{Orchestrierung} der bestehenden Teile. Genauer gilt es durch \lstinline{benchmark::run} für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Wertepaare zu ermitteln, und diese Wertepaare in weiterverarbeitbarer Form auszugeben.
+Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches
+
+\begin{itemize}
+    \item mithilfe von \lstinline{benchmark::run} für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Wertepaare ermittelt, und diese Wertepaare in weiterverarbeitbarer Form ausgibt.
+
+    \item einen Mechanismus zur Kontrolle des Umfangs und der Präzision von Messungen bietet.
+\end{itemize}
 
 \begin{lstlisting}[label=lst:main, caption={Die \lstinline{main} Funktion des zur Ermittlung der praktischen Effizienz verwendeten Programms.}]
 int main(int, char *argv[]) {
