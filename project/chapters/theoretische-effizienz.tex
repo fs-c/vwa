@@ -1,7 +1,13 @@
 \chapter{Asymptotische Analyse als Effizienzangabe}
 \label{cha:asymptotic-analysis}
 
-Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
+Dieses Kapitel beschäftigt sich mit der Frage, wie die theoretische Effizienz (lt. der Definition in \prettyref{sec:algo-effizienz}) eines Algorithmus ermittelt werden kann.
+
+Zu diesem Zweck wird in \prettyref{sec:asymptotic-cases} eine Unterscheidung basierend auf der Beschaffenheit der Eingangsmenge etabliert, und in \prettyref{sec:asymptotic-analysis} ein Werkzeug für vereinfachende Darstellung von $T(n)$, die $O$-Notation, gegeben.
+
+In \prettyref{sec:praxisnahe-komplexitäten} werden einige oft vorkommende Wachstumsraten von $T$ dargestellt.
+
+\section{Einfache Operationen}
 
 Die Werte von $T(n)$, also die theoretische Effizienz eines Algorithmus auf einer Eingabemenge der Größe $n$, sind im Kontext der theoretischen Analyse die Anzahl der \enquote{einfachen Operationen} oder \enquote{Schritten} welche für diese Eingabemenge ausgeführt werden müssen (vgl. \cite[25]{clrs2001} und \cite[18f]{hsr1997}). \enquote{Einfache Operationen} sind hier jene Operationen deren benötigte Zeit unabhängig von den Operanden ist, beispielsweise arithmetische Grundrechenarten und Vergleiche (vgl. \cite[55]{sha2011}). Durch diese Einschränkung kann die Anzahl der einfachen Operationen als stellvertretend zur tatsächlichen, sonst experimentell zu ermittelnden Laufzeit gesehen werden (vgl. \cite[55]{sha2011}).
 
@@ -27,6 +33,7 @@ Zur Veranschaulichung dieser Unterscheidung ist ein einfacher Suchalgorithmus, $
 Der günstigste Fall für einen solchen Algorithmus tritt auf wenn die Eingangsmenge eine Liste ist, in der das gesuchte Element an der ersten Position steht. In diesem Fall wird nur ein Vergleich ausgeführt, die Laufzeit ist kurz. Steht das gesuchte Element jedoch an der letzten Position so werden $\attrib{A}{length}$ beziehungsweise $n$ Vergleiche ausgeführt, eine solche Menge führt zum ungünstigste Fall. Unter der Annahme, dass die Elemente von $A$ gleichmäßig verteilt sind, führt der Algorithmus durchschnittlich $n/2$ Vergleiche aus, dies ist der durchschnittliche Fall (vgl. \cite[59]{sha2011}).
 
 \section{Asymptotische Analyse}
+\label{sec:asymptotic-analysis}
 
 Zur einleitenden Frage, wie die asymptotische Analyse zu beschreiben sei, schreibt \citeauthor{bru1958} in \citetitle{bru1958}:
 
@@ -60,19 +67,20 @@ Ein Algorithmus in $O(n^2)$ hätte demzufolge eine \enquote{Komplexität von $n^
 
 \paragraph{Definition der $O$-Notation}
 
-Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen
+Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen (vgl. \cite[37]{meh1984})
 %
 \begin{equation*}
-    O(g(n))=\left\{
+    O(g(n))=\left\{\ 
         f(n)\ :\ \parbox{.6\textwidth}{
             es existieren positive Konstanten $c$ und $n_0$ derart, dass $0 \leq f(n) \leq c \cdot g(b)$ für alle $n \geq n_0$
         }
-    \right\}
+    \ \right\}
 \end{equation*}
 
-(vgl. \cite[37]{meh1984}). Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
+Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
 
 \section{Praxisnahe Komplexitäten}
+\label{sec:praxisnahe-komplexitäten}
 
 Einige der in der in diesem Kontext am häufigsten vorkommenden Komplexitäten sind $n^2$, $\log n$ und $n \log n$\footnotemark (vgl. \cite[38]{hsr1997}). (Anders gesagt sind also viele Sortieralgorithmen in $O(n^2)$, $O(\log n)$ oder $O(n \log n)$.) \prettyref{tab:common-growth-rates} veranschaulicht diese Komplexitäten anhand von Funktionswerten für diverse Werte von $n$.
 
@@ -92,4 +100,37 @@ Anzumerken ist jedoch, dass die $O$-Notation die \emph{asymptotische} Wachstumsr
 
 \section{Ermittlung}
 
-Einfaches Beispiel, z. B. angelehnt an \cite[69]{sha2011} (\citetitle{sha2011}). \cite{ahu1974} (\citetitle{ahu1974}) ist erwähnenswert aber insgesamt zu komplex.
+Im folgenden Abschnitt werden Komplexitätsanalysen diverser Pseudocode-Ausschnitte präsentiert.
+
+\begin{codebox}
+    \li $a = 2 \cdot A[i]$
+    \li \If $a \leq \frac{b}{4}$
+    \li     \Then
+                \Return $a$
+            \End
+\end{codebox}
+
+\begin{codebox}
+    \li $s \gets 0$
+    \li \For $j \gets 0$ \To $n$
+    \li     \Do
+                $s \gets s + 1$
+            \End
+\end{codebox}
+
+\begin{codebox}
+    \li $s \gets 0$
+    \li \For $j \gets 0$ \To $n$
+    \li     \Do
+                \For $i \gets 0$ \To $j$
+    \li             \Do
+                        $s \gets s + 1$
+                    \End
+            \End
+    \li \For $k \gets 0$ \To $\attrib{A}{length}$
+    \li     \Do
+                $A[k] \gets \frac{s}{k}$
+            \End
+\end{codebox}
+
+\paragraph{Andere Berechnungsmodelle} \cite{ahu1974} (\citetitle{ahu1974})
