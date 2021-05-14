@@ -1,6 +1,17 @@
 \chapter{Laufzeitermittlung als Effizienzangabe}
+\label{cha:praktische-effizienz}
 
 In diesem Kapitel wird eine Methode zur Ermittlung der Laufzeit von Algorithmen dargestellt.
+
+Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprache C++ (\cite{ISO-C++17}, \enquote{C++17}) verwendet.
+
+\ifndef{vwarelease}{
+\emph{Hier sind \citetitle{joh2002} (\cite{joh2002}) und \citetitle{mcg2012} (\cite{mcg2012}) wichtig. \cite[83]{sha2011} kann als Argumentation für das ausgeprägte Verwenden der \emph{Standard Library} ausgelegt werden nachdem hier potentielle Vorurteile bzw. Ungleichheiten bei der Programmierung de facto wegfallen.}
+
+\emph{Der Werdegang der Empirie in den Computerwissenschaften ist nicht unspannend: Zu Zeiten von \cite{joh2002} war die empirische Analyse als Feld offenbar noch bei weitem nicht so weit fortgeschritten und verbreitet wie im Erscheinungsjahr von \cite{mcg2012}. Beide beinhalten weitgehend äquivalente Kernaussagen, aber erstere Publikation ist noch bei weitem unausgereifter als letztere. 
+}}{}
+
+\section{Vorgehensweise}
 
 Es gilt die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Funktion $T(n)$ (wobei $T(n)$ die Zeit und $n$ die Eingabegröße ist) darzustellen. Das Ziel deckt sich also mit jenem der asymptotischen Analyse aus \prettyref{cha:asymptotic-analysis}. Genauer gilt es, ebenfalls wie in der asymptotischen Analyse, eine solche Funktion für diverse Arten von Eingabemengen zu ermitteln (\cite[27]{mcg2012}).
 
@@ -19,16 +30,14 @@ Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einle
 
 Um diese Frage umsetzbar zu machen, gilt es nunmehr nur noch die verschiedenen Arten und Größen der Eingabemengen zu definieren, dies geschieht in \prettyref{sec:runtime-inputs}, und eine Testumgebung bereitzustellen, dies geschieht in \prettyref{sec:runtime-environment}.
 
-\ifndef{vwarelease}{
-\emph{Hier sind \citetitle{joh2002} (\cite{joh2002}) und \citetitle{mcg2012} (\cite{mcg2012}) wichtig. \cite[83]{sha2011} kann als Argumentation für das ausgeprägte Verwenden der \emph{Standard Library} ausgelegt werden nachdem hier potentielle Vorurteile bzw. Ungleichheiten bei der Programmierung de facto wegfallen.}
-
-\emph{Der Werdegang der Empirie in den Computerwissenschaften ist nicht unspannend: Zu Zeiten von \cite{joh2002} war die empirische Analyse als Feld offenbar noch bei weitem nicht so weit fortgeschritten und verbreitet wie im Erscheinungsjahr von \cite{mcg2012}. Beide beinhalten weitgehend äquivalente Kernaussagen, aber erstere Publikation ist noch bei weitem unausgereifter als letztere. 
-}}{}
-
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
 
-\ifndef{vwarelease}{\emph{Referenzen anderer Analysen mit gleichen oder überlappenden Eingabearten sind beizufügen.}}{}
+\ifndef{vwarelease}{
+	\emph{Referenzen anderer Analysen mit gleichen oder überlappenden Eingabearten sind beizufügen. (\cite{mcg2012} erwähnt im Kontext einer anderen Datenstruktur ein ähnliches Format wie dieses hier, könnte verwendet werden.)}
+
+	\emph{Es wäre wohl angebracht den Code der Generatoren (und überhaupt das Konzept eines Generators in diesem Kontext) genauer darzustellen.}
+}{}
 
 Für die Ermittlung der praktischen Effizienz werden
 \begin{enumerate}[nosep]
@@ -90,12 +99,10 @@ const auto time = experiment(wrapper).run();
 
 Im obenstehenden Beispielcode wird die Funktion \lstinline{std::bind} der Standardbibliothek verwendet um eine \enquote{umwickelnde Funktion} \id{wrapper} (des Typs \lstinline{void()}) zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter 1337 (wie durch die an \lstinline{std::bind} übergebenen Parametern festgelegt wurde).
 
-\section{Funktionsermittlung}
+\section{Ermittlung}
 \label{sec:funkterm}
 
-Im gegebenen Kontext ist es das Ziel der \enquote{Funktionsermittlung} eine Funktion in Abhängigkeit der Eingabegröße aufzustellen bzw. zu approximieren, welche die Laufzeit darstellt (vgl. \cite[37]{mcg2012} --- \emph{Modeling}).
-
-Werte dieser Funktion der praktischen Effizienz können mithile der Funktion \lstinline{benchmark::run} in \prettyref{lst:benchmark} ermittelt werden.
+Das Ziel ist es, eine Funktion in Abhängigkeit der Eingabegröße aufzustellen bzw. zu approximieren, welche die Laufzeit darstellt (vgl. \cite[37]{mcg2012} --- \emph{Modeling}). Werte dieser Funktion der praktischen Effizienz können mithile der Funktion \lstinline{benchmark::run} in \prettyref{lst:benchmark} ermittelt werden.
 
 \begin{lstlisting}[label=lst:benchmark, caption={Implementation einer Funktion zur Ermittlung der praktischen Effizienz eines Algorithmus mit einer bestimmenten Eingabemenge.}]
 namespace benchmark {
@@ -173,7 +180,13 @@ In den vorhergehenden Abschnitten wurde
     \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{namespace benchmark}, \prettyref{sec:funkterm}).
 \end{itemize}
 
-Noch abgehend (aber bspw. von \cite{mcg2012} nur implizit angenommen) ist ein Mechanismus zur \emph{Orchestrierung} der bestehenden Teile. Genauer gilt es durch \lstinline{benchmark::run} für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Wertepaare zu ermitteln, und diese Wertepaare in weiterverarbeitbarer Form auszugeben.
+Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches
+
+\begin{itemize}
+    \item mithilfe von \lstinline{benchmark::run} für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Wertepaare ermittelt, und diese Wertepaare in weiterverarbeitbarer Form ausgibt.
+
+    \item einen Mechanismus zur Kontrolle des Umfangs und der Präzision von Messungen bietet.
+\end{itemize}
 
 \begin{lstlisting}[label=lst:main, caption={Die \lstinline{main} Funktion des zur Ermittlung der praktischen Effizienz verwendeten Programms.}]
 int main(int, char *argv[]) {

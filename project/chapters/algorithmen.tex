@@ -71,7 +71,7 @@ Die Laufzeit von Quicksort hängt von der Aufteilung der Eingabemenge, welche in
     &= T(n - 1) + O(n)
 \end{split}
 \end{equation}
-nachdem $\proc{Partition}$ $O(n)$ ist und ein Aufruf mit einer Menge der Größe $0$ eine Laufzeit von $O(1)$ hat (vgl. \cite[175]{clrs2001}). Daraus folgt eine Effizienz von $O(n^2)$ im schlechtesten Fall (vgl. \cite[1146]{clrs2001}). Diese Laufzeit tritt auch auf, wenn die Eingabemenge bereits sortiert ist (vgl. \cite[175]{clrs2001}).
+nachdem $\proc{Partition}$ $O(n)$ ist und ein Aufruf mit einer Menge der Größe $0$ eine Laufzeit von $O(1)$ hat (vgl. \cite[175]{clrs2001}). Daraus folgt eine Effizienz von $O(n^2)$ im schlechtesten Fall (vgl. \cite[49]{rp2013}). Diese Laufzeit tritt auch auf, wenn die Eingabemenge bereits sortiert ist (vgl. \cite[175]{clrs2001}).
 
 Im günstigsten Fall produziert $\proc{Partition}$ ein Subarray der Größe $\floor{n/2}$ und eines der Größe $\ceil{n/2} - 1$. In diesem Fall ist die (vereinfachte) Rekursionsgleichung
 \begin{equation*}

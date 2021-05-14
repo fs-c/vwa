@@ -3,32 +3,18 @@
 \addcontentsline{toc}{chapter}{Einleitung}
 
 \ifndef{vwarelease}{
-    \emph{Ein hochgestelltes \enquote{[?]} weist auf fehlende Quellen hin. In der \enquote{Release Version} ist es, wie dieser Absatz und die obenstehenden Hinweise, unsichtbar.}
+    \emph{Ein hochgestelltes \enquote{[?]} weist auf fehlende Quellen hin. In der \enquote{Release Version} ist es, wie dieser Absatz und die obenstehenden Hinweise (\emph{\enquote{Vorschau}}), unsichtbar.}
+
+    \emph{Sind ganze Sätze (oder Absätze) kursiv gesetzt so sind sie ebenfalls nur in dieser Vorschauversion sichtbar.}
 }{}
 
-%Vorerst ist es ausreichend, einen Algorithmus als eine schwarze Box (vgl. \cite{bun1963}) zu betrachten, die auf eine deterministische\footnote{Alle auftretenden Zustände sind definiert und reproduzierbar, der \enquote{nächste Schritt} ist immer eindeutig festgelegt (vgl. \cite[1]{baas2009}).} Art und Weise eine Eingangsmenge zu einer Ausgangsmenge überführt (\cite[5]{clrs2001}). Ein Sortieralgorithmus überführt die Elemente seiner Eingangsmenge zu einer geordneten Ausgangs\-menge.
-
-%Die Effizienz eines Algorithmus ist bestimmt durch seinen Verbrauch von Ressourcen. Folgend wird zwischen \enquote{praktischer Effizienz}\nocit\ und \enquote{theoretischer Effizienz}\ eines Algorithmus unterschieden. Erstere ist empirisch zu ermitteln: Der Ressourcenverbrauch eines Algorithmus wird konkret gemessen. Letztere wird durch mathematische Analyse bestimmt.
-
-%Damit können bereits die zwei Forschungsfragen dieser Arbeit formuliert werden:
+Die zwei primären Leitfragen dieser Arbeit sind:
 
 \begin{itemize}
-    \item Wie kann die \enquote{praktische-} und die \enquote{theoretische Effizienz} eines Algorithmus ermittelt werden?
+    \item Wie kann die \enquote{theoretische-} und die \enquote{praktische Effizienz} eines Algorithmus ermittelt werden?
     \item Wie verhält sich die \enquote{theoretische Effizienz} von ausgewählten Sortieralgorithmen zu der (zu ermittelnden) \enquote{praktischen Effizienz} jener Algorithmen?
 \end{itemize}
 
-%Wie der Großteil vergleichbarer Analysen (vgl. \cite[23]{clrs2001} und \cite[58]{sha2011} \ldots\nocit) beschäftigt sich diese Arbeit mit der Analyse der von einem Algorithmus als Ressource verbrauchte Zeit, im Folgenden auch als \enquote{Laufzeit} bezeichnet. Wenn nicht näher angegeben beziehen sich die Begriffe \enquote{praktische}- und \enquote{theoretische Effizenz} immer auf die Laufzeit.
+Diese zwei Fragen sind der Kern dieser Arbeit, sie werden in \prettyref{cha:asymptotic-analysis}, \prettyref{cha:praktische-effizienz} und \prettyref{cha:algorithmen} behandelt. Als Basis der Erarbeitung dieser Fragestellungen dient \prettyref{cha:definition-funktion-algorithmen}.
 
-Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprache C++ (\cite{ISO-C++17}, \enquote{C++17}) verwendet.
-
-$\log x$ ist als $\log_{10} x$ bzw. als \enquote{Logarithmus zur Basis 10 von $x$} zu verstehen. 
-
-\paragraph{Notizen}
-
-Nach \cite{mcg2012}[3] sind die hauptsächlichen Nachteile der theoretischen Analyse
-\begin{itemize}
-    \item mangelnde Spezifität (ein in Pseudocode implementierter Algorithmus könnte weit von einer funktionierenden Implementation entfernt sein) und
-    \item die oftmals stark vereinfachten \enquote{Berechnungsmodelle}.
-\end{itemize}
-
-
+$\log x$ ist als $\log_{e} x$ bzw. als \enquote{Logarithmus zur Basis $e$ von $x$} zu verstehen. \ifndef{vwarelease}{\emph{Dieser Hinweis ist in einer candidate release Phase als Fußnute der ersten Verwendung von $\log \ldots$ beizufügen.}}{}

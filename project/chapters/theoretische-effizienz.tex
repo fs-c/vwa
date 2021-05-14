@@ -1,14 +1,23 @@
 \chapter{Asymptotische Analyse als Effizienzangabe}
 \label{cha:asymptotic-analysis}
 
-Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
+Dieses Kapitel beschäftigt sich mit der Frage, wie die theoretische Effizienz (lt. der Definition in \prettyref{sec:algo-effizienz}) eines Algorithmus ermittelt werden kann.
+
+Dafür werden in \prettyref{sec:einfache-operationen} und \prettyref{sec:asymptotic-cases} die grundlegende Einheit der theoretischen Effizienz und einige untergeordnete Unterteilungen erläutert. Ein Wekzeug für die vereinfachende Darstellung der Effizienz wird in \prettyref{sec:asymptotic-analysis} gegeben.
+
+In \prettyref{sec:praxisnahe-komplexitäten} werden einige oft vorkommende Wachstumsraten der Effizienz als Funktion $T(n)$ dargestellt.
+
+Schlussendlich werden in \prettyref{sec:te-ermittlung} einige Pseudocode-Ausschnitte beispielhaft hinsichtlich ihrer Effizienz analysiert, um den Ermittlungsprozess der theoretischen Effizienz darzustellen.
+
+\section{Einfache Operationen}
+\label{sec:einfache-operationen}
 
 Die Werte von $T(n)$, also die theoretische Effizienz eines Algorithmus auf einer Eingabemenge der Größe $n$, sind im Kontext der theoretischen Analyse die Anzahl der \enquote{einfachen Operationen} oder \enquote{Schritten} welche für diese Eingabemenge ausgeführt werden müssen (vgl. \cite[25]{clrs2001} und \cite[18f]{hsr1997}). \enquote{Einfache Operationen} sind hier jene Operationen deren benötigte Zeit unabhängig von den Operanden ist, beispielsweise arithmetische Grundrechenarten und Vergleiche (vgl. \cite[55]{sha2011}). Durch diese Einschränkung kann die Anzahl der einfachen Operationen als stellvertretend zur tatsächlichen, sonst experimentell zu ermittelnden Laufzeit gesehen werden (vgl. \cite[55]{sha2011}).
 
-\section{Günstigster, ungünstigster und durchschnittlicher Fall}
+\section{Szenarien}
 \label{sec:asymptotic-cases}
 
-Es wird zwi\-schen der theoretischen Effizienz im \enquote{günstigsten}, \enquote{ungünstigsten}, und \enquote{durchschnittlichen Fall} unterschieden, alle beziehen sich auf die Beschaffenheit der Eingangsmenge (vgl. \cite[28]{hsr1997}).
+Es wird zwi\-schen der theoretischen Effizienz im \enquote{günstigsten}, \enquote{ungünstigsten}, und \enquote{durchschnittlichen Szenario bzw. \emph{Fall}} unterschieden, alle beziehen sich auf die Beschaffenheit der Eingangsmenge (vgl. \cite[28]{hsr1997}).
 
 Zur Veranschaulichung dieser Unterscheidung ist ein einfacher Suchalgorithmus, $\proc{Sequential-Search}$ (vgl. \cite[396]{taocp3}), zu betrachten der eine Liste nach einem Element durchsucht und terminiert nachdem er es gefunden hat.
 
@@ -27,6 +36,7 @@ Zur Veranschaulichung dieser Unterscheidung ist ein einfacher Suchalgorithmus, $
 Der günstigste Fall für einen solchen Algorithmus tritt auf wenn die Eingangsmenge eine Liste ist, in der das gesuchte Element an der ersten Position steht. In diesem Fall wird nur ein Vergleich ausgeführt, die Laufzeit ist kurz. Steht das gesuchte Element jedoch an der letzten Position so werden $\attrib{A}{length}$ beziehungsweise $n$ Vergleiche ausgeführt, eine solche Menge führt zum ungünstigste Fall. Unter der Annahme, dass die Elemente von $A$ gleichmäßig verteilt sind, führt der Algorithmus durchschnittlich $n/2$ Vergleiche aus, dies ist der durchschnittliche Fall (vgl. \cite[59]{sha2011}).
 
 \section{Asymptotische Analyse}
+\label{sec:asymptotic-analysis}
 
 Zur einleitenden Frage, wie die asymptotische Analyse zu beschreiben sei, schreibt \citeauthor{bru1958} in \citetitle{bru1958}:
 
@@ -46,7 +56,7 @@ ausgedrückt werden (wobei $a$, $b$ und $c$ beliebige von $n$ unabhängige Konst
 \end{equation}
 vereinfacht werden.
 
-Diese Vereinfachung verleiht dem Umstand Ausdruck, dass hier nur der Term $n^2$ von Interesse ist. Terme niederer Ordnung ($bn$ und $c$) und konstante Faktoren ($a$) werden bei großem bzw. wachsendem $n$ relativ bedeutungslos (vgl. \cite[28]{clrs2001}), und können so \enquote{weggelassen werden}. Die $O$-Notation ersetzt also die Kenntnis einer Zahl durch das Wissen, dass eine solche Zahl existiert (vgl. \cite[3]{bru1958}).
+Diese Vereinfachung verleiht dem Umstand Ausdruck, dass hier nur der Term $n^2$ von Interesse ist. Terme niederer Ordnung wie $bn$ und $c$, und konstante Faktoren wie $a$ werden bei großem bzw. wachsendem $n$ relativ bedeutungslos (vgl. \cite[28]{clrs2001}), und können so \enquote{weggelassen werden}. Die $O$-Notation ersetzt also die Kenntnis einer Zahl durch das Wissen, dass eine solche Zahl existiert (vgl. \cite[3]{bru1958}).
 
 Das ist der Kern der asymptotischen Analyse in diesem Kontext: Die Untersuchung eines Algorithmus für große $n$ und die damit einhergehende Möglichkeit der Vereinfachung von Algorithmen (vgl. \cite[63]{sha2011}).
 
@@ -60,19 +70,20 @@ Ein Algorithmus in $O(n^2)$ hätte demzufolge eine \enquote{Komplexität von $n^
 
 \paragraph{Definition der $O$-Notation}
 
-Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen
+Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eqref{eq:basic-o-notation} also $g(x) = n^2$) die Menge von Funktionen (vgl. \cite[37]{meh1984})
 %
 \begin{equation*}
-    O(g(n))=\left\{
+    O(g(n))=\left\{\ 
         f(n)\ :\ \parbox{.6\textwidth}{
             es existieren positive Konstanten $c$ und $n_0$ derart, dass $0 \leq f(n) \leq c \cdot g(b)$ für alle $n \geq n_0$
         }
-    \right\}
+    \ \right\}
 \end{equation*}
 
-(vgl. \cite[37]{meh1984}). Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
+Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
 
 \section{Praxisnahe Komplexitäten}
+\label{sec:praxisnahe-komplexitäten}
 
 Einige der in der in diesem Kontext am häufigsten vorkommenden Komplexitäten sind $n^2$, $\log n$ und $n \log n$\footnotemark (vgl. \cite[38]{hsr1997}). (Anders gesagt sind also viele Sortieralgorithmen in $O(n^2)$, $O(\log n)$ oder $O(n \log n)$.) \prettyref{tab:common-growth-rates} veranschaulicht diese Komplexitäten anhand von Funktionswerten für diverse Werte von $n$.
 
@@ -91,5 +102,57 @@ Anzumerken ist jedoch, dass die $O$-Notation die \emph{asymptotische} Wachstumsr
 %Abbildung \ref{fig:growth-rates-example} demonstriert ebenfalls den enormen Unterschied in der theoretischen Effizienz (und dadurch im theoretischen Ressourcenkonsum) den die Wachstumsrate ausmacht.
 
 \section{Ermittlung}
+\label{sec:te-ermittlung}
 
-Einfaches Beispiel, z. B. angelehnt an \cite[69]{sha2011} (\citetitle{sha2011}). \cite{ahu1974} (\citetitle{ahu1974}) ist erwähnenswert aber insgesamt zu komplex.
+Im folgenden Abschnitt werden Komplexitätsanalysen diverser Pseudocode-Ausschnitte (vgl. \cite[69ff]{sha2011}) präsentiert.
+
+\begin{codebox}
+    \li $a = 2 \cdot A[i]$          \label{ln:ex1-setup}
+    \li \If $a \leq \frac{b}{4}$    \label{ln:ex1-if}
+    \li     \Then
+                \Return $a$         \label{ln:ex1-return}
+            \End
+\end{codebox}
+
+Alle vorkommenden Operationen --- die Zuweisung, Multiplikation und der Arrayzugriff in \prettyref{ln:ex1-setup}; der Vergleich und die Division in \prettyref{ln:ex1-if}; die \Return Anweisung in \prettyref{ln:ex1-return} --- sind einfache Operationen (siehe \prettyref{sec:einfache-operationen}). Folglich ist der Ausschnitt in $O(1)$, seine Laufzeit ist konstant und unabhängig von den behandelten Werten.
+
+\begin{codebox}
+    \li $s \gets 0$                 \label{ln:ex2-outer-assignment}
+    \li \For $j \gets 0$ \To $n$    \label{ln:ex2-for}
+    \li     \Do
+                $s \gets s + 1$     \label{ln:ex2-inner-assignment}
+            \End
+\end{codebox}
+
+\prettyref{ln:ex2-outer-assignment} ist in $O(1)$. Die \For Schleife in \prettyref{ln:ex2-for} wird $n$ Mal wiederholt. Nachdem der Körper der Schleife, \prettyref{ln:ex2-inner-assignment}, in $O(1)$ ist, ist die Schleife in $O(n)$. Demzufolge ist der gesamte Ausschnitt in $O(n)$.
+
+\begin{codebox}
+    \li $s \gets 0$                     \label{ln:ex3-setup}
+    \li \For $j \gets 0$ \To $n$        \label{ln:ex3-outer-for}
+    \li     \Do
+                \For $i \gets 0$ \To $j$\label{ln:ex3-inner-for}
+    \li             \Do
+                        $s \gets s + 1$ \label{ln:ex3-inner-for-body}
+                    \End
+            \End
+    \li \For $k \gets 0$ \To $n$        \label{ln:ex3-second-for}
+    \li     \Do
+                $A[k] \gets \frac{s}{k}$\label{ln:ex3-second-for-body}
+            \End
+\end{codebox}
+
+Dieser Ausschnitt ist ein Beispiel eines etwas komplexeren Algorithmus mit drei \For Schleifen.
+
+Die erste Zeile ist in $O(1)$. Die letzte Schleife in \prettyref{ln:ex3-second-for} ist wie im vorhergehenden Beispiel in $O(n)$ nachdem ihr Körper in \prettyref{ln:ex3-second-for-body} in $O(1)$ ist (auch Zuweisungen in Arrays sind einfache Operationen).
+
+Die erste Schleife in \prettyref{ln:ex3-outer-for} läuft $n$ Mal, bei jeder Iteration wächst ihr Schleifenzähler $j$ um 1. Wie oft die \enquote{innere} Schleife in \prettyref{ln:ex3-inner-for} läuft ist abhängig von $j$: Für $j = 0$ läuft sie nicht, für $j = 1$ läuft sie einmal, für $j = 2$ läuft sie zweimal, \ldots, für $j = n$ läuft sie $n$ Mal. Nachdem gilt, dass (vgl. \cite{cf2007})
+\begin{equation*}
+    \sum_{i = 0}^{n} i = \frac{n(n - 1)}{2} = O(n^2)
+\end{equation*}
+und die Komplexität des Körpers der inneren Schleife in $O(1)$ ist, ist der gesamte Schleifenkonstrukt in $O(n^2)$.
+
+Damit ist der Ausschnitt also in $O(1) + O(n) + O(n^2)$ was zu $O(n^2)$ vereinfacht werden kann.
+
+\ifndef{vwarelease}{
+    \paragraph{Andere Berechnungsmodelle} \cite{ahu1974} (\citetitle{ahu1974}) \emph{Nur als Notiz, falls noch Zeit für nähere Ausführungen bleibt.}
+}{}
