@@ -30,16 +30,17 @@
 \usepackage{listings}
 \lstset{
     language=C++,
-    tabsize=2,
+    % Basic styling
+    tabsize=4,
     breaklines=true,
-    % For consistency with figures and tables
-    captionpos=b,
     numbers=left,
     numberstyle=\tiny,
-    % Used to escape commands in the environment
-    escapechar=|,
     keywordstyle=\bfseries,
     columns=flexible,
+    % For consistency with figures and tables
+    captionpos=b,
+    % Used to escape commands in the environment
+    escapechar=|,
     mathescape=true,
 }
 \lstset{
@@ -92,7 +93,7 @@
 % Recommended for biblatex.
 \usepackage{xpatch}
 % For coherent, managed citations.
-\usepackage[style=authoryear-ibid, citereset=subsection+, maxbibnames=99, maxcitenames=2]{biblatex}
+\usepackage[style=authoryear, citereset=subsection+, maxbibnames=99, doi=false,isbn=false,url=false,eprint=false]{biblatex}
 % Add all .bib files in the bibliography folder.
 \addbibresource{bibliography/main.bib}
 % Add a comma between a publications author name and year to comply with the guideline.
@@ -110,7 +111,7 @@
 % For captions which are placed on the side of a figure (SCfigure environment)
 \usepackage{sidecap}
 
-% Used to style a whole column
+% Used to style a whole column of a table
 \usepackage{array}
 
 % Customise the footer and header; add note about development mode in header.
@@ -123,6 +124,16 @@
 % For \pageref{LastPage}
 \usepackage{lastpage}
 \rfoot{\protect \thepage\ von\ \protect \pageref{LastPage}}
+
+% For uppercase text, to space it out a little more
+\usepackage{soul}
+\sodef\so{}{.14em}{.4em plus.1em minus .1em}{.4em plus.1em minus .1em}
+
+% To change line spacing
+\usepackage{setspace}
+
+% For named references
+\usepackage{nameref}
 
 \ifndef{vwarelease}{%
     \setlength{\headheight}{15.2pt}%
