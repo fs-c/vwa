@@ -121,4 +121,14 @@ void write(std::string sub_path, const char *algo_name, const char *set_name, ti
 }
 \end{lstlisting}
 
+\begin{lstlisting}[float, label=lst:random-shuffle, caption={Implementation eines Algorithmus zum zufälligen Durchmischen einer Eingabemenge unter verwendung des Mersenne-Twister Algorithmus.}]
+template <class I>
+void random_shuffle(I &&first, I &&last) {
+	std::random_device rd;
+	std::mt19937 g(rd());
+
+	std::shuffle(first, last, g);
+}
+\end{lstlisting}
+
 \end{appendices}

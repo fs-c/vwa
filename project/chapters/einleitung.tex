@@ -3,9 +3,7 @@
 \addcontentsline{toc}{chapter}{Einleitung}
 
 \ifndef{vwarelease}{
-    \emph{Ein hochgestelltes \enquote{[?]} weist auf fehlende Quellen hin. In der \enquote{Release Version} ist es, wie dieser Absatz und die obenstehenden Hinweise (\emph{\enquote{Vorschau}}), unsichtbar.}
-
-    \emph{Sind ganze Sätze (oder Absätze) kursiv gesetzt so sind sie ebenfalls nur in dieser Vorschauversion sichtbar.}
+    \emph{Ein hochgestelltes \enquote{[?]} weist auf fehlende Quellen hin. In der \enquote{Release Version} ist es, wie dieser Absatz und die obenstehenden Hinweise (\emph{\enquote{Vorschau}}), unsichtbar. Sind ganze Sätze (oder Absätze) kursiv gesetzt so sind sie ebenfalls nur in dieser Vorschauversion sichtbar.}
 }{}
 
 Die zwei primären Leitfragen dieser Arbeit sind:
@@ -17,4 +15,34 @@ Die zwei primären Leitfragen dieser Arbeit sind:
 
 Diese zwei Fragen sind der Kern dieser Arbeit, sie werden in \prettyref{cha:asymptotic-analysis}, \prettyref{cha:praktische-effizienz} und \prettyref{cha:algorithmen} behandelt. Als Basis der Erarbeitung dieser Fragestellungen dient \prettyref{cha:definition-funktion-algorithmen}.
 
-$\log x$ ist als $\log_{e} x$ bzw. als \enquote{Logarithmus zur Basis $e$ von $x$} zu verstehen. \ifndef{vwarelease}{\emph{Dieser Hinweis ist in einer candidate release Phase als Fußnute der ersten Verwendung von $\log \ldots$ beizufügen.}}{}
+\ifndef{vwarelease}{
+    \paragraph{Notizen}
+    
+    Die Leitfragen im Erwartungshorizont sind sinngemäß
+    \begin{itemize}
+        \item Was ist ein Sortieralgorithmus?
+        \item Was ist die theoretische und praktische Effizienz eines Algorithmus und wie kann sie ermittelt werden?
+        \item Wie verhält sich die \enquote{theoretische Effizienz} von ausgewählten Sortieralgorithmen zu der (zu ermittelnden) \enquote{praktischen Effizienz} jener Algorithmen?
+        \item Welcher praktische Nutzen lässt sich daraus ziehen?
+    \end{itemize}
+    wobei die erste Frage implizit aus den folgenden herausgeht und die letzte Frage ebenfalls implizit als Teil der (verpflichtenden) Konklusion angenommen wird. Dieser Umstand sollte nahch möglichkeit konkret im Zuge der Darstellung der primären Fragen deutlich gemacht werden.
+
+    Es folgt ein Vergleich der \emph{ungefähren} Gliederung im Erwartungshorizont mit der angestrebten, konkreten Gliederung.
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item Einleitung \emph{(Titel und Position ident)}
+
+        \item Definition und Funktion von Algorithmen \emph{(Titel und Position ident)}
+
+        \item Beschreibung von Sortieralgorithmen \emph{(in \prettyref{cha:algorithmen}, \enquote{\nameref{cha:algorithmen}})}
+
+        \item Laufzeitermittlung als Effizienzangabe eines Algorithmus \emph{(in \prettyref{cha:praktische-effizienz}, \enquote{\nameref{cha:praktische-effizienz}})}
+
+        \item \enquote{Funktionsermittlung} eines Algorithmus \emph{(in \prettyref{cha:asymptotic-analysis}, \enquote{\nameref{cha:asymptotic-analysis}})}
+
+        \item Vergleich der praktischen und theoretischen Effizienz \emph{(Titel und relative Position ident)}
+
+        \item Ergebnisse für die Praxis \emph{(Titel wird als Konklusion interpretiert, Position ident)}
+    \end{enumerate}
+    Die einzige größere Veränderung ist folglich, dass die \enquote{Beschreibung von Sortieralgorithmen} erst nach der Definition der Effizienzen erfolgt und die konkrete theoretische Effizienz der Algorithmen mitbeinhaltet.
+}{}
