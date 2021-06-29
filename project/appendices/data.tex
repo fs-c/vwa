@@ -1,3 +1,9 @@
 \chapter{Daten}
 
-
+\begin{tikzpicture}
+    \begin{axis}
+        \addplot [black, thick] table {data/canon/anti-prediction/linear/xs/heap_inverted};
+        \addplot [black, dashed] table {data/canon/anti-prediction/linear/xs/heap_sorted};
+        \addplot [black] table {data/canon/anti-prediction/linear/xs/heap_random};
+    \end{axis}
+\end{tikzpicture}
