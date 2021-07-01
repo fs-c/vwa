@@ -1,0 +1,3 @@
+tikz/main-figure27.pdf: data/canon/anti-prediction/linear/sm/quick_inverted
+tikz/main-figure27.pdf: data/canon/anti-prediction/linear/sm/quick_sorted
+tikz/main-figure27.pdf: data/canon/anti-prediction/linear/sm/quick_random

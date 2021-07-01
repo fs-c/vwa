@@ -28,7 +28,7 @@ Eine Testumgebung welche die Frage behandelt wird in \prettyref{sec:runtime-envi
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
 
-Für die Ermittlung der praktischen Effizienz werden sortierte, invertierte und zufällig geordnete\nocit Eingabemengen verwendet. Um diese Mengen zu generieren werden die Funktionen \lstinline{sets::sorted}, \lstinline{sets::inverted} und \lstinline{sets::random} verwendet.
+Für die Ermittlung der praktischen Effizienz werden sortierte, invertierte und zufällig geordnete Eingabemengen verwendet. Um diese Mengen zu generieren werden die Funktionen \lstinline{sets::sorted}, \lstinline{sets::inverted} und \lstinline{sets::random} verwendet.
 
 \begin{lstlisting}[caption=Funktionen welche Mengen der verwendeten Eingabemengearten generieren.]
 namespace sets {
@@ -118,12 +118,12 @@ const auto |\id{wrapper}| = [&]() { func(size); };
 const auto time = experiment(wrapper).run();
 \end{lstlisting}
 
-Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet um eine \enquote{umwickelnde Funktion} \id{wrapper} zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter \lstinline{size} bzw. 1337.
+Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet um eine \enquote{umwickelnde Funktion}, einen sogenannten \id{wrapper}, zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter \lstinline{size} bzw. 1337.
 
 \section{Ermittlung}
 \label{sec:funkterm}
 
-Das Ziel ist es, eine Funktion in Abhängigkeit der Eingabegröße aufzustellen bzw. zu approximieren, welche die Laufzeit eines Algorithmus darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen gilt es die Eingabemenge in immer größer werdende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit zusammen mit der Größe der jeweiligen Untermenge auszugeben. 
+Das Ziel ist es, eine Funktion aufzustellen, bzw. zu approximieren, welche die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen gilt es die Eingabemenge in wachsende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit (in Kombination mit der Größe der jeweiligen Untermenge) auszugeben.
 
 Hierfür ist eine Klasse \lstinline{class benchmark} gegeben, die mit einer Eingabemenge, einem Sortieralgorithmus, einer Angabe zur Art der Ermittlung der Untermengen und der Anzahl der zu erstellenden Untermengen konstruiert wird.
 
@@ -144,45 +144,60 @@ public:
 };
 \end{lstlisting}
 \noindent
-In \prettyref{lst:simple-benchmark} wird ein vereinfachter Einblick in eine Schnittstelle zu einem, diese Anforderungen erfüllenden, Mechanismus gegeben\footnote{Für eine vollständige Implementation siehe \crBenchmark~und \crBenchmarkImpl.}. Die Funktion \lstinline{benchmark::run} ist hier das zentrale Element: Sie erstellt
+In \prettyref{lst:simple-benchmark} wird ein vereinfachter Einblick in eine Schnittstelle zu einem, diese Anforderungen erfüllenden, Mechanismus gegeben\footnote{Für eine vollständige Implementation siehe \crBenchmark~und \crBenchmarkImpl.}.
 
-% Werte dieser Funktion der praktischen Effizienz können mithile der Funktion \lstinline{benchmark::run} in \prettyref{lst:benchmark} ermittelt werden.
+Die Funktion \lstinline{benchmark::run} retourniert eine Instanz der Klasse \lstinline{class benchmark::result} die wiederum eine Menge von Größenangaben und damit assoziierten Zeitangaben ist. Eine von dieser Funktion zurückgegebene Menge von Paaren hat beispielsweise die Form
+\begin{equation*}
+	\{
+		(1, 0.0768125),
+		(2, 0.104375),
+		(3, 0.129938),
+		(4, 0.170375),
+		\ldots,
+		(n, t)
+	\}
+\end{equation*}
+Sie ist so interpretieren, dass der gegebene Algorithmus für das Sortieren einer Untermenge der Größe $n$ der gegebenen Menge $t$ Zeiteinheiten benötigt hat.
 
+\paragraph{Art der Schrittgröße}
 
-% Die Funktion \lstinline{benchmark::run} nimmt als Eingabeparameter einen Algorithmus, eine Menge und die Anzahl der Untermengen.
+In \lstinline{benchmark::run} erfolgt also eine Teilung der ursprünglichen Eingabemenge in eine gewisse Anzahl von Untermengen. Die Art der Wachstumsrate der Größe dieser Untermengen wird im Konstruktor der Klasse festgelegt, wo entweder ein lineares oder ein quadratisches Wachstum gewählt werden kann (siehe \prettyref{fig:step-type-graphs}).
 
-% Nach Ausführung von \lstinline{benchmark::run} werden (sequentiell) \emph{überlappende Untermengen} der Eingabemenge erstellt. Für jede Untermenge wird eine Instanz der Experimentklasse (siehe \prettyref{sec:runtime-environment}) erstellt und ausgeführt, somit wird für jede Untermenge die Laufzeit des Algorithmus ermittelt.
-
-% Als Rückgabewert liefert sie Wertepaare in einem \emph{Container} vom Typ \lstinline{std::map<size_t, experiment::time_t>}. Dieser assoziative Container enthält eine geordnete Menge von Schlüssel-Wert-Paaren wobei die Schlüssel die Größe der jeweils betrachteten und sortierten Untermenge, und die Werte die jeweils benötigten Zeiten darstellen. Die Werte können nun wie in \prettyref{subfig:funkterm-beispieldaten} ausgegeben, oder wie in \prettyref{subfig:funkterm-beispielgraph} als Graph dargestellt werden.
-
-% \input{figures/function-determination-raw-data}
-
-% Der Prägnanz halber wird es hilfreich sein einige der im vorhergehenden Quellcode vorkommende Variablennamen Pseudonyme zu geben. Ebenfalls werden dem Verständnis dienende \enquote{gedachte Variablen} benannt. So gilt folgend
-% %
-% \begin{equation*}
-% 	\begin{aligned}
-% 		t &= \text{\lstinline{total_chunks}, Anzahl der Untermengen} \\
-% 		s &= \text{\lstinline{set_size}, Größe der Eingabemenge} \\
-% 		c &= \text{\lstinline{chunk_size}, \enquote{Schrittgröße}} \\
-% 		t &= \text{Anzahl der Untermengen} \\
-% 		U_i &= \text{$i$-te Untermenge} \\
-% 		n_i &= \text{Größe von $U_i$} \\
-% 	\end{aligned}
-% \end{equation*}
-% %
-% Die Anzahl der Untermengen und die Größe der Eingabemenge ist bekannt. Um nun die Größe der jeweilige Untermengen zu berechnen gilt
-% \begin{equation*}
-% 	n_i = c \cdot i \quad \text{für alle $0 < i \leq \frac{s}{c} \in \mathbb{N}$}
-% \end{equation*}
-% für
-% \begin{equation*}
-% 	c = \begin{cases}
-% 		1 & \text{für $s \leq t$}\\
-% 		\frac{s}{t} & \text{für $s > t$}
-% 	\end{cases} \in \mathbb{N}
-% \end{equation*}
-
-% Sollen aus einer Eingangsmenge der Größe 100 insgesamt 30 Untermengen generiert werden, gilt $c = 3$ (nicht $3,\overline{3}$ nachdem $c \in \mathbb{N}$) und somit $n_1 = 3, n_2 = 6, \ldots, n_{33} = 99$. \emph{Hier gilt also, dass das größtmögliche $i \neq t$!} Es werden in manchen Fällen mehr Untermengen generiert als angefordert, wenn dies möglich ist. Im gegebenen Verwendungsfall ist das vorteilhaft und Absicht, der Umstand ist dennoch erwähnenswert um Verwirrung vorzubeugen.
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[T]{0.485\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[
+				default, width=\textwidth,
+				xmin=0, ymin=0, xmax=32,
+				domain=0:32,
+				legend pos=north west,
+				xlabel={Index},
+				ylabel={Größe},
+			]
+				\addplot[black] {(262144 / 128) * x};
+				\addlegendentry{$l$};
+				\addplot[black, thick] {262144 / 128^2) * x^2};
+				\addlegendentry{$q$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[T]{0.485\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[
+				default, width=\textwidth,
+				xmin=0, ymin=0, xmax=128,
+				domain=0:128,
+			]
+				\addplot[black] {(262144 / 128) * x};
+				\addplot[black, thick] {262144 / 128^2) * x^2};
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\caption{Graphen der Untermengengrößen bei einer gesamten Mengengröße von $2^{18}$, geteilt auf 128 Untermengen mit linearer ($l$) und quadratischer ($q$) Schrittgröße.}
+	\label{fig:step-type-graphs}
+\end{figure}
 
 \section{Orchestrierung}
 
@@ -194,52 +209,29 @@ In den vorhergehenden Abschnitten wurde
     \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{namespace benchmark}, \prettyref{sec:funkterm}).
 \end{itemize}
 
-Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches
+Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark} Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
 
-\begin{itemize}
-    \item mithilfe von \lstinline{benchmark::run} für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Wertepaare ermittelt, und diese Wertepaare in weiterverarbeitbarer Form ausgibt.
+\ifndef{vwarelease}{
+	\emph{Dieser Abschnitt ist zu erweitern. Kein Code, nur Referenz auf die ensprechenden Dateien --- die konkrete Implementation ist zu komplex, lohnt sich nicht zu erklären. Vielleicht sehr abstrakter Pseudocode? Eingehen auf die Wichtigkeit der task randomization zur Umgehung von branch prediction.}
+}{}
 
-    \item einen Mechanismus zur Kontrolle des Umfangs und der Präzision von Messungen bietet.
-\end{itemize}
-
-\begin{lstlisting}[label=lst:main, caption={Die \lstinline{main} Funktion des zur Ermittlung der praktischen Effizienz verwendeten Programms.}]
-int main(int, char *argv[]) {
-	config cfg{argv};
-
-	if (cfg.should_exit) {
-		return 1;
-	}
-
-	auto sorters = std::map<const char *, algorithm_t>{
-		{"quick",       sorters::quick<sets::iterator_t>},
-		{"heap",        sorters::heap<sets::iterator_t>},
-		{"merge",       sorters::merge<sets::iterator_t>},
-		{"insertion",   sorters::insertion<sets::iterator_t>},
-	};
-
-	const size_t set_size = cfg.sample_size;
-
-	auto sets = std::map<const char *, sets::set_t>{
-		{"sorted",      sets::sorted(set_size)},
-		{"random",      sets::random(set_size)},
-		{"inverted",    sets::inverted(set_size)},
-	};
-
-	printf("sorting %d elements\n", set_size);
-
-	for (auto [sorter_name, sorter] : sorters) {
-		for (auto [set_name, set] : sets) {
-			benchmark::write(cfg.output, sorter_name, set_name,
-				benchmark::run(sorter, set, cfg.total_chunks));
-		}
-	}
-
-	return 0;
-}
-\end{lstlisting}
-
-\prettyref{lst:main} zeigt eine Implementation der obigen Anforderungen. Die Algorithmen werden gesammelt und mit einem ausgebbaren Namen assoziiert, ebenso die Eingabemengen. Jeder Algorithmus wird mit jeder Eingabemenge kombiniert und an \lstinline{benchmark::run} übergeben, das Ergebnis wird durch \lstinline{benchmark::write} (siehe \prettyref{lst:benchmark-write}) abgelegt.
-
-\prettyref{fig:benchmark-file-structure} demonstriert beispielhaft die Art und Weise mit welcher die Funktion in \prettyref{lst:main} Daten ablegt.
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			default, legend pos=north west, width=0.6\textwidth,
+			xlabel={Größe},
+			ylabel={Zeit},
+		]
+			\addplot[black] table	{data/supplementary/sequential-runs/run1/quick_random};
+			\addlegendentry{1};
+			\addplot[black, thick] table	{data/supplementary/sequential-runs/run8/quick_random};
+			\addlegendentry{8};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Zeit, die der Quicksort-Algorithmus jeweils bei der ersten und achten sequentiellen Ausführung zum Sortieren einer Liste benötigt.}
+\end{figure}
 
 \input{figures/benchmark-file-structure}
+
+\prettyref{fig:benchmark-file-structure} demonstriert beispielhaft die Art und Weise mit welcher die ermittelten Daten im Dateisystem abgelegt werden.

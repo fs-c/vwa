@@ -78,7 +78,14 @@
 \usepgflibrary{arrows.meta}
 % Used to draw all plots/graphs
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.16}
+\pgfplotsset{
+    compat=1.16,
+    % Create custom style
+    default/.style={
+        grid=both,
+        grid style=dashed,
+    },
+}
 % Used to draw trees
 \usepackage[edges]{forest}
 

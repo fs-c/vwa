@@ -1,0 +1,3 @@
+tikz/main-figure30.pdf: data/canon/anti-prediction/linear/md/merge_inverted
+tikz/main-figure30.pdf: data/canon/anti-prediction/linear/md/merge_sorted
+tikz/main-figure30.pdf: data/canon/anti-prediction/linear/md/merge_random

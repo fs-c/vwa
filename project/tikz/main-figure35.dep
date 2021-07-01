@@ -1,0 +1,3 @@
+tikz/main-figure35.pdf: data/canon/anti-prediction/quadratic/fine/quick_inverted
+tikz/main-figure35.pdf: data/canon/anti-prediction/quadratic/fine/quick_sorted
+tikz/main-figure35.pdf: data/canon/anti-prediction/quadratic/fine/quick_random

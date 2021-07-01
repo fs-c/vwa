@@ -1,0 +1,3 @@
+tikz/main-figure23.pdf: data/canon/anti-prediction/linear/xs/quick_inverted
+tikz/main-figure23.pdf: data/canon/anti-prediction/linear/xs/quick_sorted
+tikz/main-figure23.pdf: data/canon/anti-prediction/linear/xs/quick_random

@@ -1,9 +1,193 @@
 \chapter{Daten}
 
-\begin{tikzpicture}
-    \begin{axis}
-        \addplot [black, thick] table {data/canon/anti-prediction/linear/xs/heap_inverted};
-        \addplot [black, dashed] table {data/canon/anti-prediction/linear/xs/heap_sorted};
-        \addplot [black] table {data/canon/anti-prediction/linear/xs/heap_random};
-    \end{axis}
-\end{tikzpicture}
+\begin{figure}[htp]
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/xs/heap_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/xs/heap_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/xs/heap_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Heapsort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/xs/insertion_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/xs/insertion_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/xs/insertion_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Insertion Sort}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/xs/merge_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/xs/merge_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/xs/merge_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Merge Sort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/xs/quick_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/xs/quick_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/xs/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Quicksort}
+    \end{subfigure}
+
+    \caption{Laufzeit von Sortieralgorithmen auf sehr kleinen sortierten (normale Graphstärke), umgekehrten (fette Graphstärke) und zufällig geordneten (strichlierter Graph) Eingabemengen.}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/sm/heap_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/sm/heap_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/sm/heap_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Heapsort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/sm/insertion_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/sm/insertion_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/sm/insertion_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Insertion Sort}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/sm/merge_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/sm/merge_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/sm/merge_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Merge Sort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/sm/quick_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/sm/quick_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/sm/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Quicksort}
+    \end{subfigure}
+
+    \caption{Laufzeit von Sortieralgorithmen auf kleinen sortierten (normale Graphstärke), umgekehrten (fette Graphstärke) und zufällig geordneten (strichlierter Graph) Eingabemengen.}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/md/heap_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/md/heap_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/md/heap_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Heapsort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/md/insertion_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/md/insertion_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/md/insertion_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Insertion Sort}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/md/merge_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/md/merge_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/md/merge_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Merge Sort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/linear/md/quick_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/linear/md/quick_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/linear/md/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Quicksort}
+    \end{subfigure}
+
+    \caption{Laufzeit von Sortieralgorithmen auf großen sortierten (normale Graphstärke), umgekehrten (fette Graphstärke) und zufällig geordneten (strichlierter Graph) Eingabemengen.}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/quadratic/fine/heap_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/quadratic/fine/heap_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/quadratic/fine/heap_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Heapsort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/quadratic/fine/insertion_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/quadratic/fine/insertion_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/quadratic/fine/insertion_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Insertion Sort}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/quadratic/fine/merge_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/quadratic/fine/merge_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/quadratic/fine/merge_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Merge Sort}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{.5\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[width=\linewidth, default]
+                \addplot [black, thick] table   {data/canon/anti-prediction/quadratic/fine/quick_inverted};
+                \addplot [black, dashed] table  {data/canon/anti-prediction/quadratic/fine/quick_sorted};
+                \addplot [black] table          {data/canon/anti-prediction/quadratic/fine/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Quicksort}
+    \end{subfigure}
+
+    \caption{Laufzeit von Sortieralgorithmen auf großen sortierten (normale Graphstärke), umgekehrten (fette Graphstärke) und zufällig geordneten (strichlierter Graph) Eingabemengen, gemessen mit quadratisch steigender Schrittweite.}
+\end{figure}

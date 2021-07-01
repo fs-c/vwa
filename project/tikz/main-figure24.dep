@@ -1,0 +1,3 @@
+tikz/main-figure24.pdf: data/canon/anti-prediction/linear/sm/heap_inverted
+tikz/main-figure24.pdf: data/canon/anti-prediction/linear/sm/heap_sorted
+tikz/main-figure24.pdf: data/canon/anti-prediction/linear/sm/heap_random

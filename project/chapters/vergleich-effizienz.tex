@@ -3,6 +3,88 @@
 
 \section{Wechselseitige Approximierbarkeit}
 
-\section{Ausreißer in der praktischen Effizienz}
+\ifndef{vwarelease}{\begin{center}
+    \emph{Der Übersicht halber als Notiz: Effizienzen}
+
+	\vspace{0.4cm}
+	\begin{tabular}{c | c  c}\toprule
+		 & Best & Worst \\\midrule
+		Insertion & O($n$) & O($n^2$) \\
+		Quick & O($n \log n$) & O($n^2$) \\
+		Heap & O($n \log n$) & O($n \log n$)\\
+		Merge & O($n \log n$) & O($n \log n$) \\\bottomrule
+	\end{tabular}
+	\vspace{0.4cm}
+\end{center}}{}
+
+\begin{figure}[p]
+	\centering
+
+	\makebox[\textwidth][c]{\subfloat[Heap, sorted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/heap_sorted_best_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Insertion, sorted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/insertion_sorted_best_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+
+	\bigskip
+	\makebox[\textwidth][c]{\subfloat[Merge, sorted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/merge_sorted_best_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Quick, sorted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/quick_sorted_best_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+
+	\bigskip
+	\makebox[\textwidth][c]{\subfloat[Heap, inverted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/heap_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Insertion, inverted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/insertion_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+
+	\bigskip
+	\makebox[\textwidth][c]{\subfloat[Merge, inverted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/merge_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Quick, inverted]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/quick_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+	\caption{Differenz zwischen erwarteter und tatsächlicher Zeit, die der jeweilige Algorithmus für das bearbeiten der jeweiligen Eingabemenge benötigt hat. Negative Werte sind schneller, positive langsamer als die Projektion.}
+\end{figure}
+
+\section{Besonderheiten in der praktischen Effizienz}
 
 \section{Der \enquote{beste Algorithmus}}
