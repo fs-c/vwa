@@ -1,7 +1,20 @@
 \chapter{Vergleich der theoretischen und der praktischen Effizienzen}
 \label{cha:vergleich}
 
-\section{Wechselseitige Approximierbarkeit}
+\section{Konkrete Ermittlung der praktischen Effizienz}
+
+\emph{Folgende Commands werden für das generieren der Daten verwendet. Zu erweitern.}
+
+\begin{lstlisting}
+benchmark -r -a 16 -t linear -s 16 -c 16 -o ./linear/xs       # 2^4
+benchmark -r -a 16 -t linear -s 256 -c 128 -o ./linear/sm      # 2^8
+benchmark -r -a 16 -t linear -s 262144 -c 128 -o ./linear/md   # 2^18
+
+benchmark -r -a 16 -t quadratic -s 262144 -c 128 -o ./quadratic/coarse
+benchmark -r -a 16 -t quadratic -s 262144 -c 512 -o ./quadratic/fine
+\end{lstlisting}
+
+\section{Approximierbarkeit der Effizienzen}
 
 \ifndef{vwarelease}{\begin{center}
     \emph{Der Übersicht halber als Notiz: Effizienzen}
@@ -83,8 +96,7 @@
 		\end{tikzpicture}
 	}}
 	\caption{Differenz zwischen erwarteter und tatsächlicher Zeit, die der jeweilige Algorithmus für das bearbeiten der jeweiligen Eingabemenge benötigt hat. Negative Werte sind schneller, positive langsamer als die Projektion.}
+	\label{fig:approximation-delta}
 \end{figure}
-
-\section{Besonderheiten in der praktischen Effizienz}
 
 \section{Der \enquote{beste Algorithmus}}

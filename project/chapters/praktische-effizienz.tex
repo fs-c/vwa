@@ -212,7 +212,7 @@ In den vorhergehenden Abschnitten wurde
 Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark} Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
 
 \ifndef{vwarelease}{
-	\emph{Dieser Abschnitt ist zu erweitern. Kein Code, nur Referenz auf die ensprechenden Dateien --- die konkrete Implementation ist zu komplex, lohnt sich nicht zu erklären. Vielleicht sehr abstrakter Pseudocode? Eingehen auf die Wichtigkeit der task randomization zur Umgehung von branch prediction.}
+	\emph{Dieser Abschnitt ist zu erweitern. Kein Code, nur Referenz auf die ensprechenden Dateien --- die konkrete Implementation ist zu komplex, lohnt sich nicht zu erklären. Vielleicht sehr abstrakter Pseudocode? Eingehen auf die Wichtigkeit der task randomization zur Umgehung von branch prediction (siehe \prettyref{fig:sequential-runs}).}
 }{}
 
 \begin{figure}[htp]
@@ -230,6 +230,7 @@ Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumen
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Zeit, die der Quicksort-Algorithmus jeweils bei der ersten und achten sequentiellen Ausführung zum Sortieren einer Liste benötigt.}
+	\label{fig:sequential-runs}
 \end{figure}
 
 \input{figures/benchmark-file-structure}

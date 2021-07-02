@@ -1,3 +1,0 @@
-tikz/main-figure32.pdf: data/canon/anti-prediction/quadratic/fine/heap_inverted
-tikz/main-figure32.pdf: data/canon/anti-prediction/quadratic/fine/heap_sorted
-tikz/main-figure32.pdf: data/canon/anti-prediction/quadratic/fine/heap_random
