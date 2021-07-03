@@ -118,8 +118,13 @@ const generateSupplementary = async ({ comparisonSource }) => {
 };
 
 const main = async () => {
+    const startTime = Date.now();
+
     const comparisonSource = await generateCanon();
     await generateSupplementary({ comparisonSource });
+
+    console.log('took', (Date.now() - startTime) / 1000 / 60, 'minutes');
+    console.log('bye');
 };
 
 main().catch(console.error);
