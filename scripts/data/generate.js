@@ -108,7 +108,7 @@ const generateSupplementary = async ({ comparisonSource }) => {
 
     const sequentialPath = await createDirectory(path.join(supPath, 'sequential'));
     for (let i = 0; i < 8; i++) {
-        const subPath = await createDirectory(sequentialPath, `run${i + 1}`);
+        const subPath = await createDirectory(path.join(sequentialPath, `run${i + 1}`));
 
         runBenchmark(`-s 512 -c 32 -t linear -o ${subPath}`);
     }
