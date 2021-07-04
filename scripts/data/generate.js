@@ -95,6 +95,7 @@ const generateCanon = async () => {
 
     await generateDataset(
         await createDirectory(path.join(canonPath, 'no-anti-prediction')),
+        '-m 8'
     );
 
     return await generateDataset(
