@@ -3,17 +3,6 @@
 
 \section{Konkrete Ermittlung der praktischen Effizienz}
 
-\emph{Folgende Commands werden für das generieren der Daten verwendet. Zu erweitern.}
-
-\begin{lstlisting}
-benchmark -r -a 16 -t linear -s 16 -c 16 -o ./linear/xs       # 2^4
-benchmark -r -a 16 -t linear -s 256 -c 128 -o ./linear/sm      # 2^8
-benchmark -r -a 16 -t linear -s 262144 -c 128 -o ./linear/md   # 2^18
-
-benchmark -r -a 16 -t quadratic -s 262144 -c 128 -o ./quadratic/coarse
-benchmark -r -a 16 -t quadratic -s 262144 -c 512 -o ./quadratic/fine
-\end{lstlisting}
-
 \section{Approximierbarkeit der Effizienzen}
 
 \ifndef{vwarelease}{\begin{center}

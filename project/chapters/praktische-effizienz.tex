@@ -211,6 +211,29 @@ In den vorhergehenden Abschnitten wurde
 
 Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark} Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
 
+Diese Anforderungen erfüllt der Code in \crMain, der zum Kompilieren des \enquote{benchmark}-Programms verwendet werden kann.
+
+\begin{figure}
+    \begin{lstlisting}
+Usage: benchmark [options]
+Options:
+  -h, --help        Display this information and exit.
+  -o, --output      Sets the output path. (default: ./out)
+  -s, --size        Sets the sample size. (default: 262144 i.e. 2^18)
+  -c, --chunks      Sets the number of chunks that the set will be devided into.
+                    (default: 128)
+  -t, --step-type   Specifies the step type to use, one of 'linear' or
+                    'quadratic'. (default: linear)
+  -a, --average     Repeat the benchmarking a given number of times and output
+                    the average results of all runs. (default: 0)
+  -m, --median      Like -a, except it outputs the median. (default: 0)
+  -r, --randomize   Randomize the order in which the different combinations
+                    between sorters and sets are benchmarked. (default: false)
+
+    \end{lstlisting}
+    \caption{Anwendungsbeschreibung des \enquote{benchmark}-Programms.}
+\end{figure}
+
 \ifndef{vwarelease}{
 	\emph{Dieser Abschnitt ist zu erweitern. Kein Code, nur Referenz auf die ensprechenden Dateien --- die konkrete Implementation ist zu komplex, lohnt sich nicht zu erklären. Vielleicht sehr abstrakter Pseudocode? Eingehen auf die Wichtigkeit der task randomization zur Umgehung von branch prediction (siehe \prettyref{fig:sequential-runs}).}
 }{}
@@ -223,9 +246,9 @@ Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumen
 			xlabel={Größe},
 			ylabel={Zeit},
 		]
-			\addplot[black] table	{data/supplementary/sequential-runs/run1/quick_random};
+			\addplot[black] table	{data/supplementary/sequential/run1/quick_random};
 			\addlegendentry{1};
-			\addplot[black, thick] table	{data/supplementary/sequential-runs/run8/quick_random};
+			\addplot[black, thick] table	{data/supplementary/sequential/run8/quick_random};
 			\addlegendentry{8};
 		\end{axis}
 	\end{tikzpicture}
