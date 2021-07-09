@@ -163,41 +163,7 @@ Sie ist so interpretieren, dass der gegebene Algorithmus für das Sortieren eine
 
 In \lstinline{benchmark.run} erfolgt also eine Teilung der ursprünglichen Eingabemenge in eine gewisse Anzahl von Untermengen. Die Art der Wachstumsrate der Größe dieser Untermengen wird im Konstruktor der Klasse festgelegt, wo entweder ein lineares oder ein quadratisches Wachstum gewählt werden kann (siehe \prettyref{fig:step-type-graphs}).
 
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[T]{0.485\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-				default, width=\textwidth,
-				xmin=0, ymin=0, xmax=32,
-				domain=0:32,
-				legend pos=north west,
-				xlabel={Index},
-				ylabel={Größe},
-			]
-				\addplot[black] {(262144 / 128) * x};
-				\addlegendentry{$l$};
-				\addplot[black, thick] {262144 / 128^2) * x^2};
-				\addlegendentry{$q$};
-			\end{axis}
-		\end{tikzpicture}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[T]{0.485\textwidth}
-		\begin{tikzpicture}
-			\begin{axis}[
-				default, width=\textwidth,
-				xmin=0, ymin=0, xmax=128,
-				domain=0:128,
-			]
-				\addplot[black] {(262144 / 128) * x};
-				\addplot[black, thick] {262144 / 128^2) * x^2};
-			\end{axis}
-		\end{tikzpicture}
-	\end{subfigure}
-	\caption{Graphen der Untermengengrößen bei einer gesamten Mengengröße von $2^{18}$, geteilt auf 128 Untermengen mit linearer ($l$) und quadratischer ($q$) Schrittgröße.}
-	\label{fig:step-type-graphs}
-\end{figure}
+\input{figures/step-type-graphs.tex}
 
 \section{Orchestrierung}
 
@@ -206,15 +172,19 @@ In den vorhergehenden Abschnitten wurde
 \begin{itemize}
     \item eine Definition für einige Eingabemengen mit ihren korrespondierenden Generatoren gegeben (\prettyref{sec:runtime-inputs}).
     \item eine Testumgebung (\lstinline{class experiment}) zur Ermittlung der Laufzeit eines Algorithmus mit einer bestimmten Eingabemenge und Größe (\prettyref{sec:runtime-environment}).
-    \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{namespace benchmark}, \prettyref{sec:funkterm}).
+    \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{class benchmark}, \prettyref{sec:funkterm}).
 \end{itemize}
 
 Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark} Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
 
-Diese Anforderungen erfüllt der Code in \crMain, der zum Kompilieren des \enquote{benchmark}-Programms verwendet werden kann.
+\input{figures/benchmark-file-structure}
 
-\begin{figure}
-    \begin{lstlisting}
+Diese Anforderungen erfüllt das \emph{benchmark}-Programm bzw. der Code in \crMain. Standardmäßig erstellt es einen Ordner \emph{out} und befüllt diesen mit gesammelten Daten. Für jede mögliche Kombination aus Algorithmus und Eingabeart wird eine Tabelle mit Untermengengrößen und Zeitangaben erstellt, siehe \prettyref{fig:benchmark-file-structure}.
+
+Eine Steuerung der Vorgänge zur Datensammlung und -aufbereitung im Programm kann durch Parameter auf der Kommandozeile erfolgen. So sagt etwa der Befehl \enquote{\lstinline{benchmark -o data -s 512}} aus, dass ein Ordner \emph{data} (anstelle von out) erstellt werden soll. Ebenfalls soll die größte zu sortierende Liste genau 512 Elemente haben. Alle möglichen Befehle sind \prettyref{fig:benchmark-usage} zu entnehmen.
+
+\begin{figure}[hbp]
+    \begin{lstlisting}[language=none, numbers=none]
 Usage: benchmark [options]
 Options:
   -h, --help        Display this information and exit.
@@ -229,33 +199,39 @@ Options:
   -m, --median      Like -a, except it outputs the median. (default: 0)
   -r, --randomize   Randomize the order in which the different combinations
                     between sorters and sets are benchmarked. (default: false)
-
     \end{lstlisting}
-    \caption{Anwendungsbeschreibung des \enquote{benchmark}-Programms.}
+    \caption{Anwendungsbeschreibung des \enquote{benchmark}-Programms, ausgegeben nach Ausführung von \lstinline{benchmark -h}.}
+    \label{fig:benchmark-usage}
 \end{figure}
 
-\ifndef{vwarelease}{
-	\emph{Dieser Abschnitt ist zu erweitern. Kein Code, nur Referenz auf die ensprechenden Dateien --- die konkrete Implementation ist zu komplex, lohnt sich nicht zu erklären. Vielleicht sehr abstrakter Pseudocode? Eingehen auf die Wichtigkeit der task randomization zur Umgehung von branch prediction (siehe \prettyref{fig:sequential-runs}).}
-}{}
+% \paragraph{Ergebnisverfälschung durch wiederholtes Ausführen}
 
-\begin{figure}[htp]
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			default, legend pos=north west, width=0.6\textwidth,
-			xlabel={Größe},
-			ylabel={Zeit},
-		]
-			\addplot[black] table	{data/supplementary/sequential/run1/quick_random};
-			\addlegendentry{1};
-			\addplot[black, thick] table	{data/supplementary/sequential/run8/quick_random};
-			\addlegendentry{8};
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Zeit, die der Quicksort-Algorithmus jeweils bei der ersten und achten sequentiellen Ausführung zum Sortieren einer Liste benötigt.}
-	\label{fig:sequential-runs}
-\end{figure}
+% Es kann wünschenswert sein ein Experiment wiederholt auszuführen und den Durchschnitt oder Median der Ergebnisse zu betrachten (vgl. \cite[20]{mcg2012}), etwa um experimentunabhängige Schwankungen in der Ausführungsgeschwindgkeit des Prozessors \enquote{auszuglätten}. Im benchmark-Programm ist das konkret jeweils durch die Parameter \lstinline{-a} bzw. \lstinline{--average} und \lstinline{-m} bzw. \lstinline{--median} umsetzbar.
 
-\input{figures/benchmark-file-structure}
+% Hier ist allerdings Acht geboten: Wiederholte Ausführung eines Programms kann zu einer Beschleunigung der Ausführung führen. \prettyref{fig:repeated-distortion-simple} zeigt etwa eine erhebliche  
 
-\prettyref{fig:benchmark-file-structure} demonstriert beispielhaft die Art und Weise mit welcher die ermittelten Daten im Dateisystem abgelegt werden.
+% \begin{figure}[htp]
+%     \centering
+% 	\begin{tikzpicture}
+%         \begin{axis}[
+%             default,
+%             legend pos=north west, xlabel={Größe}, ylabel={Zeit},
+%         ]
+%             \addplot [black, dashed] table {data/supplementary/distortion/1/quick_random};
+%             \addlegendentry{1};
+
+%             \addplot [black] table {data/supplementary/distortion/8/quick_random};
+%             \addlegendentry{8};
+
+%             \addplot [black, thick] table {data/supplementary/distortion/128/quick_random};
+%             \addlegendentry{128};
+
+%             \addplot [black, very thick] table {data/supplementary/distortion/512/quick_random};
+%             \addlegendentry{512};
+%         \end{axis}
+%     \end{tikzpicture}
+%     \caption{Ergebnis des benchmark-Programms für den Quicksort Algorithmus auf einer zufälligen Eingabenge. Die Legende repräsentiert die $n$te Ausführung.}
+% 	\label{fig:repeated-distortion-simple}
+% \end{figure}
+
+% In \prettyref{fig:sequential-runs} ist erkenntlich, dass mehrfache sequentielle Ausführung des Benchmarks die benötigte Zeit im gegeben Fall erheblich reduziert. Um die praktische Relevanz der konkreten experimentellen Ergebnisse bzw. Messwerte zu gewährleisten\footnote{Nachdem eine derartige wiederholte Ausführung in der Praxis unwahrscheinlich ist (vgl. \cite[5]{taocp3}).} gilt es also diese Verfälschung unter Aufrechterhaltung der Vorteile der wiederholten Ausführung zu eliminieren bzw. zu reduzieren. 

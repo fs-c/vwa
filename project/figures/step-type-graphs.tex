@@ -1,0 +1,35 @@
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[T]{0.455\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[
+				default, width=0.95\textwidth,
+				xmin=0, ymin=0, xmax=32,
+				domain=0:32,
+				legend pos=north west,
+				xlabel={Index},
+				ylabel={Größe},
+			]
+				\addplot[black] {(262144 / 128) * x};
+				\addlegendentry{$l$};
+				\addplot[black, thick] {262144 / 128^2) * x^2};
+				\addlegendentry{$q$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[T]{0.455\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[
+				default, width=0.95\textwidth,
+				xmin=0, ymin=0, xmax=128,
+				domain=0:128,
+			]
+				\addplot[black] {(262144 / 128) * x};
+				\addplot[black, thick] {262144 / 128^2) * x^2};
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\caption{Graphen der Untermengengrößen bei einer gesamten Mengengröße von $2^{18}$, geteilt auf 128 Untermengen mit linearer ($l$) und quadratischer ($q$) Schrittgröße.}
+	\label{fig:step-type-graphs}
+\end{figure}

@@ -30,7 +30,7 @@ const generateComparison = (filesPath, outPath) => {
                 let difference = '';
     
                 for (const row of data) {
-                    difference += `${row.size} ${expected(row.size) - row.time}\n`;
+                    difference += `${row.size} ${expected(row.size) / row.time}\n`;
                 }
 
                 const diffFileName = `${fileName}_${type}_diff`;

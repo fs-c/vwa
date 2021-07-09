@@ -18,6 +18,9 @@
 % For \enquote.
 \usepackage{csquotes}
 
+% Remove paragraph indent, add some parskip
+\usepackage{parskip}
+
 % For convenient math typesetting
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -53,6 +56,9 @@
 }
 \lstdefinestyle{pseudo}{%
     language=pascal,
+}
+\lstdefinelanguage{none}{
+  identifierstyle=
 }
 
 % For pseudocode like in clrs2001
