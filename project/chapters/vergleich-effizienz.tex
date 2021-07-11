@@ -1,95 +1,158 @@
 \chapter{Vergleich der theoretischen und der praktischen Effizienzen}
 \label{cha:vergleich}
 
+Dieses Kapitel beschäftigt sich mit der finalen Forschungsfrage dieser Arbeit, namentlich wie sich die (nun bereits ermittelte) theoretische Effizienz zu der praktischen Effizienz verhält.
+
+Dies setzt eine Ermittlung der praktischen Effizienz voraus. Basierend auf den Methoden in \prettyref{cha:praktische-effizienz} erläutert \prettyref{sec:data-generation} die Art und Weise auf der der verwendete Datenstamm generiert wird.
+
+\prettyref{sec:approximation} beantwortet die angeführte Frage durch Ermittlung der Approximierbarkeit der praktischen aus der theoretischen Effizienz.
+
+\prettyref{sec:best-algo} behandelt die Idee des \enquote{besten} Algorithmus. 
+
 \section{Konkrete Ermittlung der Daten}
+\label{sec:data-generation}
 
 Um den verwendeten Datenstamm zu generieren wird ein einzelnes Skript verwendet, welches Aufrufe an das benchmark-Programm und die Ablage und Weiterverarbeitung der Daten automatisiert. Somit wird eine Reproduktion der Daten erleichtert, es gilt nur einen einzelnen Befehl auszuführen. Das Skript ist in \crScriptsGenerate\ abgelegt\footnote{In selbigem Ordner ist auch eine README-Datei zu finden welche die Bedienung des Skripts näher erläutert.}.
 
 Zur Generierung der Daten wurde durchgehend ein ThinkPad T480s (Modellnummer 20L8S02E00) verwendet, auf dem ein Intel Core i7-8550U (8 Threads $\times$ 1.80 GHz Base bzw. 4.00 GHz Turbo) und 16 GB DDR4 RAM (2400 MT/s mit NVMe SSD als Swap) verbaut sind.
 
+Alle ermittelten Daten sind im Ordner \crData\ abgelegt. Eine Darstellung aller Daten in \crDataCanon\ (dem Haupt-Datenstamm) ist in \prettyref{app:data} gegeben.
+
 \section{Approximierbarkeit der Effizienzen}
+\label{sec:approximation}
 
-\ifndef{vwarelease}{\begin{center}
-    \emph{Der Übersicht halber als Notiz: Effizienzen}
+Ein Ziel dieser Arbeit ist es, zu ermitteln wie sich die theoretische Effizienz zur praktischen Effizienz verhält. Zu diesem Zweck wird folgend überprüft, wie gut die praktische aus der theoretischen Effizienz \enquote{vorhersagbar} ist.
 
-	\vspace{0.4cm}
-	\begin{tabular}{c | c  c}\toprule
-		 & Best & Worst \\\midrule
-		Insertion & O($n$) & O($n^2$) \\
-		Quick & O($n \log n$) & O($n^2$) \\
-		Heap & O($n \log n$) & O($n \log n$)\\
-		Merge & O($n \log n$) & O($n \log n$) \\\bottomrule
-	\end{tabular}
-	\vspace{0.4cm}
-\end{center}}{}
+Für jede Kombination aus Algorithmus und Eingabemengenart\footnote{Mit Ausnahme der zufällig sortierten Art, welche folgend nicht verwendet wird.} wird basierend auf den Ergebnissen aus \prettyref{cha:algorithmen} eine Funktion der erwarteten Effizienz aufgestellt.
 
-\begin{figure}[p]
-	\centering
+Diese Funktion der erwarteten Effizienz basiert nun allerdings ausschließlich auf der theoretischen Effizienz, die wiederum auf der $O$-Notation aufbaut. Werte dieser Funktion sind nur für große $n$ gültig --- tatsächlich beschreibt sie nur die Wachstumsrate, nicht aber konkrete Messwerte. Um anhand dieser Funktion sinnvoll Rückschlüsse auf die praktische Effizienz ziehen zu können ist also eine Skalierung notwendig, die wiederum einen konkreten Messwert vorraussetzt.
 
-	\makebox[\textwidth][c]{\subfloat[Heap, sorted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/heap_sorted_best_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}\hfil
-	\subfloat[Insertion, sorted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/insertion_sorted_best_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}}
+Ist also die Zeit $t_s$ die ein Algorithmus für das Sortieren einer Menge der Größe $n_s$ bekannt (als Wertepaar folgend als \emph{Skalierungsvektor} bezeichnet), kann die unskalierte Funktion $f$ der erwarteten Effizienz anhand dieser (einzelnen) Messung zu einer skalierten Version
+\begin{equation*}
+    f_s(n) = f(n) \cdot \frac{t_s}{f(n_s)}
+\end{equation*}
+transformiert werden\footnote{Der Effizienz halber würde in einer tatsächlichen Implementation dieser Methode der Faktor $t_s / f(n_s)$ nur einmal berechnet, und dann wiederverwendet werden.}.
 
-	\bigskip
-	\makebox[\textwidth][c]{\subfloat[Merge, sorted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/merge_sorted_best_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}\hfil
-	\subfloat[Quick, sorted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/quick_sorted_best_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}}
+\input{figures/approximation-delta-end}
 
-	\bigskip
-	\makebox[\textwidth][c]{\subfloat[Heap, inverted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/heap_inverted_worst_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}\hfil
-	\subfloat[Insertion, inverted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/insertion_inverted_worst_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}}
+In \prettyref{fig:approximation-delta-end} ist eine Aufstellung des Größenverhältnis zwischen der skalierten erwarteten Effizienz und tatsächlichen Messwerten gegeben. Die erwartete Effizienz wurde jeweils mithilfe des letzten Messwertes (also des Messwertes mit der größten Untermengengröße) skaliert.
 
-	\bigskip
-	\makebox[\textwidth][c]{\subfloat[Merge, inverted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/merge_inverted_worst_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}\hfil
-	\subfloat[Quick, inverted]{
-		\begin{tikzpicture}
-			\begin{axis}[default, width=0.65\linewidth, height=4cm]
-				\addplot [black] table	{data/supplementary/comparison/quick_inverted_worst_diff};
-			\end{axis}
-		\end{tikzpicture}
-	}}
-	\caption{Differenz zwischen erwarteter und tatsächlicher Zeit, die der jeweilige Algorithmus für das bearbeiten der jeweiligen Eingabemenge benötigt hat. Negative Werte sind schneller, positive langsamer als die Projektion.}
-	\label{fig:approximation-delta}
-\end{figure}
+Daraus lässt sich schließen, dass für Heap- und Insertion Sort ab einer Untermengengröße von etwa 150000 (das sind etwa 57\% der größten Untermenge) die Messwerte mit einer Präzision $\approx 1$, de facto perfekt, vorhergesagt wurden. Beim Merge Sort nimmt die Präzision ebenfalls mit der Annäherung zum Messwert zu, die Präzision der Messung schwankt allerdings stärker.
+
+Die Präzision beim Quicksort ist im besten Fall, mit sortieren Listen, ähnlich oder besser jener bei Heap-, Insertion und Merge Sort. Im schlechtesten Fall ist sie allerdings bedeutend schlechter als jene für andere, er ist langsamer als projeziert. (Daraus zu schließen, dass der Quicksort langsamer als andere Algorithmen wäre allerdings falsch: Tatsächlich ist er deutlich schneller, siehe \prettyref{app:data}.)
+
+Auffallend ist, dass alle Algorithmen für Eingabemengen die deutlich kleiner als die Mengengröße im Skalierungsvektor sind, eine niedrige Approximationspräzision haben. Beim Insertion Sort ist dies besonders auffällig, er ist in diesem Fall bedeutend schneller als die Approximation. Das ist unter anderem auch bemerkenswert, weil dies bei keinem anderen Algorithmus der Fall ist --- andere Algorithmen sind hier durchwegs deutlich langsamer als vorhergesagt.
+
+\input{figures/approximation-delta-middle}
+
+\prettyref{fig:approximation-delta-middle} zeigt, dass auch bei einer Veränderung des Skalierungsvektors --- in diesem Fall zur Mitte der ermittelten Werte --- die vorhergehenden Observationen noch immer halten. Für Untermengen die größer als der Skalierungsvektor sind, wird der Quicksort im schlechtesten Fall zunehmend schneller als die Projektion, ein Umstand der aufgrund der Wahl des Skalierungsvektors in \prettyref{fig:approximation-delta-end} nicht ersichtlich war.
+
+Daraus lässt sich schließen, dass die für den Quicksort ermittelte Effizienz in der Praxis nicht besonders repräsentativ ist. Tatsächlich zeigt \prettyref{fig:approximation-delta-quicksort}, dass $n$ und $n \cdot \log{n}$ bedeutend besser für eine Approximation der praktischen Effizienz geeignet sind. Das ist eines der Defizite der $O$-Notation in diesem Kontext --- sie beschreibt nur eine \emph{obere Schranke} für sehr große $n$, macht jedoch keine Aussage über die Praktikabilität dieser Schranke, oder ob sie für relativ kleine $n$ (hier hächstens 262144 bzw. $2^18$) überhaupt gültig ist (siehe \prettyref{sec:asymptotic-analysis}).
+
+\input{figures/approximation-delta-quicksort}
+
+\paragraph{Reproduktion} Die in diesem Abschnitt ermittelten Werte sind in Rohform in \crDataSupComparison\ abgelegt. Sie können mithilfe von \crScriptsGenerate\ unter Eingabe des Tasknamens \enquote{supplementary/comparison} explizit generiert werden, der konkrete zur Generierung verwendete Code liegt in \crScriptsReciprocalApprox.
+
+% \begin{figure}[htp]
+%     \begin{subfigure}[T]{0.45\linewidth}
+%         \begin{tabular}{c | c  c}\toprule
+%             & Günstig & Ungünstig \\\midrule
+%            Insertion & O($n$) & O($n^2$) \\
+%            Quick & O($n \log n$) & O($n^2$) \\
+%            Heap & O($n \log n$) & O($n \log n$)\\
+%            Merge & O($n \log n$) & O($n \log n$) \\\bottomrule
+%        \end{tabular}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[T]{0.45\linewidth}
+%         \begin{tikzpicture}
+%             \begin{axis}[
+%                 width=0.975\linewidth, legend pos=north west,
+%                 xmin=0, ymin=0,
+%             ]
+%                 \addplot[black, dashed] {x};
+%                 \addlegendentry{$x$};
+%                 \addplot[black] {x * ln(x)};
+%                 \addlegendentry{$x \cdot \log x$};
+%                 \addplot[black, thick] {x^2};
+%                 \addlegendentry{$x^2$};
+%             \end{axis}
+%         \end{tikzpicture}
+%     \end{subfigure}
+% \end{figure}
 
 \section{Der \enquote{beste Algorithmus}}
+\label{sec:best-algo}
+
+Die Bestimmung eines \enquote{besten} Algorithmus setzt messbare Kriterien voraus, anhand welcher Kandidaten bewertet werden können. Im gegebenen Kontext ist das die Zeit, die ein Algorithmus für das sortieren einer Liste benötigt.
+
+Wie in \prettyref{cha:asymptotic-analysis} ausgeführt wird, und wie aus den Abbildungen in \prettyref{app:data} hervorgeht, bestehen zwischen den Algorithmen große Unterschiede in dieser benötigten Zeit, die unter anderem auf die Größe und Beschaffenheit der zu sortierenden Liste zurückzuführend sind.
+
+Die Güte eines Algorithmus muss also jeweils sowohl für die verschiedenen Arten von Eingamebenegen, als auch für verschiedene Größenklassen ermittelt werden --- ein \enquote{bester} Algorithmus kann nur im Kontext dieser zwei Parameter gegeben werden.
+
+\input{figures/results-boxplots.tex}
+
+% \begin{table}[htp]
+%     \centering
+%     \makebox[\textwidth][c]{\begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/xs_average}
+%     \end{subtable}
+%     \hfil
+%     \begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/xs_median}
+%     \end{subtable}}
+
+%     \bigskip
+%     \makebox[\textwidth][c]{\begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/sm_average}
+%     \end{subtable}
+%     \hfil
+%     \begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/sm_median}
+%     \end{subtable}}
+
+% 	\bigskip
+%     \makebox[\textwidth][c]{\begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/md_average}
+%     \end{subtable}
+%     \hfil
+%     \begin{subtable}[T]{0.65\linewidth}
+%         \pgfplotstabletypeset[]{data/supplementary/best/md_median}
+%     \end{subtable}}
+%     \caption{}
+%     \label{}
+% \end{table}
+
+% \begin{figure}[htp]
+%     \centering
+%     \begin{subfigure}[T]{0.49\linewidth}
+%         \begin{tikzpicture}
+%             \begin{axis}[
+%                 boxplot/draw direction=y, width=\linewidth,
+%                 xtick={1,2,3,4}
+%                 xticklabels={Heap,Insertion,Merge,Quick},
+%             ]
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/heap_sorted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/insertion_sorted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/merge_sorted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/quick_sorted};
+%             \end{axis}
+%         \end{tikzpicture}
+%         \caption{Sortierte Eingabeliste}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[T]{0.49\linewidth}
+%         \begin{tikzpicture}
+%             \begin{axis}[
+%                 boxplot/draw direction=y, width=\linewidth,
+%                 xticklabels={Heap, Insertion, Merge, Quick},
+%             ]
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/heap_inverted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/insertion_inverted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/merge_inverted};
+%                 \addplot+ [boxplot] table [y index=1] {data/canon/anti-prediction/linear/xs/quick_inverted};
+%             \end{axis}
+%         \end{tikzpicture}
+%         \caption{Umgekehrte Eingabeliste}
+%     \end{subfigure}
+% \end{figure}

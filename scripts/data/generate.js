@@ -29,6 +29,7 @@ const fs = require('fs');
 const path = require('path');
 const child = require('child_process');
 
+const generateBest = require('./best-algorithm');
 const generateComparison = require('./reciprocal-approx');
 
 // It is assumed that this points to the benchmark executable.
@@ -88,6 +89,8 @@ const generateCanon = async ({ createDirectory, runBenchmark }, _, { antiPred, n
 
     const generateDataset = async (basePath, options) => {
         if (linear) {
+            const paths = {};
+
             const linearPath = await createDirectory(path.join(basePath, 'linear'));
 
             const linearTypes = [
@@ -97,11 +100,13 @@ const generateCanon = async ({ createDirectory, runBenchmark }, _, { antiPred, n
             ];
 
             for (const type of linearTypes) {
-                const typePath = await createDirectory(path.join(linearPath, type.name));
+                const typePath = paths[type.name] = await createDirectory(path.join(linearPath, type.name));
 
                 runBenchmark(`${options} -s ${type.size} -c ${type.chunks} -o ${typePath} -t linear`,
                     typePath);
             }
+
+            return paths;
         }
 
         if (quadratic) {
@@ -115,19 +120,17 @@ const generateCanon = async ({ createDirectory, runBenchmark }, _, { antiPred, n
     };
 
     if (noAntiPred) {
-        await generateDataset(
+        return await generateDataset(
             await createDirectory(path.join(canonPath, 'no-anti-prediction')),
             '-m 8'
         );
     }
 
     if (antiPred) {
-        const antiPredictionPath = await generateDataset(
+        return await generateDataset(
             await createDirectory(path.join(canonPath, 'anti-prediction')),
             '-r -m 8',
         );
-    
-        return { antiPredictionPath };
     }
 };
 
@@ -157,14 +160,30 @@ const generateSupplementaryDistortion = async (
 };
 
 const generateSupplementaryComparison = async ({ createDirectory, runBenchmark }, data) => {
-    const { antiPredictionPath } = data['canon/ap/quadratic'];
+    const quadraticPath = data['canon/ap/quadratic'];
     const { path: supplementaryPath } = data['supplementary'];
 
-    console.log('generating comparison with', antiPredictionPath);
+    console.log('generating comparison with', quadraticPath);
 
     const comparisonPath = await createDirectory(
         path.join(supplementaryPath, 'comparison'));
-    generateComparison(antiPredictionPath, comparisonPath);
+
+    for (const pivot of [ 'end', 'middle' ]) {
+        const subpath = await createDirectory(path.join(comparisonPath, pivot))
+
+        generateComparison(quadraticPath, subpath, { pivot });
+    }
+};
+
+const generateSupplementaryBest = async ({ createDirectory }, data) => {
+    const paths = data['canon/ap/linear'];
+    const { path: supplementaryPath } = data['supplementary'];
+
+    const outputPath = await createDirectory(path.join(supplementaryPath, 'best'));
+
+    for (const pathType in paths) {
+        generateBest(path.join(paths[pathType]), path.join(outputPath, pathType));
+    }
 };
 
 const tasks = [
@@ -175,6 +194,7 @@ const tasks = [
     { name: 'supplementary', run: generateSupplementary },
     { name: 'supplementary/distortion', run: generateSupplementaryDistortion },
     { name: 'supplementary/comparison', run: generateSupplementaryComparison },
+    { name: 'supplementary/best', run: generateSupplementaryBest }
 ];
 
 const dueTasks = (!process.argv[4] || process.argv[4] === 'all') ? (

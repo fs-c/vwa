@@ -1,0 +1,5 @@
+"algorithm"	"inverted"	"random"	"sorted"
+"heap"	114.875	124.3125	115.75
+"insertion"	97.6875	82.8125	52.5625
+"merge"	232	249.5625	212.4375
+"quick"	78.875	110.25	72.125

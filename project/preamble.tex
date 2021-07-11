@@ -67,7 +67,7 @@
 % Because sometimes, multiple columns are nice
 \usepackage{multicol}
 
-% For the \prettyref command, which allows prefixes to references to be defined in a central place (here).
+% For the \prettyref command, which allows prefixes of references to be defined in a central place (here).
 \usepackage{prettyref}
 \newrefformat{lst}{Listing \ref{#1}}
 \newrefformat{ln}{Zeile \ref{#1}}
@@ -77,6 +77,7 @@
 \newrefformat{fig}{Abbildung \ref{#1}}
 \newrefformat{subfig}{Abbildung \ref{#1}}
 \newrefformat{itm}{Punkt \ref{#1}}
+\newrefformat{app}{Anhang \ref{#1}}
 
 % Horizontal lists, among many other things.
 \usepackage{enumitem}[shortlabels, inline]
@@ -96,8 +97,19 @@
         scaled y ticks = false,
     },
 }
+% Boxplots
+\usepgfplotslibrary{statistics}
+
 % Used to draw trees
 \usepackage[edges]{forest}
+
+% Table generation
+% \usepackage{pgfplotstable}
+% \usepackage{colortbl}
+% \pgfplotstableset{
+%     every head row/.style={before row=\toprule,after row=\midrule},every last row/.style={after row=\bottomrule},
+%     text indicator=",
+% }
 
 % To allow multiple subfigures inside a figure.
 \usepackage[labelformat=simple]{subcaption}

@@ -1,0 +1,43 @@
+\begin{figure}[htp]
+	\centering
+	\makebox[\textwidth][c]{\subfloat[Heapsort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/end/heap_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/end/heap_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Insertion Sort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/end/insertion_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/end/insertion_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+
+	\bigskip
+	\makebox[\textwidth][c]{\subfloat[Merge Sort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/end/merge_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/end/merge_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Quicksort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/end/quick_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/end/quick_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+	\caption{Quotient zwischen erwarteter und tatsächlicher Zeit, die der jeweilige Algorithmus für das Bearbeiten der jeweiligen Eingabemenge benötigt hat. Werte $<1$ sind langsamer, Werte $>1$ schneller als die Projektion. Normale Graphenstärke repräsentiert eine sortierte Liste kombiniert mit der schnellsten Projektion, fette Graphenstärke eine invers sortierte Liste mit der langsamsten Projektion. Die erwartete Zeit wurde mit jener der größten Untermenge skaliert.}
+	\label{fig:approximation-delta-end}
+\end{figure}

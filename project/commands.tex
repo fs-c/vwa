@@ -40,3 +40,11 @@
     \par\noindent\textbf{Algorithmus~#1}~(\textit{#2}).
 }{
 }
+
+% Footnote without a marker
+\newcommand\freefootnote[1]{%
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}%
+    \addtocounter{footnote}{-1}%
+    \endgroup
+}

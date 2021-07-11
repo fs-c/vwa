@@ -1,0 +1,43 @@
+\begin{figure}[htp]
+	\centering
+	\makebox[\textwidth][c]{\subfloat[Heapsort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/middle/heap_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/middle/heap_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Insertion Sort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/middle/insertion_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/middle/insertion_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+
+	\bigskip
+	\makebox[\textwidth][c]{\subfloat[Merge Sort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/middle/merge_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/middle/merge_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}\hfil
+	\subfloat[Quicksort]{
+		\begin{tikzpicture}
+			\begin{axis}[default, width=0.65\linewidth, height=4cm]
+				\addplot [black] table	{data/supplementary/comparison/middle/quick_sorted_best_diff};
+
+				\addplot [black, thick] table	{data/supplementary/comparison/middle/quick_inverted_worst_diff};
+			\end{axis}
+		\end{tikzpicture}
+	}}
+	\caption{Analog zu \prettyref{fig:approximation-delta-end}. Die erwartete Zeit wurde mit jener der mittleren Untermenge skaliert.}
+	\label{fig:approximation-delta-middle}
+\end{figure}

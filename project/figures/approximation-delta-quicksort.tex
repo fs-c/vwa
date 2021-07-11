@@ -1,0 +1,17 @@
+\begin{figure}[htp]
+    \centering
+	\begin{tikzpicture}
+        \begin{axis}[default, width=\linewidth, height=4cm]
+            \addplot [black, dashed] table {data/supplementary/comparison/middle/quick_inverted_N_comp};
+            \addlegendentry{$n$};
+
+            \addplot [black] table	{data/supplementary/comparison/middle/quick_inverted_NlogN_comp};
+            \addlegendentry{$n \cdot \log{n}$};
+
+            \addplot [black, thick] table {data/supplementary/comparison/middle/quick_inverted_N2_comp};
+            \addlegendentry{$n^2$};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Quotient zwischen erwarteter und tatsächlicher Zeit die der Quicksort für das bearbeiten einer invers sortierten Liste benötigt. Verschiedene Graphen repräsentieren verschiedene Vergleichsfunktionen, skaliert mit der mittleren Untermenge.}
+    \label{fig:approximation-delta-quicksort}
+\end{figure}

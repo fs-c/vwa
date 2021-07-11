@@ -3,6 +3,12 @@
 
 In diesem Kapitel wird eine Methode zur Ermittlung der Laufzeit von Algorithmen dargestellt.
 
+\prettyref{sec:runtime-question} beschäftigt sich, als Ausgangspunkt dieses Kapitels, mit der Aufstellung einer Frage und einer Konkretisierung des Ziels: Der Ermittlung einer \enquote{praktischen Effizienz}.
+
+Um diese Frage zu konkretisieren und umsetzbar zu machen, werden in \prettyref{sec:runtime-inputs} Arten und Größen der Eingabemengen definiert. \prettyref{sec:runtime-environment} behandelt die Bereitstellung einer Testumgebung.
+
+Ein konkreter Weg zur \enquote{praktischen Effizienz} wird in \prettyref{sec:funkterm} gegeben, \prettyref{sec:runtime-orchestration} behandelt einen Konstrukt zur Orchestrierung dieser Vorgehensweise.
+
 Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprache C++ (\cite{ISO-C++17}, \enquote{C++17}) verwendet.
 
 \ifndef{vwarelease}{
@@ -11,7 +17,8 @@ Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprac
 \emph{Der Werdegang der Empirie in den Computerwissenschaften ist nicht unspannend: Zu Zeiten von \cite{joh2002} war die empirische Analyse als Feld offenbar noch bei weitem nicht so weit fortgeschritten und verbreitet wie im Erscheinungsjahr von \cite{mcg2012}. Beide beinhalten weitgehend äquivalente Kernaussagen, aber erstere Publikation ist noch bei weitem unausgereifter als letztere. 
 }}{}
 
-\section{Vorgehensweise}
+\section{Formulierung einer Frage}
+\label{sec:runtime-question}
 
 Es gilt die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Funktion $T(n)$ (wobei $T(n)$ die Zeit und $n$ die Eingabegröße ist) darzustellen. Das Ziel deckt sich also mit jenem der asymptotischen Analyse aus \prettyref{cha:asymptotic-analysis}. Genauer gilt es, ebenfalls wie in der asymptotischen Analyse, eine solche Funktion für diverse Arten von Eingabemengen zu ermitteln (\cite[27]{mcg2012}).
 
@@ -20,10 +27,6 @@ Nach \cite[10]{mcg2012} kann \enquote{the experimental process} im Kontext der e
 Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels:
 
 \spaced{\enquote{Wie viel Zeit benötigt ein Sortieralgorithmus um Eingabemengen verschiedener Art und Größe in eine sortierte Ausgabemenge zu überführen?}}
-
-Um diese Frage zu konkretisieren und umsetzbar zu machen, gilt es nunmehr noch die verschiedenen Arten und Größen der Eingabemengen zu definieren, dies geschieht in \prettyref{sec:runtime-inputs}.
-
-Eine Testumgebung welche die Frage behandelt wird in \prettyref{sec:runtime-environment} bereitgestellt.
 
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
@@ -166,6 +169,7 @@ In \lstinline{benchmark.run} erfolgt also eine Teilung der ursprünglichen Einga
 \input{figures/step-type-graphs.tex}
 
 \section{Orchestrierung}
+\label{sec:runtime-orchestration}
 
 In den vorhergehenden Abschnitten wurde
 

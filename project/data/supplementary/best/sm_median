@@ -1,0 +1,5 @@
+"algorithm"	"inverted"	"random"	"sorted"
+"heap"	3971	4615	2520
+"insertion"	1916	1807	649
+"merge"	3437	6016	3414
+"quick"	1009	4526	1038
