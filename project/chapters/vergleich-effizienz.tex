@@ -86,13 +86,11 @@ Daraus lässt sich schließen, dass die für den Quicksort ermittelte Effizienz 
 
 Die Bestimmung eines \enquote{besten} Algorithmus setzt messbare Kriterien voraus, anhand welcher Kandidaten bewertet werden können. Im gegebenen Kontext ist das die Zeit, die ein Algorithmus für das Sortieren einer Liste benötigt.
 
-Wie in \prettyref{cha:asymptotic-analysis} ausgeführt wird, und wie aus den Abbildungen in \prettyref{app:data} hervorgeht, bestehen zwischen den Algorithmen große Unterschiede in dieser benötigten Zeit, die unter anderem auf die Größe und Beschaffenheit der zu sortierenden Liste zurückzuführend sind.
+Wie in \prettyref{cha:asymptotic-analysis} ausgeführt wird, und wie aus den Abbildungen in \prettyref{app:data} hervorgeht, bestehen zwischen den Algorithmen große Unterschiede in dieser benötigten Zeit, die unter anderem auf die Größe und Beschaffenheit der zu sortierenden Liste zurückzuführend sind. Aus diesem Grund gilt es für alle Kombinationen diesen Faktoren den besten \emph{der untersuchten} Algorithmen zu ermitteln.
 
-Aus diesem Grund gilt es für alle Kombinationen aus zu
+Erstens ist hier also wichtig festzuhalten, dass durch eine solche Analyse keine allgemeine Aussage wie \enquote{Sortieralgorithmus $X$ ist besser als \emph{alle} anderen Algorithmen.} getroffen werden können --- es kann nur der beste aus den Untersuchten ermittelt werden. Zweitens kann in diesem Schritt ein besserer Algorithmus nur einzeln für jede Kombination aus Parametern ermittelt werden. Der beste Algorithmus ist dann jener, der in den Kombinationen die dem Einsatzgebiet am besten Entsprechen der Beste ist.
 
-Die Güte eines Algorithmus muss also jeweils sowohl für die verschiedenen Arten von Eingamebenegen, als auch für verschiedene Größenklassen ermittelt werden --- ein \enquote{bester} Algorithmus kann nur im Kontext dieser zwei Parameter gegeben werden.
-
-\input{figures/results-boxplots.tex}
+\input{figures/results-xs-boxplots.tex}
 
 % \begin{table}[htp]
 %     \centering

@@ -1,0 +1,51 @@
+\begin{figure}[htp]
+    \centering
+    \pgfplotsset{
+        every axis/.style={
+            width={\linewidth},
+            height=5cm,
+            boxplot/draw direction=y,
+            xtick={1, 2, 3, 4},
+            xticklabels={Heap, Insertion, Merge, Quick},
+            ymajorgrids,
+            xticklabel style={rotate=45},
+        }
+    }
+    \makebox[\textwidth][c]{\begin{subfigure}[B]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/insertion_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_inverted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/quick_inverted};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Umgekehrte Liste}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}[B]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_random};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/insertion_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Zufällige Liste}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}[B]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_sorted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/insertion_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/quick_sorted};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Sortierte Liste}
+    \end{subfigure}}
+    \caption{Boxplots der benchmark-Ergebnisse für kleine Mengen ($n \leq 256$).}
+    \label{fig:results-boxplots-sm}
+\end{figure}

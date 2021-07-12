@@ -48,3 +48,13 @@
     \addtocounter{footnote}{-1}%
     \endgroup
 }
+
+% Center something that is wider than \textwidth
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+

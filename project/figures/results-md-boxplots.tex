@@ -1,0 +1,55 @@
+\begin{figure}[htp]
+    \centering
+    \pgfplotsset{
+        every axis/.style={
+            width={\linewidth},
+            height=5cm,
+            boxplot/draw direction=y,
+            xtick={1, 2, 3, 4},
+            xticklabels={Heap, Insertion, Merge, Quick},
+            ymajorgrids,
+            xticklabel style={rotate=45},
+        }
+    }
+    \makebox[\textwidth][c]{\begin{subfigure}[T]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_inverted};
+                %\addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/insertion_inverted};
+                \addplot+ [boxplot={draw position=3}, black] table {data/canon/anti-prediction/linear/md/merge_inverted};
+                \addplot+ [boxplot={draw position=4}, black, thick] table {data/canon/anti-prediction/linear/md/quick_inverted};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Umgekehrte Liste}
+        \label{sfig:large-inverted}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}[T]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_random};
+                %\addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/md/insertion_random};
+                \addplot+ [boxplot={draw position=3}, black, thick] table {data/canon/anti-prediction/linear/md/merge_random};
+                \addplot+ [boxplot={draw position=4}, black] table {data/canon/anti-prediction/linear/md/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Zufällige Liste}
+        \label{sfig:large-random}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}[T]{0.4\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                xticklabels={Heap, Insertion, Merge, Quick},
+            ]
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/insertion_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/merge_sorted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/md/quick_sorted};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Sortierte Liste}
+    \end{subfigure}}
+    \caption{Boxplots der benchmark-Ergebnisse für große Mengen ($n \leq 262144$). Ergebnisse für den Insertion Sort werden in \subref{sfig:large-inverted} und \subref{sfig:large-random} nicht gezeigt, da die Daten um einige Ordnungen größer als jene der anderen Algorithmen sind. Die entsprechenden Daten können in \prettyref{fig:app-linear-large} nachgeschlagen werden.}
+    \label{fig:results-boxplots-md}
+\end{figure}

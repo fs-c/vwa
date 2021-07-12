@@ -1,0 +1,106 @@
+{
+\newgeometry{left=3cm,top=3cm,right=3cm,bottom=3cm}
+\pgfplotsset{
+    every axis/.style={
+        width={0.33\linewidth},
+        height=5cm,
+        boxplot/draw direction=y,
+        xtick={1, 2, 3, 4},
+        xticklabels={Heap, Insertion, Merge, Quick},
+        ymajorgrids,
+        xticklabel style={rotate=45},
+    }
+}
+\begin{figure}[p]
+    \centerfloat
+    \begin{subfigure}[T]{1.2\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/heap_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/insertion_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/merge_inverted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/xs/quick_inverted};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/heap_random};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/xs/insertion_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/merge_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/heap_sorted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/xs/insertion_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/merge_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/xs/quick_sorted};
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+
+    \begin{subfigure}[T]{1.2\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/insertion_inverted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_inverted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/quick_inverted};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_random};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/insertion_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_random};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/heap_sorted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/sm/insertion_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/merge_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/sm/quick_sorted};
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+
+    \begin{subfigure}[T]{1.2\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_inverted};
+                %\addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/insertion_inverted};
+                \addplot+ [boxplot={draw position=3}, black] table {data/canon/anti-prediction/linear/md/merge_inverted};
+                \addplot+ [boxplot={draw position=4}, black, thick] table {data/canon/anti-prediction/linear/md/quick_inverted};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_random};
+                %\addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/md/insertion_random};
+                \addplot+ [boxplot={draw position=3}, black, thick] table {data/canon/anti-prediction/linear/md/merge_random};
+                \addplot+ [boxplot={draw position=4}, black] table {data/canon/anti-prediction/linear/md/quick_random};
+            \end{axis}
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}
+            \begin{axis}[
+                xticklabels={Heap, Insertion, Merge, Quick},
+            ]
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/insertion_sorted};
+                \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/merge_sorted};
+                \addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/md/quick_sorted};
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+\end{figure}
+\restoregeometry
+}
