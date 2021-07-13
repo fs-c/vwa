@@ -21,7 +21,7 @@
             \end{axis}
         \end{tikzpicture}
         \caption{Umgekehrte Liste}
-        \label{sfig:large-inverted}
+        \label{subfig:results-boxplots-md-inverted}
     \end{subfigure}
     \hfil
     \begin{subfigure}[T]{0.4\linewidth}
@@ -29,12 +29,12 @@
             \begin{axis}
                 \addplot+ [boxplot, black] table {data/canon/anti-prediction/linear/md/heap_random};
                 %\addplot+ [boxplot, black, thick] table {data/canon/anti-prediction/linear/md/insertion_random};
-                \addplot+ [boxplot={draw position=3}, black, thick] table {data/canon/anti-prediction/linear/md/merge_random};
-                \addplot+ [boxplot={draw position=4}, black] table {data/canon/anti-prediction/linear/md/quick_random};
+                \addplot+ [boxplot={draw position=3}, black] table {data/canon/anti-prediction/linear/md/merge_random};
+                \addplot+ [boxplot={draw position=4}, black, thick] table {data/canon/anti-prediction/linear/md/quick_random};
             \end{axis}
         \end{tikzpicture}
         \caption{Zufällige Liste}
-        \label{sfig:large-random}
+        \label{subfig:results-boxplots-md-random}
     \end{subfigure}
     \hfil
     \begin{subfigure}[T]{0.4\linewidth}
@@ -49,7 +49,8 @@
             \end{axis}
         \end{tikzpicture}
         \caption{Sortierte Liste}
+        \label{subfig:results-boxplots-md-sorted}
     \end{subfigure}}
-    \caption{Boxplots der benchmark-Ergebnisse für große Mengen ($n \leq 262144$). Ergebnisse für den Insertion Sort werden in \subref{sfig:large-inverted} und \subref{sfig:large-random} nicht gezeigt, da die Daten um einige Ordnungen größer als jene der anderen Algorithmen sind. Die entsprechenden Daten können in \prettyref{fig:app-linear-large} nachgeschlagen werden.}
+    \caption{Boxplots der benchmark-Ergebnisse für große Mengen ($n \leq 262144$).}
     \label{fig:results-boxplots-md}
 \end{figure}
