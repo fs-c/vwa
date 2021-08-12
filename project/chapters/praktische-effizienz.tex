@@ -65,7 +65,7 @@ sets::set_t sets::random(const size_t size) {
 
 (Die Funktion \lstinline{utils::random_shuffle}, welche für das Generieren der zufällig geordneten Menge verwendet wird, verwendet den Mersenne-Twister-Algorithmus, um hochwertige Pseudozufallszahlen zu generieren und damit die Eingabemenge \enquote{durchzumischen}. Siehe \prettyref{lst:random-shuffle} für die verwendete Implementation der Funktion.)
 
-Eine ausführlichere Auswahl an Eingangsmengen, welche an einen sie bearbeitenden Algorithmen angepasst ist -- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre (vgl. \cite[27ff]{mcg2012}) --, würde das gesetzte Ziel dieser Arbeit verfehlen.
+Eine ausführlichere Auswahl an Eingangsmengen, welche an einen sie bearbeitenden Algorithmen angepasst ist -- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre (vgl. \cite[27]{mcg2012}) --, würde das gesetzte Ziel dieser Arbeit verfehlen.
 
 \section{Testumgebung}
 \label{sec:runtime-environment}
@@ -121,7 +121,7 @@ const auto time = experiment(wrapper).run();
 \end{lstlisting}
 \end{minipage}
 
-Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet um eine \enquote{umwickelnde Funktion}, einen sogenannten \id{wrapper}, zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter \lstinline{size} bzw. 1337.
+Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet, um eine \enquote{umwickelnde Funktion}, einen sogenannten \id{wrapper}, zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter \lstinline{size} bzw. 1337.
 
 \section{Ermittlung der praktischen Effizienz}
 \label{sec:funkterm}

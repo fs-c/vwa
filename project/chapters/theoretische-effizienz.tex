@@ -104,7 +104,7 @@ Anzumerken ist jedoch, dass die $O$-Notation die \emph{asymptotische} Wachstumsr
 \section{Ermittlung der theoretischen Effizienz}
 \label{sec:te-ermittlung}
 
-Im folgenden Abschnitt werden Komplexitätsanalysen diverser Pseudocode-Ausschnitte (vgl. \cite[69ff]{sha2011}) präsentiert.
+Im folgenden Abschnitt werden Komplexitätsanalysen diverser Pseudocode-Ausschnitte (vgl. \cite[69]{sha2011}) präsentiert.
 
 \begin{codebox}
     \li $a = 2 \cdot A[i]$          \label{ln:ex1-setup}
@@ -149,7 +149,7 @@ Die erste Schleife in \prettyref{ln:ex3-outer-for} läuft $n$ Mal, bei jeder Ite
 \begin{equation*}
     \sum_{i = 0}^{n} i = \frac{n(n - 1)}{2} = O(n^2)
 \end{equation*}
-und die Komplexität des Körpers der inneren Schleife in $O(1)$ ist, ist der gesamte Schleifenkonstrukt in $O(n^2)$.
+und die Komplexität des Körpers der inneren Schleife in $O(1)$ ist, ist das gesamte Schleifenkonstrukt in $O(n^2)$.
 
 Damit ist der Ausschnitt also in $O(1) + O(n) + O(n^2)$ was zu $O(n^2)$ vereinfacht werden kann.
 

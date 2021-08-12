@@ -38,7 +38,7 @@ namespace sets {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:insertion, caption={Implementation des \emph{insertion sort}.}]
+\begin{lstlisting}[float, label=lst:insertion, caption={Implementation des \emph{insertionsort}.}]
 template <class I, class P = std::less<>>
 void insertion(I first, I last, P cmp = P{}) {
 	for (auto it = first; it != last; ++it) {
@@ -75,7 +75,7 @@ void heap(RI first, RI last, P cmp = P{}) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:merge, caption={Implementation des \emph{merge sort}.}]
+\begin{lstlisting}[float, label=lst:merge, caption={Implementation des \emph{mergesort}.}]
 template <class BI, class P = std::less<>>
 void merge(BI first, BI last, P cmp = P{}) {
 	auto const N = std::distance(first, last);
