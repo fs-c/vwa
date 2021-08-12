@@ -22,18 +22,16 @@ Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprac
 
 Es gilt die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Funktion $T(n)$ (wobei $T(n)$ die Zeit und $n$ die Eingabegröße ist) darzustellen. Das Ziel deckt sich also mit jenem der asymptotischen Analyse aus \prettyref{cha:asymptotic-analysis}. Genauer gilt es, ebenfalls wie in der asymptotischen Analyse, eine solche Funktion für diverse Arten von Eingabemengen zu ermitteln (\cite[27]{mcg2012}).
 
-Nach \cite[10]{mcg2012} kann \enquote{the experimental process} im Kontext der empirischen Algorithmusanalyse im Wesentlichen grob in die Formulierung einer Frage, die Bereitstellung einer, die Frage behandelnden, Testumgebung bzw. eines Testprogramms und die Ausführung des Testprogramms aufgegliedert werden.
+Nach \cite[10]{mcg2012} kann \enquote{the experimental process} im Kontext der empirischen Algorithmusanalyse im Wesentlichen grob in die Formulierung einer Frage, die Bereitstellung einer die Frage behandelnden Testumgebung bzw. eines Testprogramms und die Ausführung des Testprogramms aufgegliedert werden.
 
-Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels:
-
-\spaced{\enquote{Wie viel Zeit benötigt ein Sortieralgorithmus um Eingabemengen verschiedener Art und Größe in eine sortierte Ausgabemenge zu überführen?}}
+Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels: Wie viel Zeit benötigt ein Sortieralgorithmus um Eingabemengen verschiedener Art und Größe in eine sortierte Ausgabemenge zu überführen?
 
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
 
-Für die Ermittlung der praktischen Effizienz werden sortierte, invertierte und zufällig geordnete Eingabemengen verwendet. Um diese Mengen zu generieren werden die Funktionen \lstinline{sets::sorted}, \lstinline{sets::inverted} und \lstinline{sets::random} verwendet.
+Für die Ermittlung der praktischen Effizienz werden sortierte, invertierte und zufällig geordnete Eingabemengen verwendet. Um diese Mengen zu generieren, werden die Funktionen \lstinline{sets::sorted}, \lstinline{sets::inverted} und \lstinline{sets::random} verwendet.
 
-\begin{lstlisting}[caption=Funktionen welche Mengen der verwendeten Eingabemengearten generieren.]
+\begin{lstlisting}[caption={Funktionen, welche Mengen der verwendeten Eingabemengearten generieren.}]
 namespace sets {
     using set_t = std::vector<int>;
 
@@ -65,9 +63,9 @@ sets::set_t sets::random(const size_t size) {
 }
 \end{lstlisting}
 
-(Die Funktion \lstinline{utils::random_shuffle}, welche für das Generieren der zufällig geordneten Menge verwendet wird, verwendet den Mersenne-Twister Algorithmus um hochwertige Pseudozufallszahlen zu generieren und damit die Eingabemenge \enquote{durchzumischen}. Siehe \prettyref{lst:random-shuffle} für die verwendete Implementation der Funktion.)
+(Die Funktion \lstinline{utils::random_shuffle}, welche für das Generieren der zufällig geordneten Menge verwendet wird, verwendet den Mersenne-Twister-Algorithmus, um hochwertige Pseudozufallszahlen zu generieren und damit die Eingabemenge \enquote{durchzumischen}. Siehe \prettyref{lst:random-shuffle} für die verwendete Implementation der Funktion.)
 
-Eine ausführlichere Auswahl an Eingangsmengen welche an einen sie bearbeitenden Algorithmen angepasst ist --- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre (vgl. \cite[27ff]{mcg2012}) --- würde das allgemeiner gesetzte Ziel dieser Arbeit verfehlen.
+Eine ausführlichere Auswahl an Eingangsmengen, welche an einen sie bearbeitenden Algorithmen angepasst ist -- wie sie für eine eingehende Analyse eines einzelnen Algorithmus angebracht wäre (vgl. \cite[27ff]{mcg2012}) --, würde das gesetzte Ziel dieser Arbeit verfehlen.
 
 \section{Testumgebung}
 \label{sec:runtime-environment}
@@ -108,25 +106,27 @@ Die Laufzeit eines einfachen Algorithmus kann mit ihrer Hilfe durch
 void a1() { ... }
 const auto time = experiment(a1).run();
 \end{lstlisting}
-ermittelt werden, wobei die Zeitspanne in der für das System kleinstmöglichen Einheit angegeben ist (vgl. \cite[652]{ISO-C++17}). Auf den verwendeten Testsystem wird die Zeit in Nanosekunden gemessen, $1ns = 10^{-9}s = 0,000000001s$.
+ermittelt werden, wobei die Zeitspanne in der für das System kleinstmöglichen Einheit angegeben ist (vgl. \cite[652]{ISO-C++17}). Auf dem verwendeten Testsystem wird die Zeit in Nanosekunden gemessen, $1ns = 10^{-9}s = 0,000000001s$.
 
-\paragraph{Algorithmen mit Eingabewerten} Der Konstruktor in der Klasse aus \prettyref{lst:experiment} erwartet als einzige Eingabe eine Variable des Typs \lstinline{std::function<void()>}, also eine Funktion ohne Eingabe- und Rückgabewerte. Dies ist der Fall um größtmögliche Flexibilität in der Verwendung der Testumgebung zu gewährleisten.
+\paragraph{Algorithmen mit Eingabewerten} Der Konstruktor in der Klasse aus \prettyref{lst:experiment} erwartet als einzige Eingabe eine Variable des Typs \lstinline{std::function<void()>}, also eine Funktion ohne Eingabe- und Rückgabewerte. Dies ist der Fall, um größtmögliche Flexibilität in der Verwendung der Testumgebung zu gewährleisten.
 
-Die in dieser Arbeit behandelten Algorithmen haben alle einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form wie sie vom Konstruktor erwartet wird. Um ein Experiment mit einer Funktion eines anderen Typs als \lstinline{void()} zu initialisieren wird ein \enquote{\emph{wrapper}} verwendet:
+Die in dieser Arbeit behandelten Algorithmen haben alle einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form, wie sie vom Konstruktor erwartet wird. Um ein Experiment mit einer Funktion eines anderen Typs als \lstinline{void()} zu initialisieren, wird ein \enquote{\emph{wrapper}} verwendet.
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[numbers=none]
 const size_t size = 1337;
 void |\id{func}|(const size_t s) { ... }
 const auto |\id{wrapper}| = [&]() { func(size); };
 const auto time = experiment(wrapper).run();
 \end{lstlisting}
+\end{minipage}
 
 Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet um eine \enquote{umwickelnde Funktion}, einen sogenannten \id{wrapper}, zu erstellen. Ein Aufruf von \id{wrapper} führt zum Aufruf der Funktion \id{func} mit dem Eingabeparameter \lstinline{size} bzw. 1337.
 
-\section{Ermittlung}
+\section{Ermittlung der praktischen Effizienz}
 \label{sec:funkterm}
 
-Das Ziel ist es, eine Funktion aufzustellen, bzw. zu approximieren, welche die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen gilt es die Eingabemenge in wachsende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit (in Kombination mit der Größe der jeweiligen Untermenge) auszugeben.
+Das Ziel ist es, eine Funktion aufzustellen, bzw. zu approximieren, welche die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen, gilt es, die Eingabemenge in wachsende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit (in Kombination mit der Größe der jeweiligen Untermenge) auszugeben.
 
 Hierfür ist eine Klasse \lstinline{class benchmark} gegeben, die mit einer Eingabemenge, einem Sortieralgorithmus, einer Angabe zur Art der Ermittlung der Untermengen und der Anzahl der zu erstellenden Untermengen konstruiert wird.
 
@@ -149,7 +149,7 @@ public:
 \noindent
 In \prettyref{lst:simple-benchmark} wird ein vereinfachter Einblick in eine Schnittstelle zu einem, diese Anforderungen erfüllenden, Mechanismus gegeben\footnote{Für eine vollständige Implementation siehe \crBenchmark~und \crBenchmarkImpl.}.
 
-Die Funktion \lstinline{benchmark::run} retourniert eine Instanz der Klasse \lstinline{class benchmark::result} die wiederum eine Menge von Größenangaben und damit assoziierten Zeitangaben ist. Eine von dieser Funktion zurückgegebene Menge von Paaren hat beispielsweise die Form
+Die Funktion \lstinline{benchmark::run} retourniert eine Instanz der Klasse \lstinline{class benchmark::result}, die wiederum eine Menge von Größenangaben und damit assoziierten Zeitangaben ist. Eine von dieser Funktion zurückgegebene Menge von Paaren hat beispielsweise die Form:
 \begin{equation*}
 	\{
 		(1, 0.0768125),
@@ -160,7 +160,7 @@ Die Funktion \lstinline{benchmark::run} retourniert eine Instanz der Klasse \lst
 		(n, t)
 	\}
 \end{equation*}
-Sie ist so interpretieren, dass der gegebene Algorithmus für das Sortieren einer Untermenge der Größe $n$ der gegebenen Menge $t$ Zeiteinheiten benötigt hat.
+Sie ist so zu interpretieren, dass der gegebene Algorithmus für das Sortieren einer Untermenge der Größe $n$ der gegebenen Menge $t$ Zeiteinheiten benötigt hat.
 
 \paragraph{Art der Schrittgröße}
 
@@ -179,11 +179,11 @@ In den vorhergehenden Abschnitten wurde
     \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{class benchmark}, \prettyref{sec:funkterm}).
 \end{itemize}
 
-Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark} Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
+Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es, ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark}-Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es, einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.
 
 \input{figures/benchmark-file-structure}
 
-Diese Anforderungen erfüllt das \emph{benchmark}-Programm bzw. der Code in \crMain. Standardmäßig erstellt es einen Ordner \emph{out} und befüllt diesen mit gesammelten Daten. Für jede mögliche Kombination aus Algorithmus und Eingabeart wird eine Tabelle mit Untermengengrößen und Zeitangaben erstellt, siehe \prettyref{fig:benchmark-file-structure}.
+Diese Anforderungen erfüllt das benchmark-Programm bzw. der Code in \crMain. Standardmäßig erstellt es einen Ordner \emph{out} und befüllt diesen mit gesammelten Daten. Für jede mögliche Kombination aus Algorithmus und Eingabeart wird eine Tabelle mit Untermengengrößen und Zeitangaben erstellt, siehe \prettyref{fig:benchmark-file-structure}.
 
 Eine Steuerung der Vorgänge zur Datensammlung und -aufbereitung im Programm kann durch Parameter auf der Kommandozeile erfolgen. So sagt etwa der Befehl \enquote{\lstinline{benchmark -o data -s 512}} aus, dass ein Ordner \emph{data} (anstelle von out) erstellt werden soll. Ebenfalls soll die größte zu sortierende Liste genau 512 Elemente haben. Alle möglichen Befehle sind \prettyref{fig:benchmark-usage} zu entnehmen.
 
@@ -204,7 +204,7 @@ Options:
   -r, --randomize   Randomize the order in which the different combinations
                     between sorters and sets are benchmarked. (default: false)
     \end{lstlisting}
-    \caption{Anwendungsbeschreibung des \enquote{benchmark}-Programms, ausgegeben nach Ausführung von \lstinline{benchmark -h}.}
+    \caption{Anwendungsbeschreibung des benchmark-Programms, ausgegeben nach Ausführung von \lstinline{benchmark -h}.}
     \label{fig:benchmark-usage}
 \end{figure}
 

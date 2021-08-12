@@ -1,7 +1,8 @@
 \chapter{Definition und Funktion von Algorithmen}
 \label{cha:definition-funktion-algorithmen}
-
-Dieses Kapitel beschäftigt sich mit der Definition des Algorithmus- und, in diesem Kontext, Effizienzbegriffs sowie mit der grundlegenden Funktionsweise von Algorithmen am Beispiel von Sortieralgorithmen.
+% PB1
+\vspace{-0.25cm}
+Dieses Kapitel beschäftigt sich mit der Definition des Algorithmus- und, in diesem Kontext, Effizienzbegriffs, sowie mit der grundlegenden Funktionsweise von Algorithmen am Beispiel von Sortieralgorithmen.
 
 In \prettyref{sec:algorithm-definition} werden der Ursprung und vorhergehende Bedeutungen des Wortes \enquote{Algorithmus} behandelt. Ebenso wird eine, zur kontemporären Bedeutung des Begriffs passende, Begriffsdefinition aufgestellt.
 
@@ -10,11 +11,13 @@ Ein Überblick über die verschiedenen Möglichkeiten zur Darstellung von Algori
 Die Begrifflichkeit \enquote{Sortieralgorithmus} wird in \prettyref{sec:sorting-algorithms-definition} definiert. Anhand eines Beispielalgorithmus, dem \proc{Insertion-Sort}, wird die Arbeitsweise von Algorithmen, und insbesondere von Sortieralgorithmen, dargestellt.
 
 In \prettyref{sec:algo-effizienz} wird eine Definition des Effizienzbegriffs im Kontext von Algorithmen vorgenommen.
-
+%
+% To fix page break 1
+\vspace{-0.25cm}
 \section{Definition}
 \label{sec:algorithm-definition}
 
-Noch um 1957 war \enquote{\emph{algorithm}} nicht in \emph{Webster's New World Dictionary} vertreten. Dort war nur der ältere Begriff \enquote{\emph{algorism}} zu finden, zu Deutsch das Rechnen mit der arabischen Zahlschrift. \emph{Algorism} entstammt dem Namen eines persischen Autors, \emph{Abū 'Abd Allāh Muhammad ibn Mūsā al-Khwārizmī} \footnotemark (circa 825 A. D., vgl. \cite[1--2]{taocp1}). Al-Khwārizmī schrieb das Buch \emph{Kitab al jabr wa'l-muqābala} (\enquote{[\ldots] Rechenverfahren durch Ergänzen und Ausgleichen}), aus dessem Titel ein anderes Wort, \enquote{Algebra}, entstammt (\cite[197--199]{ger1984}). Die Wandlung des Begriffs \emph{algorism} zu \emph{algorithm} (und damit Algorithmus) ist in \emph{Vollständiges mathematisches Lexicon} (\cite[38]{wol1747}) dokumentiert, hier wird der Begriff wie folgt definiert: \enquote{Unter dieser Benennung werden zusammen begriffen die 4 Rechnungs-Arten in der Rechen-Kunst nemlich addiren, multipliciren, subtrahiren und dividiren. [...]} (alte Rechtschreibung übernommen).
+Noch um 1957 war \enquote{\emph{algorithm}} nicht in \emph{Webster's New World Dictionary} vertreten. Dort war nur der ältere Begriff \enquote{\emph{algorism}} zu finden, zu Deutsch das Rechnen mit der arabischen Zahlschrift. \emph{Algorism} entstammt dem Namen eines persischen Autors, \emph{Abū 'Abd Allāh Muhammad ibn Mūsā al-Khwārizmī} \footnotemark (circa 825 A. D., vgl. \cite[1--2]{taocp1}). Al-Khwārizmī schrieb das Buch \emph{Kitab al jabr wa'l-muqābala} (\enquote{[\ldots] Rechenverfahren durch Ergänzen und Ausgleichen}), aus dessen Titel ein anderes Wort, \enquote{Algebra}, entstammt (\cite[197--199]{ger1984}). Die Wandlung des Begriffs \emph{algorism} zu \emph{algorithm} (und damit Algorithmus) ist in \emph{Vollständiges mathematisches Lexicon} (\cite[38]{wol1747}) dokumentiert, hier wird der Begriff wie folgt definiert: \enquote{Unter dieser Benennung werden zusammen begriffen die 4 Rechnungs-Arten in der Rechen-Kunst nemlich addiren, multipliciren, subtrahiren und dividiren. [...]} (alte Rechtschreibung übernommen).
 
 \footnotetext{Al-Khwārizmīs Name stellt in der Literatur eine Quelle der Verwirrung dar: \cite[1]{hsr1997}, \cite[1]{taocp1}, \cite[84]{pic2009} und \cite[197--199]{ger1984} verwenden bei ihren Erwähnungen jeweils unterschiedliche Namen, sprechen jedoch von derselben Person.}
 
@@ -31,7 +34,7 @@ Die moderne Bedeutung des Wortes \emph{Algorithmus} ist nicht unähnlich zu den 
 
     \item \emph{Endlichkeit}. Ein Algorithmus terminiert\footnote{Abbruch mit Erfolg oder Misserfolg} nach einer endlichen Anzahl von Arbeitsschritten.
 
-    \item \emph{Effektivität}. Die Arbeitsschritte müssen einfach genug sein um in endlicher Zeit von einer Person mit Stift und Papier ausgeführt werden zu können. \ifndef{vwarelease}{\emph{Mit Beispielen besser zu erklären.}}{}
+    \item \emph{Effektivität}. Die Arbeitsschritte müssen einfach genug sein, um in endlicher Zeit von einer Person mit Stift und Papier ausgeführt werden zu können. \ifndef{vwarelease}{\emph{Mit Beispielen besser zu erklären.}}{}
 \end{enumerate}
 
 Etwas informeller kann ein Algorithmus als ein \emph{wohldefiniertes} (vgl. \cite[16]{alu2009}) Berechnungsverfahren (engl. \emph{computational procedure}) beschrieben werden, das einen Wert, oder eine Menge von Werten, als Eingabe erhält und einen Wert, oder eine Menge von Werten, als Ausgabe produziert (vgl. \cite[5]{clrs2001}). Ein Algorithmus ist also eine Folge von Berechnungsschritten, welche Eingabe zu Ausgabe überführen.
@@ -51,31 +54,31 @@ Eine andere Methode ist die Darstellung eines Algorithmus mithilfe von \emph{Flo
 
 \input{figures/flowchart-algorithm-specification}
 
-Diese Art der Beschreibung eignet sich am besten für kleine bzw. kurze Algorithmen (\cite[5]{hsr1997}). Sie wird (wie etwa auch von \citeauthor{taocp1}) meistens in Kombination mit einer anderen Algorithmusbeschreibung verwendet um diese zu komplementieren.
+Diese Art der Beschreibung eignet sich am besten für kleine bzw. kurze Algorithmen (\cite[5]{hsr1997}). Sie wird (wie etwa auch von \citeauthor{taocp1}) meistens in Kombination mit einer anderen Algorithmusbeschreibung verwendet, um diese zu komplementieren.
 
 Die wohl am weitreichendsten etablierte Art der Beschreibung von Algorithmen ist jedoch \emph{Pseudocode} (vgl. \cite[147]{zob2015}), wie er etwa in \prettyref{fig:pseudocode-algorithm-specification} zu sehen ist.
 
 \input{figures/pseudocode-algorithm-specification}
 
-Pseudocode ist näher zu tatsächlichen Programmiersprachen in denen ein Algorithmus implementiert werden könnte als die bisher erwähnten Alternativen (vgl. \cite[1]{ofn2015}). Er bleibt allerdings abstrakt genug um Algorithmen (im Gegensatz zu vielen Programmiersprachen) unabhängig von Hardware und im Kontext unwichtigen Formalismen diverser Programmiersprachen darstellen zu können (vgl. \cite[1]{bem1958}). Die Darstellung durch Pseudocode macht allerdings dennoch ein erstes Verständnis des beschriebenen Algorithmus üblicherweise schwerer als andere Methoden, bleibt allerdings durch die Nähe zu möglichen konkreten Implementationen unmissverständlicher (vgl. \cite[147]{zob2015}). Aus letzterem Grund wird in der folgenden Arbeit Pseudocode zur Algorithmusbeschreibung verwendet.
+Pseudocode ist näher zu tatsächlichen Programmiersprachen, in denen ein Algorithmus implementiert werden könnte, als die bisher erwähnten Alternativen (vgl. \cite[1]{ofn2015}). Er bleibt allerdings abstrakt genug um Algorithmen (im Gegensatz zu vielen Programmiersprachen) unabhängig von Hardware und im Kontext unwichtigen Formalismen diverser Programmiersprachen darstellen zu können (vgl. \cite[1]{bem1958}). Die Darstellung durch Pseudocode macht allerdings dennoch ein erstes Verständnis des beschriebenen Algorithmus üblicherweise schwerer als andere Methoden, bleibt allerdings durch die Nähe zu möglichen konkreten Implementationen unmissverständlicher (vgl. \cite[147]{zob2015}). Aus letzterem Grund wird in der folgenden Arbeit Pseudocode zur Algorithmusbeschreibung verwendet.
 
 \section{Pseudocode}
 \label{sec:alg-spec-pseudo}
 
 Es gibt nicht \emph{eine bestimmte} Pseudocode-Notation.
 
-Programmiersprachen wie beispielsweise C++17 sind versioniert und standardisiert (vgl. \cite{ISO-C++17}), für Pseudocode gibt es keinen derart weit verbreiteten (oder wohldefinierten) Standard (vgl. \cite{kni1996}). Eine derartige Standardisierung wäre allerdings auch entgegen der Zielsetzung: Die Freiheit, Pseudocode an den gegebenen Kontext anzupassen ist eine seiner großen Stärken. So wird zwar in einem Gutteil der in dieser Arbeit zitierten Werke Pseudocode verwendet (sofern im Kontext erfordert), konkrete Ausprägungen variieren jedoch in Syntax und Semantik\footnotemark.
+Programmiersprachen wie beispielsweise C++17 sind versioniert und standardisiert (vgl. \cite{ISO-C++17}), für Pseudocode gibt es keinen derart weit verbreiteten (oder wohldefinierten) Standard (vgl. \cite{kni1996}). Eine derartige Standardisierung wäre allerdings auch entgegen der Zielsetzung: Die Freiheit, Pseudocode an den gegebenen Kontext anzupassen, ist eine seiner großen Stärken. So wird zwar in einem Gutteil der in dieser Arbeit zitierten Werke Pseudocode verwendet (sofern im Kontext erfordert), konkrete Ausprägungen variieren jedoch in Syntax und Semantik\footnotemark.
 
 \footnotetext{Vgl. beispielsweise die diversen Definitionen der verwendeten Pseudocode-Varianten in \cite[5]{hsr1997}, \cite[20ff]{clrs2001} und \cite[33ff]{ahu1974}, die jeweils an den Verwendungskontext angepasst sind.}
 
-Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt wird für Beschreibungen von Algorithmen in dieser Arbeit überwiegend Pseudocode zum Einsatz kommen. Genauer werden die \emph{\enquote{pseudocode conventions}} aus \cite[20ff]{clrs2001} verwendet, folgend kurz zusammengefasst.
+Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird für Beschreibungen von Algorithmen in dieser Arbeit überwiegend Pseudocode zum Einsatz kommen. Genauer werden die \emph{\enquote{pseudocode conventions}} aus \cite[20-22]{clrs2001} verwendet, folgend kurz zusammengefasst.
 
 \begin{itemize}
     \item Namen von Algorithmen sind in \proc{Kapitälchen} gesetzt. Namen von Variablen sind \id{kursiv} gesetzt und üblicherweise einzelne Buchstaben ($i$, $n$, \ldots).
 
-    \item Die \enquote{Blockstruktur} ist durch Einrückung vorgegeben. Beispielsweise beginnt der Körper der \textbf{while} Schleife aus \prettyref{fig:pseudocode-algorithm-specification} auf \prettyref{ln:euclid-while-begin} und endet auf \prettyref{ln:euclid-while-end}.
+    \item Die \enquote{Blockstruktur} ist durch Einrückung vorgegeben. Beispielsweise beginnt der Körper der \textbf{while}-Schleife aus \prettyref{fig:pseudocode-algorithm-specification} auf \prettyref{ln:euclid-while-begin} und endet auf \prettyref{ln:euclid-while-end}.
     
-    \item Die Konstrukte \textbf{while} und \textbf{for} sind ähnlich interpretierbar wie jene in Sprachen wie C oder Java, wobei eine Vereinfachung der in dieser Sprachgruppe üblichen Syntax der \textbf{for} Schleife vorgenommen wurde.
+    \item Die Konstrukte \textbf{while} und \textbf{for} sind ähnlich interpretierbar wie jene in Sprachen wie C oder Java, wobei eine Vereinfachung der in dieser Sprachgruppe üblichen Syntax der \textbf{for}-Schleife vorgenommen wurde.
 
     \begin{minipage}[t]{0.48\linewidth}
         \begin{codebox}
@@ -103,7 +106,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt wird für
 
     \item Ebenso ähnlich zu Programmiersprachen wie C, \ldots ist die Verwendung von $=$ mit der Bedeutung einer \emph{Zuweisung} und $==$ mit der Beudeutung eines \emph{Vergleichs} (wie $<$ oder $\leq$).
 
-    \item Wie aus den vorhergehenden Beispielen hervorgeht deutet das Symbol \enquote{\Comment} darauf hin, dass der Rest der Zeile als Kommentar zu verstehen ist.
+    \item Wie aus den vorhergehenden Beispielen hervorgeht, deutet das Symbol \enquote{\Comment} darauf hin, dass der Rest der Zeile als Kommentar zu verstehen ist.
     
     \item Elemente eines \emph{Array} (Datenfeld) $A$ werden durch $A[i]$ abgerufen, wobei $i$ der Index des Elements ist. Arrays werden im Gegensatz zu vielen üblichen Pro\-grammier\-sprachen beginnend mit 1 indiziert und befüllt -- $A[1]$ ist das erste Element in einem Array $A$.
     
@@ -113,7 +116,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt wird für
 
     \item Manchmal werden Schritte auch nur in natürlicher Sprache beschrieben, wenn dadurch die Verständlichkeit gefördert wird, und dennoch die Eindeutigkeit der Schritte gegeben ist.
 
-    So wird beispielsweise wenn angebracht \enquote{tausche $A[i]$ und $A[j]$ aus} anstelle von
+    So wird beispielsweise, wenn angebracht, \enquote{tausche $A[i]$ und $A[j]$ aus} anstelle von
     \begin{codebox}
         \li $t \gets A[i]$
         \li $A[i] \gets A[j]$
@@ -121,7 +124,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt wird für
     \end{codebox}
     geschrieben.
     
-    \item Eine \Return Anweisung überträgt die Kontrolle und einen optionalen, auf die Anweisung folgenden, Wert zurück zur Aufrufstelle.
+    \item Eine \Return-Anweisung überträgt die Kontrolle und einen optionalen, auf die Anweisung folgenden Wert zurück zur Aufrufstelle.
 
     \ifndef{vwarelease}{\emph{Hier wäre ein Beispiel angebracht, vielleicht mit Rekursion?}}{}
 \end{itemize}
@@ -129,28 +132,26 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt wird für
 \section{Sortieralgorithmen}
 \label{sec:sorting-algorithms-definition}
 
-Ein Sortieralgorithmus ist ein Algorithmus der eine Eingabemenge $A$ in eine sortierte Permutation dieser Menge überführt, und als Ausgabemenge zurückgibt. Genauer muss bei einer Eingabemenge mit den $n$ Elementen $a_1, a_2, \ldots, a_n$ gelten, dass für alle Elemente $a'_1, a'_2, \ldots, a'_n$ der Ausgabemenge die Ordnungsrelation $a'_1 \leq a'_2 \leq \cdots \leq a'_n$ gilt (vgl. \cite[4]{taocp3}).
+Ein Sortieralgorithmus ist ein Algorithmus, der eine Eingabemenge $A$ in eine sortierte Permutation dieser Menge überführt, und als Ausgabemenge zurückgibt. Genauer muss bei einer Eingabemenge mit den $n$ Elementen $a_1, a_2, \ldots, a_n$ gelten, dass für alle Elemente $a'_1, a'_2, \ldots, a'_n$ der Ausgabemenge die Ordnungsrelation $a'_1 \leq a'_2 \leq \cdots \leq a'_n$ gilt (vgl. \cite[4]{taocp3}).
 
-
-
-Ein ikonischer Sortieralgorithmus ist der \enquote{insertion sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt} -- daher der Name \emph{insertion} sort. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein ihn auch jetzt schon etwas genauer zu betrachten.
+Ein ikonischer Sortieralgorithmus ist der \proc{Insertion-Sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt}. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein ihn auch jetzt schon etwas genauer zu betrachten.
 
 \input{algorithms/insertion-sort}
 
-Bevor ein Element $A[j]$ betrachtet wird besteht die Annahme, dass die Elemente $A[1], \ldots, A[j - 1]$ sortiert sind. (Aus diesem Grund beginnt die \For Schleife in \prettyref{ln:insertions-for-begin} mit $j = 2$ und nicht etwa mit $j = 1$; das Subarray $A[1 \twodots j - 1]$ hat für $j = 2$ nur ein Element und ist somit immer \enquote{sortiert}.)
+Bevor ein Element $A[j]$ betrachtet wird besteht die Annahme, dass die Elemente $A[1], \ldots, A[j - 1]$ sortiert sind. (Aus diesem Grund beginnt die \For-Schleife in \prettyref{ln:insertions-for-begin} mit $j = 2$ und nicht etwa mit $j = 1$; das Subarray $A[1 \twodots j - 1]$ hat für $j = 2$ nur ein Element und ist somit immer \enquote{sortiert}.)
 
-Jedes Element $A[2 \twodots \attrib{A}{length}]$ wird nun einzeln betrachtet und in $A[1 \twodots j - 1]$ \enquote{einsortiert}. Um ein Element derart in die Teilliste einzufügen zu können muss
+Jedes Element $A[2 \twodots \attrib{A}{length}]$ wird nun einzeln betrachtet und in $A[1 \twodots j - 1]$ \enquote{einsortiert}. Um ein Element derart in die Teilliste einzufügen zu können, muss
 \begin{enumerate}[nosep, label=(\alph*)]
     \item der neue Index des einzufügenden Elements gefunden werden.
     \item Platz für das einzufügende Element geschaffen werden.
 \end{enumerate}
-Dies passiert in der \While Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indexe $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
+Dies passiert in der \While-Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indexe $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
 
-Im Zuge dieser Verschiebung wird anfangs das Element $A[j]$ überschrieben, nachdem bei der ersten Iteration gilt, dass $j = i + 1$. Aus diesem Grund wird der Wert von $A[j]$ zu Beginn der \For-Schleife in der Variable $\id{key}$ zwischengespeichert (\prettyref{ln:ins-intermediary}).
+Im Zuge dieser Verschiebung wird anfangs das Element $A[j]$ überschrieben, nachdem bei der ersten Iteration gilt, dass $j = i + 1$. Aus diesem Grund wird der Wert von $A[j]$ zu Beginn der äußeren Schleife in der Variable $\id{key}$ zwischengespeichert (\prettyref{ln:ins-intermediary}).
 
 Gilt nach einer Verschiebung $A[i] \leq \id{key}$ (bzw. gilt also $A[i] > \id{key}$, \prettyref{ln:ins-inner-while}, \emph{nicht}), so wurde der neue Index des einzufügenden Elements gefunden: Das Element ist nach $A[i]$, also am Index $i + 1$ einzufügen (\prettyref{ln:ins-insertion}).
 
-Nach Beendigung der \For Schleife wurde die Eingabemenge vollständig sortiert.
+Nach Beendigung der \For-Schleife wurde die Eingabemenge vollständig sortiert.
 
 \section{Effizienz}
 \label{sec:algo-effizienz}
@@ -161,6 +162,6 @@ Diese Unterscheidung geschieht in der Literatur üblicherweise implizit. So beha
 
 Wie der Großteil vergleichbarer Analysen (vgl. bspw. \cite[23]{clrs2001} und \cite[58]{sha2011}) beschäftigt sich diese Arbeit mit der Analyse der von einem Algorithmus als Ressource verbrauchte Zeit, im Folgenden auch als \enquote{Laufzeit} bezeichnet. Wenn nicht näher angegeben beziehen sich die Begriffe \enquote{praktische}- und \enquote{theoretische Effizenz} immer auf die Laufzeit.
 
-Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
+Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke, die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen, stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
 
-Ist die Effizienz eines Algorithmus zu ermitteln, gilt es also die Zeit die dieser benötigt zumindest annähernd als Funktion in Abhängigkeit von $n$ darzustellen.
+Ist die Effizienz eines Algorithmus zu ermitteln, gilt es also die Zeit, die dieser benötigt, zumindest annähernd als Funktion in Abhängigkeit von $n$ darzustellen.

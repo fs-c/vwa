@@ -124,7 +124,7 @@
 % Recommended for biblatex.
 \usepackage{xpatch}
 % For coherent, managed citations.
-\usepackage[style=authoryear, citereset=subsection+, maxbibnames=99, doi=false,isbn=false,url=false,eprint=false]{biblatex}
+\usepackage[style=authoryear, citereset=subsection+, maxbibnames=3, doi=false,isbn=false,url=false,eprint=false]{biblatex}
 % Add all .bib files in the bibliography folder.
 \addbibresource{bibliography/main.bib}
 % Add a comma between a publications author name and year to comply with the guideline.
@@ -165,6 +165,8 @@
 
 % For named references
 \usepackage{nameref}
+
+\usepackage{tocbibind}
 
 \ifndef{vwarelease}{%
     \setlength{\headheight}{15.2pt}%

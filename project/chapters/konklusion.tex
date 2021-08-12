@@ -1,10 +1,23 @@
-\chapter*{Konklusion}
-\addcontentsline{toc}{chapter}{Konklusion}
+\chapter*{Schluss}
+\addcontentsline{toc}{chapter}{Schluss}
 
-\prettyref{cha:definition-funktion-algorithmen} legt mit einer Definition des Algorithmusbegriffs, Methoden zur Algorithmusbeschreibung und einer einleitenden Definition des Effizienzbegriffs im Kontext die Basis für die darauffolgenden Kapitel.
+% \prettyref{cha:definition-funktion-algorithmen} legt mit einer Definition des Algorithmusbegriffs, Methoden zur Algorithmusbeschreibung und einer einleitenden Definition des Effizienzbegriffs im Kontext die Basis für die darauffolgenden Kapitel.
 
-Mit der $O$-Notation und der dahinführenden asymptotischen Analyse wird in \prettyref{cha:asymptotic-analysis} ein Weg gegeben, die theoretische Effizienz eines Algorithmus zu ermitteln und darzustellen. Eine solche Ermittlung erfolgt in \prettyref{cha:algorithmen} neben der Beschreibung der im Folgenden verwendeten Algorithmen.
+% Mit der $O$-Notation und der dahinführenden asymptotischen Analyse wird in \prettyref{cha:asymptotic-analysis} ein Weg gegeben, die theoretische Effizienz eines Algorithmus zu ermitteln und darzustellen. Eine solche Ermittlung erfolgt in \prettyref{cha:algorithmen} neben der Beschreibung der im Folgenden verwendeten Algorithmen.
 
-Eine konkrete Möglichkeit zur Bestimmung der praktischen Effizienz eines Sortieralgorithmus wird in \prettyref{cha:praktische-effizienz} erarbeitet. Aufbauend auf einer einfachen Testumgebung und einer Strategie zur Funktionsermittlung kann mithilfe des dargelegten \enquote{benchmark}-Programms automatisiert die praktische Effizienz von diversen Algorithmen auf diversen Eingabemengearten ermittelt werden.
+% Eine konkrete Möglichkeit zur Bestimmung der praktischen Effizienz eines Sortieralgorithmus wird in \prettyref{cha:praktische-effizienz} erarbeitet. Aufbauend auf einer einfachen Testumgebung und einer Strategie zur Funktionsermittlung kann mithilfe des dargelegten \enquote{benchmark}-Programms automatisiert die praktische Effizienz von diversen Algorithmen auf diversen Eingabemengearten ermittelt werden.
 
-\prettyref{cha:vergleich} beschreibt das Verhältnis zwischen praktischer und theoretischer Effizienz anhand der Approximierbarkeit der praktischen aus der theoretischen Effizienz. In \prettyref{sec:approximation} wird dargelegt, dass für die meisten Algorithmen ein einziger Datenpunkt und Kenntnis der theoretischen Effizienz für eine praktikable Approximation der praktischen Effizienz ausreicht. \prettyref{sec:best-algo} beschreibt die Schwierigkeit der Ermittlung eines \enquote{besten} Algorithmus im Allgemeinen, und legt einen Weg zur Ermittlung eines \emph{guten} Algorithmus für einen gewissen Einsatzbereich dar.
+% \prettyref{cha:vergleich} beschreibt das Verhältnis zwischen praktischer und theoretischer Effizienz anhand der Approximierbarkeit der praktischen aus der theoretischen Effizienz. In \prettyref{sec:approximation} wird dargelegt, dass für die meisten Algorithmen ein einziger Datenpunkt und Kenntnis der theoretischen Effizienz für eine praktikable Approximation der praktischen Effizienz ausreicht. \prettyref{sec:best-algo} beschreibt die Schwierigkeit der Ermittlung eines \enquote{besten} Algorithmus im Allgemeinen, und legt einen Weg zur Ermittlung eines \emph{guten} Algorithmus für einen gewissen Einsatzbereich dar.
+
+Die zwei Leitfragen dieser Arbeit wurden insofern beantwortet als
+\begin{itemize}
+    \item \prettyref{cha:asymptotic-analysis} und \prettyref{cha:praktische-effizienz} Definitionen und Ermittlungswege für die theoretische und praktische Effizienz bieten.
+    \item \prettyref{cha:vergleich} das Verhältnis zwischen diesen Effizienzen entlang zweier Blickwinkel behandelt und dargestellt hat.
+\end{itemize}
+
+\prettyref{cha:asymptotic-analysis} leitete die asymptotische Analyse mit dem Ziel der Ermittlung der Größenordnung des Wachstums -- der Komplexität -- einer Funktion ein, und definierte weiters die theoretische Effizienz eines Algorithmus als Komplexität einer Funktion der vom Algorithmus bei einer gewissen Eingabegröße getätigten \enquote{einfachen Operationen}.
+
+In \prettyref{cha:praktische-effizienz} wurde die praktische Effizienz als Zeit, die ein Algorithmus mit einer gewissen Eingabemenge benötigt, formuliert und ein konkretes Programm zur Ermittlung dieser praktischen Effizienz beleuchtet. Teil davon ist eine Implementation von Generatoren für diverse Eingabemengen, eine Testumgebung zur Messung der Laufzeit und Mechanismen zur automatisierten Generierung.
+
+\prettyref{cha:vergleich} beschrieb das Verhältnis zwischen praktischer und theoretischer Effizienz anhand der Approximierbarkeit der praktischen aus der theoretischen Effizienz. In \prettyref{sec:approximation} wurde dargelegt, dass für die meisten Algorithmen ein einziger Datenpunkt und Kenntnis der theoretischen Effizienz für eine praktikable Approximation der praktischen Effizienz ausreicht. \prettyref{sec:best-algo} zeigte die Schwierigkeit der Ermittlung eines \enquote{besten} Algorithmus im Allgemeinen, und legte einen Weg zur Ermittlung eines \emph{guten} Algorithmus für einen gewissen Einsatzbereich dar.
+

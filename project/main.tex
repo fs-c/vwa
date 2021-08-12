@@ -16,16 +16,25 @@
 
 \input{title.tex}
 
+% To fix PB2
+\setlength{\cftbeforetoctitleskip}{0.5cm}
+\setlength{\cftaftertoctitleskip}{1cm}
 \tableofcontents
 
 \input{content.tex}
 
-\printbibliography
+\printbibliography[heading=bibintoc]
 
 \listoffigures
 
 \listoftables
 
 \lstlistoflistings
+
+\begin{appendices}
+    \input{appendices/implementations.tex}
+    
+    \input{appendices/data.tex}
+\end{appendices}
 
 \end{document}
