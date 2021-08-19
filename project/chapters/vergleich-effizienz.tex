@@ -106,8 +106,11 @@ In \prettyref{fig:results-boxplots-sm} wiederholt sich das in \prettyref{fig:res
 
 Für größere Mengen zeigen sich in \prettyref{fig:results-boxplots-md} die Auswirkungen der quadratischen Wachstumsrate des Insertionsort (auch in \prettyref{fig:app-linear-large} gut betrachtbar) --- für umgekehrte und zufällige Mengen (\prettyref{subfig:results-boxplots-md-random} und \ref{subfig:results-boxplots-md-inverted}) ist der Insertionsort um einige Größenordnungen langsamer als Heap-, Merge und Quicksort, aus diesem Grund konnten die Ergebnisse nicht in dieser Form dargestellt werden\footnote{Die entsprechenden Daten können in \prettyref{fig:app-linear-large} nachgeschlagen werden.}.
 
+\prettyref{fig:results-boxplots-md} zeigt auch erstmals den Punkt, an dem der Quicksort auf allen betrachteten Arten von Eingabemengen den alternativen Algorithmen überlegen ist. Nach wie vor ist allerdings der Insertionsort für sortierte Eingabemengen, verglichen zum Heap- und Mergesort sehr schnell.
+
+\pagebreak[3]
 \section{Praktischer Nutzen}
 
 Es wurde gezeigt, dass die praktische Effizienz eines Algorithmus mit nur einem konkreten Messwert durchwegs gut aus seiner theoretischen Effizienz vorhersagbar ist. Von besonderem Interesse für die Praxis sind allerdings die Fälle in denen dies nicht der Fall ist. So ist etwa der Insertionsort für kleine $n$ deutlich schneller als die Vorhersage. Dieser Umstand bestätigt sich in der konkreten Messung der praktischen Effizienz, hier ist der Insertionsort für $n \leq 256$ durchschnittlich der schnellste Algorithmus, obwohl er die schlechteste theoretische Effizienz hat.
 
-Noch stärker ist die Abweichung beim Quicksort, der mit steigender (positiver) Differenz zwischen $n$ und dem Messwert bedeutend schneller als die Vorhersage ist. Auch hier bestätigt die konkrete Messung die Erwartung: Der Quicksort ist für $n \leq 262144$ der konsistent schnellste Algorithmus, obwohl seine theoretische Effizienz im schlechtesten Fall gleich jener des Insertionsort ist, der für große Mengen um einige Größenordnungen langsamer ist.
+Noch stärker ist die Abweichung beim Quicksort, der mit steigender (positiver) Differenz zwischen $n$ und der Größe der gemessenen Liste bedeutend schneller als die Vorhersage ist. Auch hier bestätigt die konkrete Messung die Erwartung: Der Quicksort ist für $n \leq 262144$ der konsistent schnellste Algorithmus, obwohl seine theoretische Effizienz im schlechtesten Fall gleich jener des Insertionsort ist, der für große Mengen um einige Größenordnungen langsamer ist.

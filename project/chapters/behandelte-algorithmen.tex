@@ -86,6 +86,20 @@ mit der Lösung $T(n) = O(n \log n)$ nach \cite[94]{clrs2001}.
 
 Unter dem Begriff \enquote{Heap} wird im Folgenden eine in einem Array abgebildete Datenstruktur verstanden, welche als nahezu vollständiger Binärbaum betrachtet werden kann (vgl. \cite[87f]{ahu1974}, siehe \prettyref{fig:heap-tree-array-view}). Stellt ein Array $A$ einen Heap dar, so hat es neben dem bekannten Attribut $\attrib{A}{length}$ ein Attribut $\attrib{A}{heap-size}$, was der Anzahl der Arrayelemente entspricht, die einen Knoten darstellen. Nur die Elemente in $A[1 \twodots \attrib{A}{heap-size}]$ sind gültige Elemente des Heaps, $A[\attrib{A}{heap-size} + 1 \twodots \attrib{A}{length}]$ kann beliebige Elemente enthalten. Diese Notation und Eigenschaften sind äquivalent zu jenen in \cite{clrs2001}.
 
+Es gibt zwei Arten von binären Heaps: Max-Heaps und Min-Heaps. Beide Arten erfüllen eine \enquote{Heap-Eigenschaft}, die von der Art des Heaps abhängig ist. In einem Max-Heap ist dies die \emph{Max-Heap-Eigenschaft}, die aussagt, dass für jeden Knoten $i$, der nicht der Wurzelknoten ist, $A[\proc{Parent}(i)] \leq A[i]$ gelten muss (vgl. \cite[92]{hsr1997}). Das heißt, der Wert eines Knotens ist höchstens der seines Elternknotens, das größte Element eines Max-Heaps ist der Wurzelknoten. Min-Heaps werden im Folgenden nicht verwendet und deshalb nicht näher behandelt.
+
+Die \emph{Höhe} eines Knotens in einem Heap ist definiert durch die Anzahl der Kanten entlang des längsten, einfachen Weges zu einem Blattknoten (vgl. \cite[153]{clrs2001}). Die Höhe eines Heaps ist die Höhe des Wurzelknotens (siehe \prettyref{fig:heap-array-view}).
+
+\input{figures/heap-representations}
+
+\paragraph{Aufrechterhaltung eines Heaps}
+
+$\proc{Max-Heapify}$ erhält ein Array $A$ und einen index $i$ im Array. Es nimmt an, dass
+\begin{itemize}
+    \item die Binärbäume links und rechts von $A[i]$ bereits Heaps sind aber dass,
+    \item $A[i]$ kleiner als seine Kinder sein könnte, und damit die Heap-Eigenschaft verletzen würde.
+\end{itemize}
+
 \begin{minipage}{\textwidth}
     \begin{minipage}[t]{.33\textwidth}
         \begin{codebox}
@@ -107,22 +121,7 @@ Unter dem Begriff \enquote{Heap} wird im Folgenden eine in einem Array abgebilde
     \end{minipage}
 \end{minipage}
 
-$\proc{Parent}$, $\proc{Left}$ und $\proc{Right}$ sind aus \cite[152]{clrs2001} entnommen.
-\pagebreak[2]
-
-Es gibt zwei Arten von binären Heaps: Max-Heaps und Min-Heaps. Beide Arten erfüllen eine \enquote{Heap-Eigenschaft}, die von der Art des Heaps abhängig ist. In einem Max-Heap ist dies die \emph{Max-Heap-Eigenschaft}, die aussagt, dass für jeden Knoten $i$, der nicht der Wurzelknoten ist, $A[\proc{Parent}(i)] \leq A[i]$ gelten muss (vgl. \cite[92]{hsr1997}). Das heißt, der Wert eines Knotens ist höchstens der seines Elternknotens, das größte Element eines Max-Heaps ist der Wurzelknoten. Min-Heaps werden im Folgenden nicht verwendet und deshalb nicht näher behandelt.
-
-Die \emph{Höhe} eines Knotens in einem Heap ist definiert durch die Anzahl der Kanten entlang des längsten, einfachen Weges zu einem Blattknoten (vgl. \cite[153]{clrs2001}). Die Höhe eines Heaps ist die Höhe des Wurzelknotens (siehe \prettyref{fig:heap-array-view}).
-
-\input{figures/heap-representations}
-
-\paragraph{Aufrechterhaltung eines Heaps}
-
-$\proc{Max-Heapify}$ erhält ein Array $A$ und einen index $i$ im Array. Es nimmt an, dass
-\begin{itemize}
-    \item die Binärbäume links und rechts von $A[i]$ bereits Heaps sind aber dass,
-    \item $A[i]$ kleiner als seine Kinder sein könnte, und damit die Heap-Eigenschaft verletzen würde.
-\end{itemize}
+Die Hilfsalgorithmen $\proc{Parent}$, $\proc{Left}$ und $\proc{Right}$ sind aus \cite[152]{clrs2001} entnommen.
 
 \begin{codebox}
     \Procname{$\proc{Max-Heapify}(A, i)$}
