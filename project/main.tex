@@ -1,16 +1,16 @@
 \documentclass[a4paper,oneside]{book}
 
 % Define this command to enable release mode
-% \newcommand{\vwarelease}{\empty}
+\newcommand{\vwarelease}{\empty}
 
-\input{preamble.tex}
+\input{project/preamble.tex}
 
 % For right=of... stuff
 \usetikzlibrary{positioning}
 % Preventing recompiles of unchanged figures
 \usetikzlibrary{external}
 % Todo: Why doesn't this work in Overleaf anymore?
-\tikzexternalize[prefix=tikz/]
+%\tikzexternalize[prefix=tikz/]
 
 \begin{document}
 
@@ -36,5 +36,7 @@
     
     \input{appendices/data.tex}
 \end{appendices}
+
+\input{chapters/eidestattliche-erklärung}
 
 \end{document}
