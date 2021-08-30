@@ -48,7 +48,7 @@ Algorithmen können auf vielfältige Weise beschrieben und dargestellt werden.
 
 \input{figures/knuth-algorithm-specification}
 
-Diese Art der Algorithmusbeschreibung, wie sie beispielhaft in \prettyref{fig:knuth-algorithm-specification} anhand von Euklids Algorithmus dargestellt wird, gliedert sich gut in den Lesefluss ein, und ist am besten geeignet um die Funktionsweise eines Algorithmus verständlich darzustellen (\cite[147]{zob2015}).
+Diese Art der Algorithmusbeschreibung, wie sie beispielhaft in \prettyref{fig:knuth-algorithm-specification} anhand von Euklids Algorithmus dargestellt wird, gliedert sich gut in den Lesefluss ein, und ist am besten geeignet, um die Funktionsweise eines Algorithmus verständlich darzustellen (\cite[147]{zob2015}).
 
 Eine andere Methode ist die Darstellung eines Algorithmus mithilfe von \emph{Flowcharts}, wie sie in \prettyref{fig:flowchart-algorithm-specification} wieder am Beispiel von Euklids Algorithmus dargestellt wird.
 
@@ -60,7 +60,7 @@ Die wohl am weitreichendsten etablierte Art der Beschreibung von Algorithmen ist
 
 \input{figures/pseudocode-algorithm-specification}
 
-Pseudocode ist näher zu tatsächlichen Programmiersprachen, in denen ein Algorithmus implementiert werden könnte, als die bisher erwähnten Alternativen (vgl. \cite[1]{ofn2015}). Er bleibt allerdings abstrakt genug um Algorithmen (im Gegensatz zu vielen Programmiersprachen) unabhängig von Hardware und im Kontext unwichtigen Formalismen diverser Programmiersprachen darstellen zu können (vgl. \cite[1]{bem1958}). Die Darstellung durch Pseudocode macht allerdings dennoch ein erstes Verständnis des beschriebenen Algorithmus üblicherweise schwerer als andere Methoden, bleibt allerdings durch die Nähe zu möglichen konkreten Implementationen unmissverständlicher (vgl. \cite[147]{zob2015}). Aus letzterem Grund wird in der folgenden Arbeit Pseudocode zur Algorithmusbeschreibung verwendet.
+Pseudocode ist näher zu tatsächlichen Programmiersprachen, in denen ein Algorithmus implementiert werden könnte, als die bisher erwähnten Alternativen (vgl. \cite[1]{ofn2015}). Er bleibt allerdings abstrakt genug, um Algorithmen (im Gegensatz zu vielen Programmiersprachen) unabhängig von Hardware und im Kontext unwichtigen Formalismen diverser Programmiersprachen darstellen zu können (vgl. \cite[1]{bem1958}). Die Darstellung durch Pseudocode macht allerdings dennoch ein erstes Verständnis des beschriebenen Algorithmus üblicherweise schwerer als andere Methoden, bleibt allerdings durch die Nähe zu möglichen konkreten Implementationen unmissverständlicher (vgl. \cite[147]{zob2015}). Aus letzterem Grund wird in der folgenden Arbeit Pseudocode zur Algorithmusbeschreibung verwendet.
 
 \section{Pseudocode}
 \label{sec:alg-spec-pseudo}
@@ -114,7 +114,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird fü
     
     Die Länge eines Arrays kann durch $\attrib{A}{length}$ abgerufen werden. (In C müsste hierfür eine separate Variable geführt werden.)
 
-    \item Manchmal werden Schritte auch nur in natürlicher Sprache beschrieben, wenn dadurch die Verständlichkeit gefördert wird, und dennoch die Eindeutigkeit der Schritte gegeben ist.
+    \item Manchmal werden Schritte auch nur in natürlicher Sprache beschrieben, wenn dadurch die Verständlichkeit gefördert wird und dennoch die Eindeutigkeit der Schritte gegeben ist.
 
     So wird beispielsweise, wenn angebracht, \enquote{tausche $A[i]$ und $A[j]$ aus} anstelle von
     \begin{codebox}
@@ -134,7 +134,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird fü
 
 Ein Sortieralgorithmus ist ein Algorithmus, der eine Eingabemenge $A$ in eine sortierte Permutation dieser Menge überführt, und als Ausgabemenge zurückgibt. Genauer muss bei einer Eingabemenge mit den $n$ Elementen $a_1, a_2, \ldots, a_n$ gelten, dass für alle Elemente $a'_1, a'_2, \ldots, a'_n$ der Ausgabemenge die Ordnungsrelation $a'_1 \leq a'_2 \leq \cdots \leq a'_n$ gilt (vgl. \cite[4]{taocp3}).
 
-Ein ikonischer Sortieralgorithmus ist der \proc{Insertion-Sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt}. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein ihn auch jetzt schon etwas genauer zu betrachten.
+Ein ikonischer Sortieralgorithmus ist der \proc{Insertion-Sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt}. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein, ihn auch jetzt schon etwas genauer zu betrachten.
 
 \input{algorithms/insertion-sort}
 
@@ -145,7 +145,7 @@ Jedes Element $A[2 \twodots \attrib{A}{length}]$ wird nun einzeln betrachtet und
     \item der neue Index des einzufügenden Elements gefunden werden.
     \item Platz für das einzufügende Element geschaffen werden.
 \end{enumerate}
-Dies passiert in der \While-Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indexe $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
+Dies passiert in der \While-Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indices $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
 
 Im Zuge dieser Verschiebung wird anfangs das Element $A[j]$ überschrieben, nachdem bei der ersten Iteration gilt, dass $j = i + 1$. Aus diesem Grund wird der Wert von $A[j]$ zu Beginn der äußeren Schleife in der Variable $\id{key}$ zwischengespeichert (\prettyref{ln:ins-intermediary}).
 
@@ -156,12 +156,12 @@ Nach Beendigung der \For-Schleife wurde die Eingabemenge vollständig sortiert.
 \section{Effizienz}
 \label{sec:algo-effizienz}
 
-Die Effizienz eines Algorithmus ist bestimmt durch seinen Verbrauch von Ressourcen (vgl. \cite{rp2013}). In der folgenden Arbeit wird zwischen der \enquote{praktischen Effizienz} und der \enquote{theoretischen Effizienz} eines Algorithmus unterschieden. Erstere ist empirisch zu ermitteln (siehe \prettyref{cha:praktische-effizienz}), letztere wird durch mathematische Analyse bestimmt (siehe \prettyref{cha:asymptotic-analysis}).
+Die Effizienz eines Algorithmus ist bestimmt durch seinen Verbrauch von Ressourcen (vgl. \cite{rp2013}). In der folgenden Arbeit wird zwischen der praktischen Effizienz und der theoretischen Effizienz eines Algorithmus unterschieden. Erstere ist empirisch zu ermitteln (siehe \prettyref{cha:praktische-effizienz}), letztere wird durch mathematische Analyse bestimmt (siehe \prettyref{cha:asymptotic-analysis}).
 
-Diese Unterscheidung geschieht in der Literatur üblicherweise implizit. So behandeln beispielsweise etwa \cite{mcg2012}, \cite{llx2012}, \cite{rp2013} und \cite{hsr1997} allesamt in irgendeiner Form die \enquote{Effizienz von Algorithmen}. \cite{mcg2012} behandelt sowohl \enquote{theoretische} als auch \enquote{praktische} Effizienz unter dem selben Namen, abhängig vom Kontext. \cite{llx2012} behandelt ausschließlich praktische Effizienz, nennt diese allerdings nur Effizienz. Als Gegenbeispiel behandeln \cite{rp2013} und \cite{hsr1997} nur theoretische Effizienz, nennen diese aber auch nur Effizienz.
+Diese Unterscheidung geschieht in der Literatur üblicherweise implizit. So behandeln beispielsweise etwa \cite{mcg2012}, \cite{llx2012}, \cite{rp2013} und \cite{hsr1997} allesamt in irgendeiner Form die \enquote{Effizienz von Algorithmen}. \cite{mcg2012} behandelt sowohl theoretische als auch praktische Effizienz unter dem selben Namen, abhängig vom Kontext. \cite{llx2012} behandelt ausschließlich praktische Effizienz, nennt diese allerdings nur Effizienz. Als Gegenbeispiel behandeln \cite{rp2013} und \cite{hsr1997} nur theoretische Effizienz, nennen diese aber auch nur Effizienz.
 
-Wie der Großteil vergleichbarer Analysen (vgl. bspw. \cite[23]{clrs2001} und \cite[58]{sha2011}) beschäftigt sich diese Arbeit mit der Analyse der von einem Algorithmus als Ressource verbrauchte Zeit, im Folgenden auch als \enquote{Laufzeit} bezeichnet. Wenn nicht näher angegeben beziehen sich die Begriffe \enquote{praktische}- und \enquote{theoretische Effizenz} immer auf die Laufzeit.
+Wie der Großteil vergleichbarer Analysen (vgl. bspw. \cite[23]{clrs2001} und \cite[58]{sha2011}) beschäftigt sich diese Arbeit mit der Analyse der von einem Algorithmus als Ressource verbrauchte Zeit, im Folgenden auch als \enquote{Laufzeit} bezeichnet. Wenn nicht näher angegeben, beziehen sich die Begriffe praktische und theoretische Effizenz immer auf die Laufzeit.
 
 Üblicherweise ist die Effizienz eines Algorithmus proportional zur Größe der jeweiligen Eingangsmenge, deshalb wird die Effizienz im Folgenden (und im Allgemeinen auch in der Literatur\footnote{Alle Werke, die in dieser Arbeit zitiert werden und sich mit der Effizienz beziehungsweise Komplexität von Algorithmen beschäftigen, stellen diese in Abhängigkeit von einer Eingabegröße (auch: Problemgröße) dar.}) als Funktion $T$ in Abhängigkeit der \enquote{Eingabegröße} $n$ dargestellt, also als $T(n)$.
 
-Ist die Effizienz eines Algorithmus zu ermitteln, gilt es also die Zeit, die dieser benötigt, zumindest annähernd als Funktion in Abhängigkeit von $n$ darzustellen.
+Ist die Effizienz eines Algorithmus zu ermitteln, gilt es also, die Zeit, die dieser benötigt, zumindest annähernd als Funktion in Abhängigkeit von $n$ darzustellen.

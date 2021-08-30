@@ -3,11 +3,11 @@
 
 In diesem Kapitel wird eine Methode zur Ermittlung der Laufzeit von Algorithmen dargestellt.
 
-\prettyref{sec:runtime-question} beschäftigt sich, als Ausgangspunkt dieses Kapitels, mit der Aufstellung einer Frage und einer Konkretisierung des Ziels: Der Ermittlung einer \enquote{praktischen Effizienz}.
+\prettyref{sec:runtime-question} beschäftigt sich, als Ausgangspunkt dieses Kapitels, mit der Aufstellung einer Frage und einer Konkretisierung des Ziels: Der Ermittlung einer praktischen Effizienz}.
 
 Um diese Frage zu konkretisieren und umsetzbar zu machen, werden in \prettyref{sec:runtime-inputs} Arten und Größen der Eingabemengen definiert. \prettyref{sec:runtime-environment} behandelt die Bereitstellung einer Testumgebung.
 
-Ein konkreter Weg zur \enquote{praktischen Effizienz} wird in \prettyref{sec:funkterm} gegeben, \prettyref{sec:runtime-orchestration} behandelt einen Konstrukt zur Orchestrierung dieser Vorgehensweise.
+Ein konkreter Weg zur praktischen Effizienz wird in \prettyref{sec:funkterm} gegeben, \prettyref{sec:runtime-orchestration} behandelt einen Konstrukt zur Orchestrierung dieser Vorgehensweise.
 
 Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprache C++ (\cite{ISO-C++17}, \enquote{C++17}) verwendet.
 
@@ -20,11 +20,11 @@ Für konkrete Implementationen und Quellcode-Beispiele wird die Programmiersprac
 \section{Formulierung einer Frage}
 \label{sec:runtime-question}
 
-Es gilt die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Funktion $T(n)$ (wobei $T(n)$ die Zeit und $n$ die Eingabegröße ist) darzustellen. Das Ziel deckt sich also mit jenem der asymptotischen Analyse aus \prettyref{cha:asymptotic-analysis}. Genauer gilt es, ebenfalls wie in der asymptotischen Analyse, eine solche Funktion für diverse Arten von Eingabemengen zu ermitteln (\cite[27]{mcg2012}).
+Es gilt, die Laufzeit eines Algorithmus zu ermitteln und diese annähernd als Funktion $T(n)$ (wobei $T(n)$ die Zeit und $n$ die Eingabegröße ist) darzustellen. Das Ziel deckt sich also mit jenem der asymptotischen Analyse aus \prettyref{cha:asymptotic-analysis}. Genauer gilt es, ebenfalls wie in der asymptotischen Analyse, eine solche Funktion für diverse Arten von Eingabemengen zu ermitteln (\cite[27]{mcg2012}).
 
 Nach \cite[10]{mcg2012} kann \enquote{the experimental process} im Kontext der empirischen Algorithmusanalyse im Wesentlichen grob in die Formulierung einer Frage, die Bereitstellung einer die Frage behandelnden Testumgebung bzw. eines Testprogramms und die Ausführung des Testprogramms aufgegliedert werden.
 
-Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels: Wie viel Zeit benötigt ein Sortieralgorithmus um Eingabemengen verschiedener Art und Größe in eine sortierte Ausgabemenge zu überführen?
+Eine grobe Formulierung der Frage ergibt sich schon aus der vorhergehenden Einleitung dieses Kapitels: Wie viel Zeit benötigt ein Sortieralgorithmus, um Eingabemengen verschiedener Art und Größe in eine sortierte Ausgabemenge zu überführen?
 
 \section{Eingabemengen}
 \label{sec:runtime-inputs}
@@ -74,6 +74,9 @@ Es gilt die Zeit, welche eine Funktion für die vollständige Ausführung benöt
 
 Eine konkrete Implementation einer Klasse zur Messung der Laufzeit eines Algorithmus ist in \prettyref{lst:experiment} gegeben.
 
+% PB11
+\pabebreak[4]
+
 \begin{lstlisting}[caption={Implementation einer Klasse zur Ermittlung der Laufzeit eines Algorithmus.}, label=lst:experiment]
 class experiment {
 	std::function<void()> function;
@@ -101,7 +104,7 @@ experiment::duration_t experiment::run() const {
 }
 \end{lstlisting}
 \noindent
-Die Laufzeit eines einfachen Algorithmus kann mit ihrer Hilfe durch
+Die Laufzeit eines einfachen Algorithmus kann mit Hilfe von
 \begin{lstlisting}[numbers=none]
 void a1() { ... }
 const auto time = experiment(a1).run();
@@ -126,7 +129,7 @@ Im obenstehenden Beispielcode wird ein Lambda-Ausdruck verwendet, um eine \enquo
 \section{Ermittlung der praktischen Effizienz}
 \label{sec:funkterm}
 
-Das Ziel ist es, eine Funktion aufzustellen, bzw. zu approximieren, welche die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen, gilt es, die Eingabemenge in wachsende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit (in Kombination mit der Größe der jeweiligen Untermenge) auszugeben.
+Das Ziel ist es, eine Funktion aufzustellen bzw. zu approximieren, welche die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße darstellt (vgl. \cite[37]{mcg2012}). Um diesem Ziel nachzukommen, gilt es, die Eingabemenge in wachsende Untermengen aufzuteilen, diese Untermengen zu sortieren und die dafür benötigte Zeit (in Kombination mit der Größe der jeweiligen Untermenge) auszugeben.
 
 Hierfür ist eine Klasse \lstinline{class benchmark} gegeben, die mit einer Eingabemenge, einem Sortieralgorithmus, einer Angabe zur Art der Ermittlung der Untermengen und der Anzahl der zu erstellenden Untermengen konstruiert wird.
 
@@ -174,9 +177,9 @@ In \lstinline{benchmark.run} erfolgt also eine Teilung der ursprünglichen Einga
 In den vorhergehenden Abschnitten wurde
 
 \begin{itemize}
-    \item eine Definition für einige Eingabemengen mit ihren korrespondierenden Generatoren gegeben (\prettyref{sec:runtime-inputs}).
-    \item eine Testumgebung (\lstinline{class experiment}) zur Ermittlung der Laufzeit eines Algorithmus mit einer bestimmten Eingabemenge und Größe (\prettyref{sec:runtime-environment}).
-    \item einen Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{class benchmark}, \prettyref{sec:funkterm}).
+    \item eine Definition für einige Eingabemengen mit ihren korrespondierenden Generatoren gegeben (\prettyref{sec:runtime-inputs}),
+    \item eine Testumgebung (\lstinline{class experiment}) zur Ermittlung der Laufzeit eines Algorithmus mit einer bestimmten Eingabemenge und Größe (\prettyref{sec:runtime-environment}) gegeben und
+    \item ein Mechanismus zur Laufzeitermittlung für steigende bzw. variierende Eingabegrößen (\lstinline{class benchmark}, \prettyref{sec:funkterm}) erarbeitet..
 \end{itemize}
 
 Noch abgehend ist ein Mechanismus zur \emph{Orchestrierung} bzw. \emph{Instrumentalisierung} der bestehenden Teile. Genauer gilt es, ein ausführbares Programm bereitzustellen, welches mithilfe der \lstinline{benchmark}-Klasse für alle möglichen Kombinationen aus den Algorithmen und Eingabearten Benchmarkresultate ermittelt und diese ausgibt. Ebenfalls gilt es, einen Mechanismus zur einfachen Kontrolle des Umfangs und der Präzision dieser Messungen bereitzustellen.

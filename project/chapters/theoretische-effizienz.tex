@@ -19,7 +19,7 @@ Die Werte von $T(n)$, also die theoretische Effizienz eines Algorithmus auf eine
 
 Es wird zwi\-schen der theoretischen Effizienz im \enquote{günstigsten}, \enquote{ungünstigsten}, und \enquote{durchschnittlichen Szenario bzw. \emph{Fall}} unterschieden, alle beziehen sich auf die Beschaffenheit der Eingangsmenge (vgl. \cite[28]{hsr1997}).
 
-Zur Veranschaulichung dieser Unterscheidung ist ein Suchalgorithmus, $\proc{Sequential-Search}$ (vgl. \cite[396]{taocp3}), zu betrachten der eine Liste nach einem Element durchsucht und terminiert, nachdem er es gefunden hat.
+Zur Veranschaulichung dieser Unterscheidung ist ein Suchalgorithmus, $\proc{Sequential-Search}$ (vgl. \cite[396]{taocp3}), zu betrachten, der eine Liste nach einem Element durchsucht und terminiert, nachdem er es gefunden hat.
 
 \begin{codebox}
     \Procname{$\proc{Sequential-Search}(A, \id{value})$}
@@ -42,9 +42,9 @@ Zur einleitenden Frage, wie die asymptotische Analyse zu beschreiben sei, schrei
 
 \blockquote[{\cite[1]{bru1958}}]{It often happens that we want to evaluate a certain number, defined in a certain way, and that the evaluation involves a very large number of operations so that the direct method is almost prohibitive. In such cases we should be very happy to have an entirely different method for finding information about the number, giving at least some useful approximation to it. [\ldots] A situation like this is considered to belong to asymptotics.}
 
-Die Ermittlung der exakten Anzahl an einfachen Operationen, die ein Algorithmus mit einer gewissen Eingabemenge benötigt, ist üblichweise nicht lohnenswert (vgl. \cite[28]{hsr1997}) oder sogar unmöglich (vgl. \cite[37]{meh1984}) -- gemäß \citeauthor{bru1958} ist in diesem Fall eine Ermittlung mithilfe asymptotischer Methoden ratsam.. Diese \enquote{certain number}, die im obigen Zitat erwähnt wird, ist im gegebenen Kontext demzufolge $T(n)$, die Information, die es zu finden gilt, ist die \emph{Größenordnung des Wachstums} (auch \emph{Wachstumsrate}) der Funktion $T$ (vgl. \cite[63]{sha2011}).
+Die Ermittlung der exakten Anzahl an einfachen Operationen, die ein Algorithmus mit einer gewissen Eingabemenge benötigt, ist üblicherweise nicht lohnenswert (vgl. \cite[28]{hsr1997}) oder sogar unmöglich (vgl. \cite[37]{meh1984}) -- gemäß \citeauthor{bru1958} ist in diesem Fall eine Ermittlung mithilfe asymptotischer Methoden ratsam. Diese \enquote{certain number}, die im obigen Zitat erwähnt wird, ist im gegebenen Kontext demzufolge $T(n)$, die Information, die es zu finden gilt, ist die \emph{Größenordnung des Wachstums} (auch \emph{Wachstumsrate}) der Funktion $T$ (vgl. \cite[63]{sha2011}).
 
-Diese Größenordnung des Wachstums bei steigendem bzw. großen Werten von $n$ wird in der einschlägigen Literatur oft in der $O$-Notation angeschrieben (vgl. \cite[2]{ahu1974}, \cite[107]{taocp1}, \cite[29]{hsr1997}, \ldots).
+Diese Größenordnung des Wachstums bei steigenden bzw. großen Werten von $n$ wird in der einschlägigen Literatur oft in der $O$-Notation angeschrieben (vgl. \cite[2]{ahu1974}, \cite[107]{taocp1}, \cite[29]{hsr1997}, \ldots).
 
 Kann die Effizienz eines Algorithmus als
 \begin{equation}\label{eq:unneccessary-constants}
@@ -62,7 +62,7 @@ Das ist der Kern der asymptotischen Analyse in diesem Kontext: Die Untersuchung 
 
 \input{tables/unimportant-constants}
 
-\prettyref{tab:unimportant-constants} veranschaulicht diese Vernachlässigbarkeit von Termen niederer Ordnung und von konstante Faktoren bei großem $n$.
+\prettyref{tab:unimportant-constants} veranschaulicht diese Vernachlässigbarkeit von Termen niederer Ordnung und von konstanten Faktoren bei großem $n$.
 
 \paragraph{Komplexität} Die Funktion $T(n)$, also die Laufzeit eines Algorithmus in Abhängigkeit der Eingabegröße $n$, wird auch \emph{Zeitkomplexität} des Algorithmus genannt. Das asymptotische Verhalten von $T(n)$ für große Werte von $n$ wird \emph{asymptotische Zeitkomplexität} genannt (vgl. \cite[2]{ahu1974}). Im Folgenden ist mit \emph{Komplexität} eines Algorithmus die asymptotische Zeitkomplexität des Algorithmus gemeint.
 
@@ -75,9 +75,9 @@ Genauer beschreibt $O(g(n))$ für eine gegebene Funktion $g(n)$ (im Fall von \eq
 \begin{equation*}
     O(g(n))=\left\{\ 
         f(n)\ :\ \parbox{.6\textwidth}{
-            es existieren positive Konstanten $c$ und $n_0$ derart, dass $0 \leq f(n) \leq c \cdot g(b)$ für alle $n \geq n_0$
+            Es existieren positive Konstanten $c$ und $n_0$ derart, dass $0 \leq f(n) \leq c \cdot g(b)$ für alle $n \geq n_0$.
         }
-    \ \right\}
+    \ \right\}.
 \end{equation*}
 
 Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \cite[64]{sha2011}): Der Wert der Funktion $f(n)$ ist kleiner oder gleich dem Wert der Funktion $c \cdot g(n)$ für alle $n \geq n_0$.
@@ -85,15 +85,13 @@ Die $O$-Notation definiert eine \enquote{asymptotische obere Schranke} (vgl. \ci
 \section{Praxisnahe Komplexitäten}
 \label{sec:praxisnahe-komplexitäten}
 
-Einige der in der in diesem Kontext am häufigsten vorkommenden Komplexitäten sind $n^2$, $\log n$ und $n \log n$\footnotemark (vgl. \cite[38]{hsr1997}). Anders ausgedrückt sind also viele Sortieralgorithmen in $O(n^2)$, $O(\log n)$ oder $O(n \log n)$. \prettyref{tab:common-growth-rates} veranschaulicht diese Komplexitäten anhand von Funktionswerten für diverse Werte von $n$.
+Einige der in diesem Kontext am häufigsten vorkommenden Komplexitäten sind $n^2$, $\log n$ und $n \log n$\footnotemark (vgl. \cite[38]{hsr1997}). Anders ausgedrückt sind also viele Sortieralgorithmen in $O(n^2)$, $O(\log n)$ oder $O(n \log n)$. \prettyref{tab:common-growth-rates} veranschaulicht diese Komplexitäten anhand von Funktionswerten für diverse Werte von $n$.
 
 \footnotetext{Alle in dieser Arbeit behandelten Sortieralgorithmen haben eine dieser Komplexitäten.}
 
 Der in \prettyref{tab:common-growth-rates} ebenfalls dargestellte \emph{Quotient} der jeweiligen Funktionswerte und $n$ zeigt das Verhältnis eines Algorithmus, dessen Laufzeit linear wächst, zu einem Algorithmus, dessen Laufzeit durch eine der dargestellten Komplexitäten zu beschreiben ist. So ist ein Algorithmus in $O(\log n)$ für $n = 256$ fast 50-fach schneller als ein Algorithmus in $O(n)$.
 
 Anzumerken ist jedoch, dass die $O$-Notation die \emph{asymptotische} Wachstumsrate darstellt (bzw. die Komplexität eines Algorithmus als asymptotisches Verhalten zu sehen ist). So kann etwa ein Algorithmus in $O(n^2)$ für kleine $n$ schneller als ein Algorithmus in $O(n)$ sein.
-
-\emph{In diesem Kontext anmerken, dass $O$-Notation die \emph{asymptotische Wachstumsrate} darstellt -- $O(n^2)$ kann für kleine $n$ schneller als $O(n)$ sein.}
 
 \input{tables/common-growth-rates.tex}
 
@@ -141,9 +139,9 @@ Alle vorkommenden Operationen -- die Zuweisung, Multiplikation und der Arrayzugr
             \End
 \end{codebox}
 
-Dieser Ausschnitt ist ein Beispiel eines etwas komplexeren Algorithmus mit drei-\For Schleifen.
+Dieser Ausschnitt ist ein Beispiel eines etwas komplexeren Algorithmus mit drei \For-Schleifen.
 
-Die erste Zeile ist in $O(1)$. Die letzte Schleife in \prettyref{ln:ex3-second-for} ist wie im vorhergehenden Beispiel in $O(n)$ nachdem ihr Körper in \prettyref{ln:ex3-second-for-body} in $O(1)$ ist (auch Zuweisungen in Arrays sind einfache Operationen).
+Die erste Zeile ist in $O(1)$. Die letzte Schleife in \prettyref{ln:ex3-second-for} ist, wie im vorhergehenden Beispiel, in $O(n)$, nachdem ihr Körper in \prettyref{ln:ex3-second-for-body} in $O(1)$ ist (auch Zuweisungen in Arrays sind einfache Operationen).
 
 Die erste Schleife in \prettyref{ln:ex3-outer-for} läuft $n$ Mal, bei jeder Iteration wächst ihr Schleifenzähler $j$ um 1. Wie oft die \enquote{innere} Schleife in \prettyref{ln:ex3-inner-for} läuft, ist abhängig von $j$: Für $j = 0$ läuft sie nicht, für $j = 1$ läuft sie einmal, für $j = 2$ läuft sie zweimal, \ldots, für $j = n$ läuft sie $n$ Mal. Nachdem gilt, dass (vgl. \cite{cf2007})
 \begin{equation*}
@@ -151,7 +149,7 @@ Die erste Schleife in \prettyref{ln:ex3-outer-for} läuft $n$ Mal, bei jeder Ite
 \end{equation*}
 und die Komplexität des Körpers der inneren Schleife in $O(1)$ ist, ist das gesamte Schleifenkonstrukt in $O(n^2)$.
 
-Damit ist der Ausschnitt also in $O(1) + O(n) + O(n^2)$ was zu $O(n^2)$ vereinfacht werden kann.
+Damit ist der Ausschnitt also in $O(1) + O(n) + O(n^2)$, was zu $O(n^2)$ vereinfacht werden kann.
 
 \ifndef{vwarelease}{
     \paragraph{Andere Berechnungsmodelle} \cite{ahu1974} (\citetitle{ahu1974}) \emph{Nur als Notiz, falls noch Zeit für nähere Ausführungen bleibt.}

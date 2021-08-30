@@ -3,14 +3,14 @@
 
 Dieses Kapitel beschäftigt sich mit der finalen Forschungsfrage dieser Arbeit, namentlich, wie sich die (nun bereits ermittelte) theoretische Effizienz zu der praktischen Effizienz verhält.
 
-Dies setzt eine Ermittlung der praktischen Effizienz voraus. Basierend auf den Methoden in \prettyref{cha:praktische-effizienz} erläutert \prettyref{sec:data-generation} die Art und Weise mit der der verwendete Datenstamm generiert wird.
+Dies setzt eine Ermittlung der praktischen Effizienz voraus. Basierend auf den Methoden in \prettyref{cha:praktische-effizienz} erläutert \prettyref{sec:data-generation} die Art und Weise, mit der der verwendete Datenstamm generiert wird.
 
 \prettyref{sec:approximation} zieht Rückschlüsse über das fragliche Verhältnis durch Ermittlung der Approximierbarkeit der praktischen aus der theoretischen Effizienz. Eine Behandlung des Konzepts des \enquote{besten} Algorithmus anhand der praktischen Effizienz und des Verhältnisses zwischen diesen Ergebnissen und der theoretischen Effizienz folgt in \prettyref{sec:best-algo}.
 
 \section{Konkrete Ermittlung der Daten}
 \label{sec:data-generation}
 
-Um den verwendeten Datenstamm zu generieren, wird ein einzelnes Skript verwendet, welches Aufrufe an das benchmark-Programm und die Ablage und Weiterverarbeitung der Daten automatisiert. Somit wird eine Reproduktion der Daten erleichtert, es gilt nur einen einzelnen Befehl auszuführen. Das Skript ist in \crScriptsGenerate\ abgelegt\footnote{In selbigem Ordner ist auch eine README-Datei zu finden, welche die Bedienung des Skripts näher erläutert.}.
+Um den verwendeten Datenstamm zu generieren, wird ein einzelnes Skript verwendet, welches Aufrufe an das benchmark-Programm und die Ablage und Weiterverarbeitung der Daten automatisiert. Somit wird eine Reproduktion der Daten erleichtert, es gilt, nur einen einzelnen Befehl auszuführen. Das Skript ist in \crScriptsGenerate\ abgelegt\footnote{In selbigem Ordner ist auch eine README-Datei zu finden, welche die Bedienung des Skripts näher erläutert.}.
 
 Zur Generierung der Daten wurde durchgehend ein ThinkPad T480s (Modellnummer 20L8S02E00) verwendet, auf dem ein Intel Core i7-8550U (8 Threads $\times$ 1.80 GHz Base bzw. 4.00 GHz Turbo) und 16 GB DDR4 RAM (2400 MT/s mit NVMe SSD als Swap) verbaut sind.
 
@@ -23,9 +23,9 @@ Ein Ziel dieser Arbeit ist es, zu ermitteln, wie sich die theoretische Effizienz
 
 Für jede Kombination aus Algorithmus und Eingabemengenart\footnote{Mit Ausnahme der zufällig sortierten Art, welche folgend nicht verwendet wird.} wird basierend auf den Ergebnissen aus \prettyref{cha:algorithmen} eine Funktion der erwarteten Effizienz aufgestellt.
 
-Diese Funktion der erwarteten Effizienz basiert nun allerdings ausschließlich auf der theoretischen Effizienz, die wiederum auf der $O$-Notation aufbaut. Werte dieser Funktion sind nur für große $n$ gültig -- tatsächlich beschreibt sie nur die Wachstumsrate, nicht aber konkrete Messwerte. Um anhand dieser Funktion sinnvoll Rückschlüsse auf die praktische Effizienz ziehen zu können ist also eine Skalierung notwendig, die wiederum einen konkreten Messwert vorraussetzt.
+Diese Funktion der erwarteten Effizienz basiert nun allerdings ausschließlich auf der theoretischen Effizienz, die wiederum auf der $O$-Notation aufbaut. Werte dieser Funktion sind nur für große $n$ gültig -- tatsächlich beschreibt sie nur die Wachstumsrate, nicht aber konkrete Messwerte. Um anhand dieser Funktion sinnvoll Rückschlüsse auf die praktische Effizienz ziehen zu können, ist also eine Skalierung notwendig, die wiederum einen konkreten Messwert vorraussetzt.
 
-Ist also die Zeit $t_s$, die ein Algorithmus für das Sortieren einer Menge der Größe $n_s$ benötigt bekannt (als Wertepaar folgend als \emph{Skalierungsvektor} bezeichnet), kann die unskalierte Funktion $f$ der erwarteten Effizienz anhand dieser (einzelnen) Messung zu einer skalierten Version
+Ist also die Zeit $t_s$, die ein Algorithmus für das Sortieren einer Menge der Größe $n_s$ benötigt, bekannt (als Wertepaar folgend als \emph{Skalierungsvektor} bezeichnet), kann die unskalierte Funktion $f$ der erwarteten Effizienz anhand dieser (einzelnen) Messung zu einer skalierten Version
 \begin{equation*}
     f_s(n) = f(n) \cdot \frac{t_s}{f(n_s)}
 \end{equation*}
@@ -37,7 +37,7 @@ In \prettyref{fig:approximation-delta-end} ist eine Aufstellung des Größenverh
 
 Daraus lässt sich schließen, dass für Heap- und Insertionsort ab einer Untermengengröße von etwa 150000 (das sind etwa 57\% der größten Untermenge) die Messwerte mit einer Präzision $\approx 1$, de facto perfekt, vorhergesagt wurden. Beim Mergesort nimmt die Präzision ebenfalls mit der Annäherung zum Messwert zu, die Präzision der Messung schwankt allerdings stärker.
 
-Die Präzision beim Quicksort ist im besten Fall, mit sortieren Listen, ähnlich oder besser jener bei Heap-, Insertion und Mergesort. Im schlechtesten Fall ist sie allerdings bedeutend schlechter als jene für andere, er ist langsamer als projeziert. (Daraus zu schließen, dass der Quicksort langsamer als andere Algorithmen wäre, ist allerdings falsch: Tatsächlich ist er deutlich schneller, siehe \prettyref{app:data}.)
+Die Präzision beim Quicksort ist im besten Fall, mit sortieren Listen, ähnlich oder besser jener bei Heap-, Insertion- und Mergesort. Im schlechtesten Fall ist sie allerdings bedeutend schlechter als jene für andere, er ist langsamer als projeziert. (Daraus zu schließen, dass der Quicksort langsamer als andere Algorithmen wäre, ist allerdings falsch: Tatsächlich ist er deutlich schneller, siehe \prettyref{app:data}.)
 
 Auffallend ist, dass alle Algorithmen für Eingabemengen, die deutlich kleiner als die Mengengröße im Skalierungsvektor sind, eine niedrige Approximationspräzision haben. Beim Insertionsort ist dies besonders auffällig, er ist in diesem Fall bedeutend schneller als die Approximation. Das ist unter anderem auch bemerkenswert, weil dies bei keinem anderen Algorithmus der Fall ist -- andere Algorithmen sind hier durchwegs deutlich langsamer als vorhergesagt.
 
@@ -88,13 +88,13 @@ Die Bestimmung eines \enquote{besten} Algorithmus setzt messbare Kriterien vorau
 
 Wie in \prettyref{cha:asymptotic-analysis} ausgeführt wird, und wie aus den Abbildungen in \prettyref{app:data} hervorgeht, bestehen zwischen den Algorithmen große Unterschiede in dieser benötigten Zeit, die unter anderem auf die Größe und Beschaffenheit der zu sortierenden Liste zurückzuführen sind. Aus diesem Grund gilt es, für alle Kombinationen dieser Faktoren den besten \emph{der untersuchten} Algorithmen zu ermitteln.
 
-% Dabei ist festzuhalten, dass durch eine solche Analyse keine allgemeine Aussage wie \enquote{Sortieralgorithmus $X$ ist besser als \emph{alle} anderen Algorithmen.} getroffen werden können --- es kann nur der Beste aus den Untersuchten ermittelt werden. Ebenso kann in diesem Schritt ein besserer Algorithmus nur einzeln für jede Kombination aus Parametern ermittelt werden. Der beste Algorithmus ist dann jener, der in den Kombinationen die dem Einsatzgebiet am besten entsprechen der Beste ist.
+% Dabei ist festzuhalten, dass durch eine solche Analyse keine allgemeine Aussage wie \enquote{Sortieralgorithmus $X$ ist besser als \emph{alle} anderen Algorithmen.} getroffen werden können -- es kann nur der Beste aus den Untersuchten ermittelt werden. Ebenso kann in diesem Schritt ein besserer Algorithmus nur einzeln für jede Kombination aus Parametern ermittelt werden. Der beste Algorithmus ist dann jener, der in den Kombinationen die dem Einsatzgebiet am besten entsprechen der Beste ist.
 
 Folgend wird zwischen sehr kleinen ($n \leq 16$), kleinen ($n \leq 256$) und großen ($n \leq 262144$) Mengen unterschieden. Dieser Fokus auf relativ kleine Mengen ergibt sich aus der Erfahrung in \prettyref{sec:approximation}, wo vor allem bei kleineren $n$ interessante Abweichungen von den Erwartungswerten erkenntlich waren. Zusätzlich wird wie gehabt zwischen sortierten, zufälligen und umgekehrten Eingabemengen unterscheiden.
 
 \input{figures/results-xs-boxplots.tex}
 
-Um einen übersichtlichen Vergleich zu ermöglichen, werden die Daten in Form von Boxplots dargestellt. \ifndef{vwarelease}{\emph{Hier wäre eine Erläuterung der verwendeten Boxplot-Art angebracht (vgl. \cite{feu2021}), womöglich in einer Fußnote.}}{} So veranschaulicht \prettyref{fig:results-boxplots-xs} die Daten aus \prettyref{fig:app-xs-graphs}. Der jeweils schnellste, also beste, Algorithmus (in der Abbildung fett hervorgehoben) ist intuitiv ablesbar.
+Um einen übersichtlichen Vergleich zu ermöglichen, werden die Daten in Form von Boxplots dargestellt. So veranschaulicht \prettyref{fig:results-boxplots-xs} die Daten aus \prettyref{fig:app-xs-graphs}. Der jeweils schnellste, also beste, Algorithmus (in der Abbildung fett hervorgehoben) ist intuitiv ablesbar.
 
 Für die umgekehrte Liste (\prettyref{subfig:results-boxplots-xs-inverted}) ist der Quicksort knapp der schnellste Algorithmus. Die Medianlaufzeiten von Insertion- und Heapsort sind nicht viel langsamer, die Werte im Interquartilsabstand sind jedoch deutlich enger. Entsprechend der Ergebnisse in \prettyref{fig:approximation-delta-end} ist der Insertionsort für sortierte Mengen (\prettyref{subfig:results-boxplots-xs-sorted}) deutlich schneller als andere Algorithmen. Entgegen der Erwartung basierend auf der schlechtesten theoretischen Effizienz von $O(n^2)$ im durchschnittlichen Fall (siehe \prettyref{sec:alg-insertion}) ist er auch für zufällige Listen (\prettyref{subfig:results-boxplots-xs-random}) schneller als die Alternativen.
 
@@ -104,13 +104,13 @@ In \prettyref{fig:results-boxplots-sm} wiederholt sich das in \prettyref{fig:res
 
 \input{project/figures/results-md-boxplots}
 
-Für größere Mengen zeigen sich in \prettyref{fig:results-boxplots-md} die Auswirkungen der quadratischen Wachstumsrate des Insertionsort (auch in \prettyref{fig:app-linear-large} gut betrachtbar) --- für umgekehrte und zufällige Mengen (\prettyref{subfig:results-boxplots-md-random} und \ref{subfig:results-boxplots-md-inverted}) ist der Insertionsort um einige Größenordnungen langsamer als Heap-, Merge und Quicksort, aus diesem Grund konnten die Ergebnisse nicht in dieser Form dargestellt werden\footnote{Die entsprechenden Daten können in \prettyref{fig:app-linear-large} nachgeschlagen werden.}.
+Für größere Mengen zeigen sich in \prettyref{fig:results-boxplots-md} die Auswirkungen der quadratischen Wachstumsrate des Insertionsort (auch in \prettyref{fig:app-linear-large} gut betrachtbar) -- für umgekehrte und zufällige Mengen (\prettyref{subfig:results-boxplots-md-random} und \ref{subfig:results-boxplots-md-inverted}) ist der Insertionsort um einige Größenordnungen langsamer als Heap-, Merge- und Quicksort, aus diesem Grund konnten die Ergebnisse nicht in dieser Form dargestellt werden\footnote{Die entsprechenden Daten können in \prettyref{fig:app-linear-large} nachgeschlagen werden.}.
 
-\prettyref{fig:results-boxplots-md} zeigt auch erstmals den Punkt, an dem der Quicksort auf allen betrachteten Arten von Eingabemengen den alternativen Algorithmen überlegen ist. Nach wie vor ist allerdings der Insertionsort für sortierte Eingabemengen, verglichen zum Heap- und Mergesort sehr schnell.
+\prettyref{fig:results-boxplots-md} zeigt auch erstmals den Punkt, an dem der Quicksort auf allen betrachteten Arten von Eingabemengen den alternativen Algorithmen überlegen ist. Nach wie vor ist allerdings der Insertionsort für sortierte Eingabemengen, verglichen zum Heap- und Mergesort, sehr schnell.
 
 \pagebreak[3]
 \section{Praktischer Nutzen}
 
-Es wurde gezeigt, dass die praktische Effizienz eines Algorithmus mit nur einem konkreten Messwert durchwegs gut aus seiner theoretischen Effizienz vorhersagbar ist. Von besonderem Interesse für die Praxis sind allerdings die Fälle in denen dies nicht der Fall ist. So ist etwa der Insertionsort für kleine $n$ deutlich schneller als die Vorhersage. Dieser Umstand bestätigt sich in der konkreten Messung der praktischen Effizienz, hier ist der Insertionsort für $n \leq 256$ durchschnittlich der schnellste Algorithmus, obwohl er die schlechteste theoretische Effizienz hat.
+Es wurde gezeigt, dass die praktische Effizienz eines Algorithmus mit nur einem konkreten Messwert durchwegs gut aus seiner theoretischen Effizienz vorhersagbar ist. Von besonderem Interesse für die Praxis sind allerdings die Fälle, in denen dies nicht der Fall ist. So ist etwa der Insertionsort für kleine $n$ deutlich schneller als die Vorhersage. Dieser Umstand bestätigt sich in der konkreten Messung der praktischen Effizienz, hier ist der Insertionsort für $n \leq 256$ durchschnittlich der schnellste Algorithmus, obwohl er die schlechteste theoretische Effizienz hat.
 
 Noch stärker ist die Abweichung beim Quicksort, der mit steigender (positiver) Differenz zwischen $n$ und der Größe der gemessenen Liste bedeutend schneller als die Vorhersage ist. Auch hier bestätigt die konkrete Messung die Erwartung: Der Quicksort ist für $n \leq 262144$ der konsistent schnellste Algorithmus, obwohl seine theoretische Effizienz im schlechtesten Fall gleich jener des Insertionsort ist, der für große Mengen um einige Größenordnungen langsamer ist.

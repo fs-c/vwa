@@ -38,7 +38,7 @@ namespace sets {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:insertion, caption={Implementation des \emph{insertionsort}.}]
+\begin{lstlisting}[float, label=lst:insertion, caption={Implementation des Insertionsort.}]
 template <class I, class P = std::less<>>
 void insertion(I first, I last, P cmp = P{}) {
 	for (auto it = first; it != last; ++it) {
@@ -48,7 +48,7 @@ void insertion(I first, I last, P cmp = P{}) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:quick, caption={Implementation des \emph{quicksort}.}]
+\begin{lstlisting}[float, label=lst:quick, caption={Implementation des Quicksort.}]
 template <class I, class P = std::less<>>
 void quick(I first, I last, P cmp = P{}) {
 	auto const N = std::distance(first, last);
@@ -67,7 +67,7 @@ void quick(I first, I last, P cmp = P{}) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:heap, caption={Implementation des \emph{heapsort}.}]
+\begin{lstlisting}[float, label=lst:heap, caption={Implementation des Heapsort.}]
 template<class RI, class P = std::less<>>
 void heap(RI first, RI last, P cmp = P{}) {
     std::make_heap(first, last, cmp);
@@ -75,7 +75,7 @@ void heap(RI first, RI last, P cmp = P{}) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[float, label=lst:merge, caption={Implementation des \emph{mergesort}.}]
+\begin{lstlisting}[float, label=lst:merge, caption={Implementation des Mergesort.}]
 template <class BI, class P = std::less<>>
 void merge(BI first, BI last, P cmp = P{}) {
 	auto const N = std::distance(first, last);
