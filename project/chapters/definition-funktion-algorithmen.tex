@@ -8,7 +8,7 @@ In \prettyref{sec:algorithm-definition} werden der Ursprung und vorhergehende Be
 
 Ein Überblick über die verschiedenen Möglichkeiten zur Darstellung von Algorithmen wird in \prettyref{sec:algorithm-specification-overview} gegeben. Die in der folgenden Arbeit verwendete Art der Beschreibung wird in \prettyref{sec:alg-spec-pseudo} im Detail beschrieben.
 
-Die Begrifflichkeit \enquote{Sortieralgorithmus} wird in \prettyref{sec:sorting-algorithms-definition} definiert. Anhand eines Beispielalgorithmus, dem \proc{Insertion-Sort}, wird die Arbeitsweise von Algorithmen, und insbesondere von Sortieralgorithmen, dargestellt.
+Die Begrifflichkeit \enquote{Sortieralgorithmus} wird in \prettyref{sec:sorting-algorithms-definition} definiert. Anhand eines Beispielalgorithmus, dem \text{Insertion-Sort}, wird die Arbeitsweise von Algorithmen, und insbesondere von Sortieralgorithmen, dargestellt.
 
 In \prettyref{sec:algo-effizienz} wird eine Definition des Effizienzbegriffs im Kontext von Algorithmen vorgenommen.
 %
@@ -74,7 +74,7 @@ Programmiersprachen wie beispielsweise C++17 sind versioniert und standardisiert
 Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird für Beschreibungen von Algorithmen in dieser Arbeit überwiegend Pseudocode zum Einsatz kommen. Genauer werden die \emph{\enquote{pseudocode conventions}} aus \cite[20-22]{clrs2001} verwendet, folgend kurz zusammengefasst.
 
 \begin{itemize}
-    \item Namen von Algorithmen sind in \proc{Kapitälchen} gesetzt. Namen von Variablen sind \id{kursiv} gesetzt und üblicherweise einzelne Buchstaben ($i$, $n$, \ldots).
+    \item Namen von Algorithmen sind in \text{Kapitälchen} gesetzt. Namen von Variablen sind \id{kursiv} gesetzt und üblicherweise einzelne Buchstaben ($i$, $n$, \ldots).
 
     \item Die \enquote{Blockstruktur} ist durch Einrückung vorgegeben. Beispielsweise beginnt der Körper der \textbf{while}-Schleife aus \prettyref{fig:pseudocode-algorithm-specification} auf \prettyref{ln:euclid-while-begin} und endet auf \prettyref{ln:euclid-while-end}.
     
@@ -134,7 +134,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird fü
 
 Ein Sortieralgorithmus ist ein Algorithmus, der eine Eingabemenge $A$ in eine sortierte Permutation dieser Menge überführt, und als Ausgabemenge zurückgibt. Genauer muss bei einer Eingabemenge mit den $n$ Elementen $a_1, a_2, \ldots, a_n$ gelten, dass für alle Elemente $a'_1, a'_2, \ldots, a'_n$ der Ausgabemenge die Ordnungsrelation $a'_1 \leq a'_2 \leq \cdots \leq a'_n$ gilt (vgl. \cite[4]{taocp3}).
 
-Ein ikonischer Sortieralgorithmus ist der \proc{Insertion-Sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt}. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein, ihn auch jetzt schon etwas genauer zu betrachten.
+Ein ikonischer Sortieralgorithmus ist der \text{Insertion-Sort} (vgl. \cite[74]{taocp3}). Jedes Element wird einzeln betrachtet und in eine (wachsende) sortierte \enquote{Teilliste} \emph{eingefügt}. Dieser Algorithmus wird in \prettyref{sec:alg-insertion} (siehe insbesondere \prettyref{fig:insertions-example}) genauer behandelt, für ein grundlegendes Verständnis der Arbeitsweise von Algorithmen wird es jedoch hilfreich sein, ihn auch jetzt schon etwas genauer zu betrachten.
 
 \input{algorithms/insertion-sort}
 
