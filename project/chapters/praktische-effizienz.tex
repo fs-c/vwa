@@ -105,7 +105,7 @@ experiment::duration_t experiment::run() const {
 \end{lstlisting}
 \noindent
 Die Laufzeit eines einfachen Algorithmus kann mit Hilfe von
-\begin{lstlisting}[numbers=none]
+\begin{lstlisting}[style=inline]
 void a1() { ... }
 const auto time = experiment(a1).run();
 \end{lstlisting}
@@ -116,7 +116,7 @@ ermittelt werden, wobei die Zeitspanne in der für das System kleinstmöglichen 
 Die in dieser Arbeit behandelten Algorithmen haben alle einen oder mehrere Eingabewerte, sie erfüllen also nicht die Form, wie sie vom Konstruktor erwartet wird. Um ein Experiment mit einer Funktion eines anderen Typs als \lstinline{void()} zu initialisieren, wird ein \enquote{\emph{wrapper}} verwendet.
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[numbers=none]
+\begin{lstlisting}[style=inline]
 const size_t size = 1337;
 void |\id{func}|(const size_t s) { ... }
 const auto |\id{wrapper}| = [&]() { func(size); };
@@ -191,7 +191,7 @@ Diese Anforderungen erfüllt das benchmark-Programm bzw. der Code in \crMain. St
 Eine Steuerung der Vorgänge zur Datensammlung und -aufbereitung im Programm kann durch Parameter auf der Kommandozeile erfolgen. So sagt etwa der Befehl \enquote{\lstinline{benchmark -o data -s 512}} aus, dass ein Ordner \emph{data} (anstelle von out) erstellt werden soll. Ebenfalls soll die größte zu sortierende Liste genau 512 Elemente haben. Alle möglichen Befehle sind \prettyref{fig:benchmark-usage} zu entnehmen.
 
 \begin{figure}[hbp]
-    \begin{lstlisting}[language=none, numbers=none]
+    \begin{lstlisting}[style=inline]
 Usage: benchmark [options]
 Options:
   -h, --help        Display this information and exit.
