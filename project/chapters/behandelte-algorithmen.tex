@@ -16,7 +16,7 @@ Wie schon in \prettyref{sec:sorting-algorithms-definition} ausgeführt, baut der
 
 \text{Insertionsort} ist aus \cite[18]{clrs2001} entnommen, eine Implementation ist in \prettyref{lst:insertion} zu finden.
 
-Im günstigsten Fall ist $A$ bereits sortiert, für alle $j = 2, 3, \twodots \attrib{A}{length}$ gilt nun $A[j - 1] \leq \id{key}$: der Körper der $\While$-Schleife auf \prettyref{ln:ins-inner-while} wird also nie ausgeführt. Der Algorithmus ist in diesem Fall in $O(n)$ (vgl. \cite[28]{clrs2001}).
+Im günstigsten Fall ist $A$ bereits sortiert, für alle $j = 2, 3, \twodots \attrib{A}{length}$ gilt nun $A[j - 1] \leq \id{key}$: der Körper der \textbf{while}-Schleife auf \prettyref{ln:ins-inner-while} wird also nie ausgeführt. Der Algorithmus ist in diesem Fall in $O(n)$ (vgl. \cite[28]{clrs2001}).
 
 Der ungünstigste Fall ist eine umgekehrt sortierte Liste. Jedes Element $A[j]$ muss mit jedem Element des sortierten Subarrays $A[1 \ldots i]$ verglichen werden, der Algorithmus ist in diesem Fall also in $O(n^2)$ (vgl. \cite[28f]{clrs2001}).
 
@@ -231,7 +231,7 @@ $\text{Merge}$ mag auf den ersten Blick komplex wirken, es kann jedoch in einfac
     Wird ein Array \enquote{erschöpft}, wurden also alle seine ursprünglich aus $A$ stammenden Elemente einsortiert, so zeigt der jeweilige Index auf $\infty$. Dieses Element kann niemals einsortiert werden, nachdem kein Element von $L$ oder $R$ jemals $< \infty$ sein kann, zeigt ein Index eines Subarrays darauf, wird dieses also de facto ignoriert. Durch dieses \enquote{Scheinelement} muss nicht bei jeder Iteration überprüft werden, ob eines der Arrays leer ist.
 \end{enumerate}
 
-Die Effizienz der $\text{Merge}$-Prozedur ist immer in $O(n)$, nachdem die Anweisungen auf Zeilen \ref{ln:merge-subarr-length-1}--\ref{ln:merge-subarr-creation} und \ref{ln:merge-infty-assign-1}--\ref{ln:merge-index-setup-2} konstante Zeit benötigen und die $\For$-Schleifen auf Zeilen \ref{ln:merge-copy-begin}--\ref{ln:merge-copy-end} und \ref{ln:merge-for-begin}--\ref{ln:merge-for-end} alle anschaulicherweise in $O(n)$ sind (vgl. \cite[34]{clrs2001}).
+Die Effizienz der $\text{Merge}$-Prozedur ist immer in $O(n)$, nachdem die Anweisungen auf Zeilen \ref{ln:merge-subarr-length-1}--\ref{ln:merge-subarr-creation} und \ref{ln:merge-infty-assign-1}--\ref{ln:merge-index-setup-2} konstante Zeit benötigen und die \textbf{for}-Schleifen auf Zeilen \ref{ln:merge-copy-begin}--\ref{ln:merge-copy-end} und \ref{ln:merge-for-begin}--\ref{ln:merge-for-end} alle anschaulicherweise in $O(n)$ sind (vgl. \cite[34]{clrs2001}).
 
 Um nun ein Array $A$ zu sortieren wird $\text{Mergesort}(A, 1, \attrib{A}{length})$ aufgerufen. $\text{Mergesort}$ halbiert das Eingangsarray durch rekursive Aufrufe bis nur mehr Subarrays der Größe 1 übrig bleiben. Diese Subarrays werden anschließlich durch den auf die rekursiven Aufrufe folgenden Aufruf von $\text{Merge}$ in sukzessiv größere Subarrays zusammengefügt bis ein sortiertes Array als Resultat des letzten Aufrufs hervorgeht.
 

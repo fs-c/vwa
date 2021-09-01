@@ -124,7 +124,7 @@ Wie schon in \prettyref{sec:algorithm-specification-overview} erwähnt, wird fü
     \end{codebox}
     geschrieben.
     
-    \item Eine \Return-Anweisung überträgt die Kontrolle und einen optionalen, auf die Anweisung folgenden Wert zurück zur Aufrufstelle.
+    \item Eine \textbf{return}-Anweisung überträgt die Kontrolle und einen optionalen, auf die Anweisung folgenden Wert zurück zur Aufrufstelle.
 
     \ifndef{vwarelease}{\emph{Hier wäre ein Beispiel angebracht, vielleicht mit Rekursion?}}{}
 \end{itemize}
@@ -138,20 +138,20 @@ Ein ikonischer Sortieralgorithmus ist der \text{Insertion-Sort} (vgl. \cite[74]{
 
 \input{algorithms/insertion-sort}
 
-Bevor ein Element $A[j]$ betrachtet wird besteht die Annahme, dass die Elemente $A[1], \ldots, A[j - 1]$ sortiert sind. (Aus diesem Grund beginnt die \For-Schleife in \prettyref{ln:insertions-for-begin} mit $j = 2$ und nicht etwa mit $j = 1$; das Subarray $A[1 \twodots j - 1]$ hat für $j = 2$ nur ein Element und ist somit immer \enquote{sortiert}.)
+Bevor ein Element $A[j]$ betrachtet wird besteht die Annahme, dass die Elemente $A[1], \ldots, A[j - 1]$ sortiert sind. (Aus diesem Grund beginnt die \textbf{for}-Schleife in \prettyref{ln:insertions-for-begin} mit $j = 2$ und nicht etwa mit $j = 1$; das Subarray $A[1 \twodots j - 1]$ hat für $j = 2$ nur ein Element und ist somit immer \enquote{sortiert}.)
 
 Jedes Element $A[2 \twodots \attrib{A}{length}]$ wird nun einzeln betrachtet und in $A[1 \twodots j - 1]$ \enquote{einsortiert}. Um ein Element derart in die Teilliste einzufügen zu können, muss
 \begin{enumerate}[nosep, label=(\alph*)]
     \item der neue Index des einzufügenden Elements gefunden werden.
     \item Platz für das einzufügende Element geschaffen werden.
 \end{enumerate}
-Dies passiert in der \While-Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indices $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
+Dies passiert in der \textbf{while}-Schleife (beginnend mit \prettyref{ln:ins-inner-while}). Sie iteriert vorerst über alle möglichen Indices $i$, absteigend und beginnend mit dem höchstmöglichen ($i = j - 1$, \prettyref{ln:ins-initial-i}) bis zum kleinstmöglichen $i = 1$. Für jedes $i$ wird das Element $A[i]$ \enquote{nach oben}, zu $A[i + 1]$ verschoben (\prettyref{ln:ins-value-move}) -- somit wird Platz für das einzufügende Element geschaffen. 
 
 Im Zuge dieser Verschiebung wird anfangs das Element $A[j]$ überschrieben, nachdem bei der ersten Iteration gilt, dass $j = i + 1$. Aus diesem Grund wird der Wert von $A[j]$ zu Beginn der äußeren Schleife in der Variable $\id{key}$ zwischengespeichert (\prettyref{ln:ins-intermediary}).
 
 Gilt nach einer Verschiebung $A[i] \leq \id{key}$ (bzw. gilt also $A[i] > \id{key}$, \prettyref{ln:ins-inner-while}, \emph{nicht}), so wurde der neue Index des einzufügenden Elements gefunden: Das Element ist nach $A[i]$, also am Index $i + 1$ einzufügen (\prettyref{ln:ins-insertion}).
 
-Nach Beendigung der \For-Schleife wurde die Eingabemenge vollständig sortiert.
+Nach Beendigung der \textbf{for}-Schleife wurde die Eingabemenge vollständig sortiert.
 
 \section{Effizienz}
 \label{sec:algo-effizienz}

@@ -112,7 +112,7 @@ Im folgenden Abschnitt werden Komplexitätsanalysen diverser Pseudocode-Ausschni
             \End
 \end{codebox}
 
-Alle vorkommenden Operationen -- die Zuweisung, Multiplikation und der Arrayzugriff in \prettyref{ln:ex1-setup}; der Vergleich und die Division in \prettyref{ln:ex1-if}; die \Return-Anweisung in \prettyref{ln:ex1-return} -- sind einfache Operationen (siehe \prettyref{sec:einfache-operationen}). Folglich ist der Ausschnitt in $O(1)$, seine Laufzeit ist konstant und unabhängig von den behandelten Werten.
+Alle vorkommenden Operationen -- die Zuweisung, Multiplikation und der Arrayzugriff in \prettyref{ln:ex1-setup}; der Vergleich und die Division in \prettyref{ln:ex1-if}; die \textbf{return}-Anweisung in \prettyref{ln:ex1-return} -- sind einfache Operationen (siehe \prettyref{sec:einfache-operationen}). Folglich ist der Ausschnitt in $O(1)$, seine Laufzeit ist konstant und unabhängig von den behandelten Werten.
 
 \begin{codebox}
     \li $s \gets 0$                 \label{ln:ex2-outer-assignment}
@@ -122,7 +122,7 @@ Alle vorkommenden Operationen -- die Zuweisung, Multiplikation und der Arrayzugr
             \End
 \end{codebox}
 
-\prettyref{ln:ex2-outer-assignment} ist in $O(1)$. Die \For-Schleife in \prettyref{ln:ex2-for} wird $n$ Mal wiederholt. Nachdem der Körper der Schleife, \prettyref{ln:ex2-inner-assignment}, in $O(1)$ ist, ist die Schleife in $O(n)$. Demzufolge ist der gesamte Ausschnitt in $O(n)$.
+\prettyref{ln:ex2-outer-assignment} ist in $O(1)$. Die \textbf{for}-Schleife in \prettyref{ln:ex2-for} wird $n$ Mal wiederholt. Nachdem der Körper der Schleife, \prettyref{ln:ex2-inner-assignment}, in $O(1)$ ist, ist die Schleife in $O(n)$. Demzufolge ist der gesamte Ausschnitt in $O(n)$.
 
 \begin{codebox}
     \li $s \gets 0$                     \label{ln:ex3-setup}
@@ -139,7 +139,7 @@ Alle vorkommenden Operationen -- die Zuweisung, Multiplikation und der Arrayzugr
             \End
 \end{codebox}
 
-Dieser Ausschnitt ist ein Beispiel eines etwas komplexeren Algorithmus mit drei \For-Schleifen.
+Dieser Ausschnitt ist ein Beispiel eines etwas komplexeren Algorithmus mit drei \textbf{for}-Schleifen.
 
 Die erste Zeile ist in $O(1)$. Die letzte Schleife in \prettyref{ln:ex3-second-for} ist, wie im vorhergehenden Beispiel, in $O(n)$, nachdem ihr Körper in \prettyref{ln:ex3-second-for-body} in $O(1)$ ist (auch Zuweisungen in Arrays sind einfache Operationen).
 
