@@ -39,7 +39,9 @@
     % Basic styling
     tabsize=4,
     breaklines=true,
-    numbers=left,
+    numbers=none,
+    xleftmargin=.1\textwidth,
+    xrightmargin=.1\textwidth,
     numberstyle=\tiny,
     keywordstyle=\bfseries,
     columns=flexible,
@@ -112,6 +114,9 @@
 %     every head row/.style={before row=\toprule,after row=\midrule},every last row/.style={after row=\bottomrule},
 %     text indicator=",
 % }
+
+\usepackage{caption}
+\captionsetup{width=.8\textwidth, singlelinecheck=false}
 
 % To allow multiple subfigures inside a figure.
 \usepackage[labelformat=simple]{subcaption}

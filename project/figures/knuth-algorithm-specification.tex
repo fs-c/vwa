@@ -1,15 +1,18 @@
 \begin{figure}[hbt]
-    \begin{algo}{E}{Euklids Algorithmus}
-        Gegeben seien zwei positive ganze Zahlen $m$ und $n$. Der \emph{größte gemeinsame Teiler}, also die größte positive ganze Zahl, welche sowohl $m$ als auch $n$ gerade teilt, ist zu ermitteln.
-    
-        \begin{algosteps}
-            \algostep[Ermittle den Rest.] Dividiere $m$ durch $n$, $r$ ist der Rest. (Es gilt nun also $0 \leq r < n$.)\label{step:euklid1}
-    
-            \algostep[Ist er Null?] Gilt $r = 0$ so terminiert der Algorithmus, $n$ ist die Lösung.\label{step:euklid2}
-            
-            \algostep[Verringere.] Setze $m \leftarrow n$, $n \leftarrow r$ und gehe zurück zu Schritt \ref{step:euklid1}\label{step:euklid3}.
-        \end{algosteps}
-    \end{algo}
+    \hspace{0.095\textwidth}
+    \begin{minipage}[c]{0.8\textwidth}
+        \begin{algo}{E}{Euklids Algorithmus}
+            Gegeben seien zwei positive ganze Zahlen $m$ und $n$. Der \emph{größte gemeinsame Teiler}, also die größte positive ganze Zahl, welche sowohl $m$ als auch $n$ gerade teilt, ist zu ermitteln.
+        
+            \begin{algosteps}
+                \algostep[Ermittle den Rest.] Dividiere $m$ durch $n$, $r$ ist der Rest. (Es gilt nun also $0 \leq r < n$.)\label{step:euklid1}
+        
+                \algostep[Ist er Null?] Gilt $r = 0$ so terminiert der Algorithmus, $n$ ist die Lösung.\label{step:euklid2}
+                
+                \algostep[Verringere.] Setze $m \leftarrow n$, $n \leftarrow r$ und gehe zurück zu Schritt \ref{step:euklid1}\label{step:euklid3}.
+            \end{algosteps}
+        \end{algo}
+    \end{minipage}
     \caption{Algorithmusbeschreibung nach \citeauthor{taocp1}. Unter Anderem verwendet in \cite{taocp1} und \cite{taocp3}. Beispiel entnommen aus \cite[2]{taocp1}, Algorithm E (übersetzt aus dem Englischen).}
     \label{fig:knuth-algorithm-specification}
 \end{figure}

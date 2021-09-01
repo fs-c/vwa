@@ -1,14 +1,16 @@
 \begin{figure}
     \centering
-    \begin{codebox}
-        \Procname{$\text{Euklid}(n, m)$}
-        \li \While $(r \gets n \mod m) \neq 0$
-        \li     \Do
-                    $m \gets n$                 \label{ln:euclid-while-begin}
-        \li         $n \gets r$                 \label{ln:euclid-while-end}
-                \End
-        \li \Return $n$                         \label{ln:euclid-return}
-    \end{codebox}
+    \begin{minipage}[c]{0.8\textwidth}
+        \begin{codebox}
+            \Procname{$\text{Euklid}(n, m)$}
+            \li \While $(r \gets n \mod m) \neq 0$
+            \li     \Do
+                        $m \gets n$                 \label{ln:euclid-while-begin}
+            \li         $n \gets r$                 \label{ln:euclid-while-end}
+                    \End
+            \li \Return $n$                         \label{ln:euclid-return}
+        \end{codebox}
+    \end{minipage}
     \caption{Algorithmusbeschreibung durch \emph{Pseudocode}.}
     \label{fig:pseudocode-algorithm-specification}
 \end{figure}
