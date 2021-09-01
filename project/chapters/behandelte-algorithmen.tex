@@ -248,7 +248,7 @@ Um nun ein Array $A$ zu sortieren wird $\text{Mergesort}(A, 1, \attrib{A}{length
 
 $\text{Merge}$ und $\text{Mergesort}$ sind aus \cite[33f]{clrs2001} entnommen. $\text{Merge}$ ist äquivalent zu \lstinline{std::inplace_merge} (vgl. \cite[929]{ISO-C++17}), eine Implementation von $\text{Mergesort}$ ist in \prettyref{lst:merge} zu finden.
 
-Unter der Annahme, dass $n$ eine Zweierpotenz ist, liefert jeder Teilungsschritt (Zeilen \ref{ln:merges-division-begin}--\ref{ln:merges-division-end}) zwei Subarrays der Größe $n / 2$. Jeder Rekursionsschritt (Zeilen \ref{ln:merges-recusion-begin}--\ref{ln:merges-recusion-end}) trägt also $2T(n / 2)$ zur Effizienz bei (\cite[36]{clrs2001}).
+Unter der Annahme, dass $n$ eine Zweierpotenz ist, liefert jeder Teilungsschritt (Zeilen \ref{ln:merges-division-begin}--\ref{ln:merges-division-end}) zwei Subarrays der Größe $n / 2$. Jeder Rekursionsschritt (Zeilen \ref{ln:merges-recusion-begin}--\ref{ln:merges-recusion-end}) trägt also $2T(n / 2)$ zur Effizienz bei (vgl. \cite[36]{clrs2001}).
 
 Wie auch schon bei $\text{Quicksort}$ kann die Effizienz des $\text{Mergesort}$ durch eine Rekursionsgleichung
 \begin{equation}\label{eq:merge-sort-recurrence}
