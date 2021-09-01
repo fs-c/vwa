@@ -23,16 +23,7 @@ Der ungünstigste Fall ist eine umgekehrt sortierte Liste. Jedes Element $A[j]$ 
 \section{Quicksort}
 \label{sec:alg-exchanging}
 
-Quicksort ist ein \emph{divide-and-conquer} Algorithmus, der rekursiv ein Array in zwei Subarrays teilt und diese sortiert (vgl. \cite[113f]{taocp3}). Ein \emph{divide-and-conquer} Algorithmus, auch \enquote{Teile-und-Herrsche-Algorithmus}, besteht nach \cite[65]{clrs2001} immer aus drei Schritten:
-\begin{description}
-    \item[Divide] \emph{Teile die Aufgabe in mehrere Subaufgaben.} $\text{Partition}$ teilt ein Array $A[p \twodots r]$ in zwei Subarrays $A[p \twodots q-1]$ und $A[q + 1 \twodots r]$  derart, dass alle Elemente von $A[p \twodots q-1]$ kleiner oder gleich $A[q]$ sind, was wiederum kleiner oder gleich allen Elementen von $A[q + 1 \twodots r]$ ist. Der index $q$ ist als Teil der Prozedur zu ermitteln.
-
-    \item[Conquer] \emph{\enquote{Erobere} die Subaufgaben durch rekursive Auflösung.} In $\text{Quicksort}$ werden die zwei Subarrays $A[p \twodots q-1]$ und $A[q + 1 \twodots r]$ durch rekursive Aufrufe an $\text{Quicksort}$ (und damit $\text{Partition}$) sortiert.
-
-    \item[Combine] \emph{Füge die Lösungen der Subaufgaben zur Lösung des Originalproblems zusammen.} Nachdem die Subarrays bereits sortiert sind müssen sie nicht kombiniert werden, das ganze Array $A[p \twodots q]$ ist sortiert.
-\end{description}
-
-Die obige Prozessbeschreibung von $\text{Partition}$ und $\text{Quicksort}$ ist entnommen aus \cite[170]{clrs2001}.
+Quicksort ist ein \emph{divide-and-conquer} Algorithmus, der rekursiv ein Array in zwei Subarrays teilt und diese sortiert (vgl. \cite[113f]{taocp3}). Ein Aufteilungs- bzw. Partitionsalgorithmus teilt ein Array $A[p \twodots r]$ in zwei Subarrays $A[p \twodots q-1]$ und $A[q + 1 \twodots r]$. Diese Teilung erfolgt derart, dass alle Elemente $A[p \twodots q-1]$ kleiner oder gleich $A[q]$ sind und alle Elemente $A[q+1 \twodots r]$ größer oder gleich $A[q]$ sind. Der Index $q$ wird als Teil der Prozedur ermittelt.
 
 \begin{codebox}
     \Procname{$\text{Partition}(A, p, r)$}
@@ -63,6 +54,8 @@ $\text{Partition}$ wählt immer ein Element $x = A[r]$ als \enquote{Drehpunkt}, 
     \li         $\text{Quicksort}(A, q + 1, r)$
             \End
 \end{codebox}
+
+Der tatsächliche Sortieralgorithmus, Quicksort, besteht nun nurmehr aus rekursiven Aufrufen von sich selbst, und damit Partition.
 
 \text{Quicksort} und \text{Partition} sind aus \cite[171]{clrs2001} entnommen. Eine Implementation des ersteren ist in \prettyref{lst:quick} zu finden, letzterer Algorithmus ist äquivalent zu \lstinline{std::partition} (vgl. \cite[927]{ISO-C++17}).
 
